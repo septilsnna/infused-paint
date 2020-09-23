@@ -1,0 +1,17 @@
+Role:
+1. User
+
+User Story:
+1. Sebagai user saya bisa mengubah gambar menjadi lukisan dengan berbagai picture style yang tersedia
+2. Sebagai user saya bisa mengubah foto menjadi lukisan dengan berbagai picture style yang tersedia
+3. Sebagai user saya bisa menyimpan foto/gambar yang telah diubah menjadi lukisan
+4. Sebagai user saya bisa menyebarluaskan hasil lukisan kepada pengguna lainnya
+5. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
+
+Product Backlog:
+1. Edit gambar jadi lukisan
+2. Edit foto jadi lukisan
+3. Menyimpan hasil lukisan
+4. Menyebarluaskan hasil lukisan
+5.Tanpa menyebarluaskan hasil lukisan
+
