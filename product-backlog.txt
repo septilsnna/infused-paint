@@ -13,5 +13,5 @@ Product Backlog:
 2. Edit foto jadi lukisan
 3. Menyimpan hasil lukisan
 4. Menyebarluaskan hasil lukisan
-5.Tanpa menyebarluaskan hasil lukisan
+5. Tanpa menyebarluaskan hasil lukisan
 
