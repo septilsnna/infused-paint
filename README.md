@@ -1,4 +1,4 @@
-# Paintly
+# Infused Paint
 Mobile Computing Project - 113
 
 ### Team B
