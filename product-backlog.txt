@@ -9,9 +9,11 @@ User Story:
 5. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
 
 Product Backlog:
-1. Edit gambar jadi lukisan
-2. Edit foto jadi lukisan
-3. Menyimpan hasil lukisan
-4. Menyebarluaskan hasil lukisan
-5. Tanpa menyebarluaskan hasil lukisan
+(Sprint-2)
+1. Membuat Desain Halaman Menunggu Konversi Image
+2. Membuat Desain Halaman Home
+3. Membuat Desain Halaman Register
+4. Membuat Desain Halaman Log In
+5. Membuat Implementasi Dari Desain Halaman Register Ke Dalam Bentuk Aplikasi (Android Code)
+6. Membuat Implementasi Dari Desain Halaman Login Ke Dalam Bentuk Aplikasi (Android Code)
 
