@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
+
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="146dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="49dp"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/email_input"
+        android:layout_width="305dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="222dp"
+        android:background="@drawable/rectangle_1"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/colorPrimary" />
+
+    <View
+        android:id="@+id/rectangle_email"
+        android:layout_width="52dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="62dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="210dp"
+        android:background="@drawable/rectangle_2" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="36dp"
+        android:layout_height="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="215dp"
+        android:text="@string/email"
+        android:textAppearance="@style/sp12_ffffff_reg"
+        android:gravity="top" />
+
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="305dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="310dp"
+        android:background="@drawable/rectangle_3"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/colorPrimary" />
+
+    <View
+        android:id="@+id/rectangle_password"
+        android:layout_width="75dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="62dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="298dp"
+        android:background="@drawable/rectangle_4" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="61dp"
+        android:layout_height="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="303dp"
+        android:text="@string/password"
+        android:textAppearance="@style/sp12_ffffff_reg"
+        android:gravity="top" />
+
+    <EditText
+        android:id="@+id/confirm_password_input"
+        android:layout_width="305dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="392dp"
+        android:background="@drawable/rectangle_3"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/colorPrimary" />
+
+    <View
+        android:id="@+id/rectangle_confirm_password"
+        android:layout_width="131dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="62dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/rectangle_4" />
+
+    <TextView
+        android:id="@+id/confirm_password"
+        android:layout_width="117dp"
+        android:layout_height="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="385dp"
+        android:text="@string/confirm_pas"
+        android:textAppearance="@style/sp12_ffffff_reg"
+        android:gravity="top" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="198dp"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="107dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="470dp"
+        android:background="@drawable/rectangle_5"
+        android:text="@string/register"
+        android:textAppearance="@style/sp16_000000_bold" />
+
+    <View
+        android:id="@+id/vector_1"
+        android:layout_width="277dp"
+        android:layout_height="2dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="67dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="544dp"
+        android:background="@drawable/vector_1" />
+
+    <View
+        android:id="@+id/rectangle_8"
+        android:layout_width="69dp"
+        android:layout_height="27dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="171dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="532dp"
+        android:background="@drawable/rectangle_6" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="26dp"
+        android:layout_height="22dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="193dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="533dp"
+        android:text="@string/or"
+        android:textAppearance="@style/sp16_ffffff_bold"
+        android:gravity="top" />
+
+    <Button
+        android:id="@+id/google_login_button"
+        android:layout_width="305dp"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="577dp"
+        android:background="@drawable/rectangle_5"
+        android:text="@string/register_wi"
+        android:textAppearance="@style/sp16_000000_bold" />
+
+    <TextView
+        android:id="@+id/already_hav"
+        android:layout_width="279dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="66dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="674dp"
+        android:text="@string/already_hav"
+        android:textAppearance="@style/sp16_ffffff_reg"
+        android:gravity="top" />
+
+</RelativeLayout>

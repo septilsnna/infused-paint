@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Paintly</string>
+    <string name="app_name">Infused Paint</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="or">OR</string>
+    <string name="login_with_">Login with Gmail</string>
+    <string name="don_t_have_">Dont have account? Register here</string>
+    <string name="confirm_pas">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="register_wi">Register with Gmail</string>
+    <string name="already_hav">Already have account? Login here</string>
 </resources>
