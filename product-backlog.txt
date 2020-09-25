@@ -7,13 +7,12 @@ User Story:
 3. Sebagai user saya bisa menyimpan foto/gambar yang telah diubah menjadi lukisan
 4. Sebagai user saya bisa menyebarluaskan hasil lukisan kepada pengguna lainnya
 5. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
+6. Sebagai user saya bisa melihat kumpulan gambar yang telah diubah menjadi lukisan sebelumnya
 
 Product Backlog:
 (Sprint-2)
-1. Membuat Desain Halaman Menunggu Konversi Image
-2. Membuat Desain Halaman Home
-3. Membuat Desain Halaman Register
-4. Membuat Desain Halaman Log In
-5. Membuat Implementasi Dari Desain Halaman Register Ke Dalam Bentuk Aplikasi (Android Code)
-6. Membuat Implementasi Dari Desain Halaman Login Ke Dalam Bentuk Aplikasi (Android Code)
-
+1. Membuat Desain Halaman Beranda Pada Figma
+2. Membuat Desain Halaman Register Pada Figma
+3. Membuat Desain Halaman Log In Pada Figma
+4. Membuat Implementasi Dari Desain Halaman Register Ke Dalam Bentuk Aplikasi (Android Code)
+5. Membuat Implementasi Dari Desain Halaman Login Ke Dalam Bentuk Aplikasi (Android Code)
