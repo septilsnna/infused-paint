@@ -16,3 +16,5 @@ Product Backlog:
 3. Membuat Desain Halaman Log In Pada Figma
 4. Membuat Implementasi Dari Desain Halaman Register Ke Dalam Bentuk Aplikasi (Android Code)
 5. Membuat Implementasi Dari Desain Halaman Login Ke Dalam Bentuk Aplikasi (Android Code)
+6. Membuat Desain Halaman Landing Page Pada Figma
+7. Membuat Implementasi Dari Desain Landing Page Ke Dalam Bentuk Aplikasi (Android Code)
