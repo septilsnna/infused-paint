@@ -10,4 +10,6 @@
     <string name="register">Register</string>
     <string name="register_wi">Register with Gmail</string>
     <string name="already_hav">Already have account? Login here</string>
+    <string name="hi_welcome_">Hi!\nWelcome to\nInfused Paint.</string>
+    <string name="pick_your_r">Pick your reference style</string>
 </resources>

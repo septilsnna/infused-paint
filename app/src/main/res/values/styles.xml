@@ -55,4 +55,29 @@
         </item>
     </style>
 
+    <style name="hi_welcome_">
+        <item name="android:textSize">
+            34sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+        <item name="android:fontFamily">
+            @font/montserrat_bold
+        </item>
+    </style>
+
+    <style name="pick_your_r">
+        <item name="android:textSize">
+            20sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+        <item name="android:fontFamily">
+            @font/montserrat_bold
+        </item>
+    </style>
+
+
 </resources>
