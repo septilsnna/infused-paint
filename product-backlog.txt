@@ -18,3 +18,11 @@ Product Backlog:
 5. Membuat Implementasi Dari Desain Halaman Login Ke Dalam Bentuk Aplikasi (Android Code)
 6. Membuat Desain Halaman Landing Page Pada Figma
 7. Membuat Implementasi Dari Desain Landing Page Ke Dalam Bentuk Aplikasi (Android Code)
+
+Product Backlog:
+(Sprint-3)
+1. Implementasi Desain Landing Page ke Layout XML
+2. Membuat Desain Profile pada Figma
+3. Membuat Desain Upload Foto pada Figma
+4. Implementasi Desain Profile ke Layout XML
+5. Membuat Database & Web Services
