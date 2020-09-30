@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/share_the_r"
+        android:layout_width="254dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:text="@string/share_the_r"
+        android:textAppearance="@style/share_the_r"
+        android:gravity="top"
+        />
+
+    <ImageView
+        android:id="@+id/rectangle_14"
+        android:layout_width="326dp"
+        android:layout_height="278dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="47dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="119dp"
+        android:background="@drawable/rectangle_14"
+        app:srcCompat="@drawable/gb5"/>
+
+    <TextView
+        android:id="@+id/are_you_rea"
+        android:layout_width="270dp"
+        android:layout_height="82dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="431dp"
+        android:text="@string/are_you_rea"
+        android:textAppearance="@style/are_you_rea"
+        android:gravity="top"
+        />
+
+    <View
+        android:id="@+id/rectangle_15"
+        android:layout_width="198dp"
+        android:layout_height="44dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="107dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="557dp"
+        android:background="@drawable/rectangle_15"
+        />
+
+    <TextView
+        android:id="@+id/i_m_ready_"
+        android:layout_width="88dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="166dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="568dp"
+        android:text="@string/i_m_ready_"
+        android:textAppearance="@style/i_m_ready_"
+        android:gravity="top"
+        />
+
+    <View
+        android:id="@+id/ellipse_2"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="183dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="646dp"
+        android:background="@drawable/ellipse_2"
+        />
+
+    <View
+        android:id="@+id/ellipse_3"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="201dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="646dp"
+        android:background="@drawable/ellipse_3"
+        />
+
+    <View
+        android:id="@+id/ellipse_1"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="219dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="646dp"
+        android:background="@drawable/ellipse_1"
+        />
+</RelativeLayout>

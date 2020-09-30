@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Infused Paint</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="or">OR</string>
+    <string name="login_with_">Login with Gmail</string>
+    <string name="don_t_have_">Dont have account? Register here</string>
+    <string name="confirm_pas">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="register_wi">Register with Gmail</string>
+    <string name="already_hav">Already have account? Login here</string>
+    <string name="hi_welcome_">Hi!\nWelcome to\nInfused Paint.</string>
+    <string name="pick_your_r">Pick your reference style</string>
+    <string name="next">Next</string>
+    <string name="choose_your">Choose your best photo</string>
+    <string name="share_the_r">Share the result to your \nfriends and family!</string>
+    <string name="are_you_rea">Are you ready\nto feel the fun?</string>
+    <string name="i_m_ready_">Im ready!</string>
+</resources>
