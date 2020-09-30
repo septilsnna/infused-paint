@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+<<<<<<< HEAD
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,6 +9,11 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
     tools:ignore="ExtraText">
+=======
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+>>>>>>> 9eec7342b7ffd2f6ceef7a96e2256ca47b977f59
 
     <TextView
         android:id="@+id/hi_welcome_"
@@ -19,7 +25,12 @@
         android:layout_marginTop="36dp"
         android:text="@string/hi_welcome_"
         android:textAppearance="@style/hi_welcome_"
+<<<<<<< HEAD
         android:gravity="top" />
+=======
+        android:gravity="top"
+        />
+>>>>>>> 9eec7342b7ffd2f6ceef7a96e2256ca47b977f59
 
     <TextView
         android:id="@+id/pick_your_r"
@@ -31,6 +42,7 @@
         android:layout_marginTop="182dp"
         android:text="@string/pick_your_r"
         android:textAppearance="@style/pick_your_r"
+<<<<<<< HEAD
         android:gravity="top" />
 
     <ImageView
@@ -121,5 +133,10 @@
         android:layout_marginTop="646dp"
         android:background="@drawable/ellipse_3"
         />
+=======
+        android:gravity="top"
+        />
+
+>>>>>>> 9eec7342b7ffd2f6ceef7a96e2256ca47b977f59
 
 </RelativeLayout>

@@ -79,6 +79,7 @@
         </item>
     </style>
 
+<<<<<<< HEAD
     <style name="next">
         <item name="android:textSize">
             16sp
@@ -138,4 +139,7 @@
             @font/montserrat_bold
         </item>
     </style>
+=======
+
+>>>>>>> 9eec7342b7ffd2f6ceef7a96e2256ca47b977f59
 </resources>
