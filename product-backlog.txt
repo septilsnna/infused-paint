@@ -2,12 +2,17 @@ Role:
 1. User
 
 User Story:
-1. Sebagai user saya bisa mengubah gambar menjadi lukisan dengan berbagai picture style yang tersedia
-2. Sebagai user saya bisa mengubah foto menjadi lukisan dengan berbagai picture style yang tersedia
-3. Sebagai user saya bisa menyimpan foto/gambar yang telah diubah menjadi lukisan
-4. Sebagai user saya bisa menyebarluaskan hasil lukisan kepada pengguna lainnya
-5. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
-6. Sebagai user saya bisa melihat kumpulan gambar yang telah diubah menjadi lukisan sebelumnya
+1. Sebagai user saya bisa membuat akun
+2. Sebagai user saya bisa masuk menggunakan akun yang telah saya buat
+3. Sebagai user saya bisa melihat detail profil dari akun yang telah saya buat
+4. Sebagai user saya bisa mengubah foto profil dari akun yang telah saya buat
+5. Sebagai user saya bisa mengubah gambar menjadi lukisan dengan berbagai picture style yang tersedia
+6. Sebagai user saya bisa mengubah foto menjadi lukisan dengan berbagai picture style yang tersedia
+7. Sebagai user saya bisa melihat kumpulan gambar yang telah diubah menjadi lukisan sebelumnya
+8. Sebagai user saya bisa menyimpan foto/gambar yang telah diubah menjadi lukisan
+9. Sebagai user saya bisa menyebarluaskan hasil lukisan ke sosial media
+10. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
+11. Sebagai user saya bisa keluar dari akun yang telah saya buat
 
 Product Backlog:
 (Sprint-2)
