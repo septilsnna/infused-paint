@@ -9,10 +9,11 @@ User Story:
 5. Sebagai user saya bisa mengubah gambar menjadi lukisan dengan berbagai picture style yang tersedia
 6. Sebagai user saya bisa mengubah foto menjadi lukisan dengan berbagai picture style yang tersedia
 7. Sebagai user saya bisa melihat kumpulan gambar yang telah diubah menjadi lukisan sebelumnya
-8. Sebagai user saya bisa menyimpan foto/gambar yang telah diubah menjadi lukisan
-9. Sebagai user saya bisa menyebarluaskan hasil lukisan ke sosial media
-10. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
-11. Sebagai user saya bisa keluar dari akun yang telah saya buat
+8.  Saya dapat berpindah dari halaman beranda ke halaman galeri dan ke halaman profil
+9. Sebagai user saya bisa menyimpan foto/gambar yang telah diubah menjadi lukisan
+10. Sebagai user saya bisa menyebarluaskan hasil lukisan ke sosial media
+11. Sebagai user, saya ingin mengubah foto maupun gambar tanpa menyebarluaskannya, sehingga privasi saya tetap terjaga
+12. Sebagai user saya bisa keluar dari akun yang telah saya buat
 
 Product Backlog:
 (Sprint-2)
@@ -31,3 +32,28 @@ Product Backlog:
 3. Membuat Desain Upload Foto pada Figma
 4. Implementasi Desain Profile ke Layout XML
 5. Membuat Database & Web Services
+
+Product Backlog:
+(Sprint-4)
+1. Desain Layout Upload Foto
+2. Desain Layout Processing Foto
+3. Desain Layout Hasil + Share Ke Social Media
+4. Implementasi NavBar ke XML
+5. Implementasi Layout Beranda ke XML
+6. Implementasi Layout Galeri ke XML
+7. Implementasi Upload Foto dari Kamera/Galeri ke XML
+8. Implementasi Layout Profile ke XML
+9. Implementasi BackEnd Login
+10. Implementasi Backend Logout
+11. Implementasi Back End Register
+12. Implementasi Back End Filter (Neural Style Transfer)
+
+Product Backlog:
+(Sprint-5):
+1. Implementasi back end upload foto
+2. Implementasi Backend Filter (NST) (keyfeature)
+3. Implementasi back end nav bar
+4. Implementasi backend galeri
+5. Implementasi back end hasil
+6. Implementasi back end share
+7. Implementasi back end upload foto profil
