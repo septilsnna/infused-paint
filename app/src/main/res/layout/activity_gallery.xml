@@ -56,19 +56,4 @@
         app:srcCompat="@drawable/picture_3"
         />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="282dp"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="65dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="606dp"
-        android:background="@drawable/bottom_navbar"
-        android:elevation="6dp"
-        app:itemIconSize="36dp"
-        app:elevation="2dp"
-        app:menu="@menu/bottom_navbar"
-        />
-
 </RelativeLayout>
