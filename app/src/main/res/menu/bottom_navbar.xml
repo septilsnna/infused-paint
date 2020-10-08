@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_home"
+        android:icon="@drawable/ic_home"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="116dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="617dp"/>
+
+    <item android:id="@+id/menu_gallery"
+        android:icon="@drawable/ic_gallery"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="193dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="622dp"/>
+
+    <item android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_profile"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="262dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="622dp"/>
+
+</menu>

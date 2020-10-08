@@ -4,7 +4,6 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="sp12_ffffff_reg">
@@ -79,7 +78,6 @@
         </item>
     </style>
 
-<<<<<<< HEAD
     <style name="next">
         <item name="android:textSize">
             16sp
@@ -139,7 +137,17 @@
             @font/montserrat_bold
         </item>
     </style>
-=======
 
->>>>>>> 9eec7342b7ffd2f6ceef7a96e2256ca47b977f59
+    <style name="your_artwor">
+        <item name="android:textSize">
+            24sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+        <item name="android:fontFamily">
+            @font/montserrat_bold
+        </item>
+    </style>
+
 </resources>
