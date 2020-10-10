@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:id="@+id/pick_your_s"
+        android:layout_width="185dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/pick_your_s"
+        android:textAppearance="@style/pick_your_s"
+        android:gravity="top"
+        />
+
+    <ImageView
+        android:id="@+id/rectangle_1"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="74dp"
+        android:background="@drawable/picture_style"
+        app:srcCompat="@drawable/starry_night"
+        />
+
+    <View
+        android:id="@+id/rectangle_2"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="74dp"
+        android:background="@drawable/rectangle_style"
+        />
+
+    <TextView
+        android:id="@+id/starry_nigh"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="203dp"
+        android:text="@string/starry_nigh"
+        android:textAppearance="@style/style_title"
+        android:gravity="top"
+        />
+
+    <TextView
+        android:id="@+id/by_vincent_"
+        android:layout_width="169dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="227dp"
+        android:text="@string/by_vincent_"
+        android:textAppearance="@style/style_author"
+        android:gravity="top"
+        />
+
+    <ImageView
+        android:id="@+id/rectangle_3"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/picture_style"
+        app:srcCompat="@drawable/looking_for"
+        />
+
+    <View
+        android:id="@+id/rectangle_4"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/rectangle_style"
+        />
+
+    <TextView
+        android:id="@+id/looking_for"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="426dp"
+        android:text="@string/looking_for"
+        android:textAppearance="@style/style_title"
+        android:gravity="top"
+        />
+
+    <TextView
+        android:id="@+id/by_piscasso"
+        android:layout_width="91dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="450dp"
+        android:text="@string/by_piscasso"
+        android:textAppearance="@style/style_author"
+        android:gravity="top"
+        />
+
+    <ImageView
+        android:id="@+id/rectangle_5"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="526dp"
+        android:background="@drawable/picture_style"
+        app:srcCompat="@drawable/the_great" />
+
+    <View
+        android:id="@+id/rectangle_6"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="526dp"
+        android:background="@drawable/rectangle_style"
+        />
+
+    <TextView
+        android:id="@+id/the_great_w"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="668dp"
+        android:text="@string/the_great_w"
+        android:textAppearance="@style/style_title"
+        android:gravity="top"
+        />
+
+    <TextView
+        android:id="@+id/by_katsushi"
+        android:layout_width="136dp"
+        android:layout_height="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="692dp"
+        android:text="@string/by_katsushi"
+        android:textAppearance="@style/style_author"
+        android:gravity="top"
+        />
+</RelativeLayout>
