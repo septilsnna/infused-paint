@@ -222,4 +222,28 @@
         </item>
     </style>
 
+    <style name="upload_your">
+        <item name="android:textSize">
+            24sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+        <item name="android:fontFamily">
+            @font/montserrat_bold
+        </item>
+    </style>
+
+    <style name="from">
+        <item name="android:textSize">
+            16sp
+        </item>
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+        <item name="android:fontFamily">
+            @font/montserrat_bold
+        </item>
+    </style>
+
 </resources>

@@ -30,4 +30,7 @@
     <string name="by_piscasso">by Piscasso</string>
     <string name="the_great_w">The Great Wave of Kanagawa</string>
     <string name="by_katsushi">by Katsushika Hokusai</string>
+    <string name="upload_your">Upload your Image</string>
+    <string name="from_camera">from\ncamera</string>
+    <string name="from_galler">from\ngallery</string>
 </resources>
