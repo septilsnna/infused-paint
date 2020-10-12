@@ -37,7 +37,8 @@
                             />
                         <item
                             android:color="#A8000000"
-                            android:offset="0.964
+                            android:offset="0.964"
+                            />
                     </gradient>
                 </aapt:attr>
             </path>

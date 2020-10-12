@@ -26,7 +26,7 @@
         android:layout_marginStart="53dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="222dp"
-        android:background="@drawable/rectangle_1"
+        android:background="@drawable/input"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:paddingLeft="15dp"
@@ -34,14 +34,14 @@
         android:textColor="@color/colorPrimary" />
 
     <View
-        android:id="@+id/rectangle_email"
+        android:id="@+id/email_rectangle"
         android:layout_width="52dp"
         android:layout_height="29dp"
         android:layout_alignParentStart="true"
         android:layout_marginStart="62dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="210dp"
-        android:background="@drawable/rectangle_2" />
+        android:background="@drawable/background_rectangle" />
 
     <TextView
         android:id="@+id/email"
@@ -63,7 +63,7 @@
         android:layout_marginStart="53dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="310dp"
-        android:background="@drawable/rectangle_3"
+        android:background="@drawable/input"
         android:ems="10"
         android:inputType="textPassword"
         android:paddingLeft="15dp"
@@ -71,14 +71,14 @@
         android:textColor="@color/colorPrimary" />
 
     <View
-        android:id="@+id/rectangle_password"
+        android:id="@+id/password_rectangle"
         android:layout_width="75dp"
         android:layout_height="29dp"
         android:layout_alignParentStart="true"
         android:layout_marginStart="62dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="298dp"
-        android:background="@drawable/rectangle_4" />
+        android:background="@drawable/background_rectangle" />
 
     <TextView
         android:id="@+id/password"
@@ -100,7 +100,7 @@
         android:layout_marginStart="53dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="392dp"
-        android:background="@drawable/rectangle_3"
+        android:background="@drawable/input"
         android:ems="10"
         android:inputType="textPassword"
         android:paddingLeft="15dp"
@@ -108,14 +108,14 @@
         android:textColor="@color/colorPrimary" />
 
     <View
-        android:id="@+id/rectangle_confirm_password"
+        android:id="@+id/confirm_password_rectangle"
         android:layout_width="131dp"
         android:layout_height="29dp"
         android:layout_alignParentStart="true"
         android:layout_marginStart="62dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="380dp"
-        android:background="@drawable/rectangle_4" />
+        android:background="@drawable/background_rectangle" />
 
     <TextView
         android:id="@+id/confirm_password"
@@ -137,7 +137,7 @@
         android:layout_marginStart="107dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="470dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button_rectangle"
         android:text="@string/register"
         android:textAppearance="@style/sp16_000000_bold" />
 
@@ -159,7 +159,7 @@
         android:layout_marginStart="171dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="532dp"
-        android:background="@drawable/rectangle_6" />
+        android:background="@drawable/background_rectangle" />
 
     <TextView
         android:id="@+id/or"
@@ -181,7 +181,7 @@
         android:layout_marginStart="53dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="577dp"
-        android:background="@drawable/rectangle_5"
+        android:background="@drawable/button_rectangle"
         android:text="@string/register_wi"
         android:textAppearance="@style/sp16_000000_bold" />
 
@@ -189,8 +189,8 @@
         android:id="@+id/already_hav"
         android:layout_width="279dp"
         android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="66dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="66dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="674dp"
         android:text="@string/already_hav"
