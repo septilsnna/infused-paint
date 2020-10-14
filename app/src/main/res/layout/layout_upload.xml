@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/uploadImage"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    android:background="@drawable/bottomsheetbackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:padding="15dp"
+        android:text="@string/upload_your"
+        style="@style/profile"
+        android:textColor="@color/colorPrimary"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btn_uploadCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/upload_button"
+            android:text="@string/from_camera"
+            android:textColor="@color/colorPrimary"
+            android:drawableTop="@drawable/ic_camera"
+            android:textSize="16dp"
+            android:layout_marginHorizontal="29dp"
+            android:padding="35dp"
+            />
+
+        <Button
+            android:id="@+id/btn_uploadGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/upload_button"
+            android:text="@string/from_galler"
+            android:textColor="@color/colorPrimary"
+            android:drawableTop="@drawable/ic_gallery"
+            android:textSize="16dp"
+            android:padding="35dp"
+            />
+
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="10dp"/>
+</LinearLayout>
+
+
 
