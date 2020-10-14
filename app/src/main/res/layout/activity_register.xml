@@ -92,20 +92,34 @@
         android:textAppearance="@style/sp12_ffffff_reg"
         android:gravity="top" />
 
-    <EditText
-        android:id="@+id/confirm_password_input"
-        android:layout_width="305dp"
-        android:layout_height="51dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="53dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="392dp"
-        android:background="@drawable/input"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/colorPrimary" />
+    <TextView
+            android:id="@+id/view_email_input"
+            android:layout_width="305dp"
+            android:layout_height="51dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="53dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="392dp"
+            android:background="@drawable/input"
+            android:ems="10"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/colorPrimary" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/confirm_password_input"-->
+<!--        android:layout_width="305dp"-->
+<!--        android:layout_height="51dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginStart="53dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="392dp"-->
+<!--        android:background="@drawable/input"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:paddingLeft="15dp"-->
+<!--        android:paddingRight="15dp"-->
+<!--        android:textColor="@color/colorPrimary" />-->
 
     <View
         android:id="@+id/confirm_password_rectangle"

@@ -4,11 +4,12 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface Api{
+    // users table
     @GET("users/show")
     fun getUsers(): Call<ArrayList<UserGetResponse>>
 
     @FormUrlEncoded
-    @POST("users/create")
+    @POST("users")
     fun createUser(
         @Field("username") username: String,
         @Field("password") password: String,
@@ -27,4 +28,5 @@ interface Api{
 
     @DELETE("users/delete")
     fun deleteUsers(): Call<ArrayList<UserDeleteResponse>>
+
 }
