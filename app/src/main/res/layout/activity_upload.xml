@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimary">
 
     <View
         android:id="@+id/rectangle_2"
         android:layout_width="411dp"
         android:layout_height="731dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="-24dp"
         android:background="@drawable/upload_background"
@@ -63,16 +62,15 @@
 
     <TextView
         android:id="@+id/from_camera"
-        android:layout_width="63dp"
+        android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="81dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="78dp"
         android:layout_marginTop="605dp"
-        android:text="@string/from_camera"
-        android:textAppearance="@style/from"
         android:gravity="center_horizontal|top"
-        />
+        android:text="@string/from_camera"
+        android:textAppearance="@style/from" />
 
     <ImageButton
         android:id="@+id/rectangle_4"
