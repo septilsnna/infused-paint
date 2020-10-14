@@ -28,7 +28,6 @@
         android:layout_marginStart="37dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="77dp"
-        android:background="@drawable/gallery_rectangle"
         app:srcCompat="@drawable/picture_1"
         />
 
@@ -40,7 +39,6 @@
         android:layout_marginStart="152dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="77dp"
-        android:background="@drawable/gallery_rectangle"
         app:srcCompat="@drawable/picture_2"
         />
 
@@ -52,7 +50,6 @@
         android:layout_marginStart="267dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="77dp"
-        android:background="@drawable/gallery_rectangle"
         app:srcCompat="@drawable/picture_3"
         />
 
