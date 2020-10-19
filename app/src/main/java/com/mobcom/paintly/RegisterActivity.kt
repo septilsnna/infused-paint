@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,11 @@ class RegisterActivity : AppCompatActivity() {
                 email.text.toString()
             )
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        CustomIntent.customType(this, "fadein-to-fadeout")
     }
 
     override fun onStart() {
@@ -130,11 +136,14 @@ class RegisterActivity : AppCompatActivity() {
             putExtra(EXTRA_USERNAME, username)
         }
         startActivity(intent)
+        CustomIntent.customType(this, "fadein-to-fadeout")
         finish()
     }
 
     fun goToLogin(view: View) {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        CustomIntent.customType(this, "fadein-to-fadeout")
+        finish()
     }
 }

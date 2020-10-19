@@ -1,28 +1,25 @@
 package com.mobcom.paintly
 
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import maes.tech.intentanim.CustomIntent
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class Landing3Activity : AppCompatActivity() {
     private lateinit var button: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_landing1)
-        button = findViewById(R.id.landpage1_next)
+        setContentView(R.layout.activity_landing3)
+        button = findViewById(R.id.button_ready)
         button.setOnClickListener() {
-            goToPage2()
+            goToLoginPage()
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        CustomIntent.customType(this, "right-to-left")
     }
 
     override fun onStart() {
@@ -45,10 +42,9 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun goToPage2() {
-        val intent = Intent(this, Landing2Activity::class.java)
+    private fun goToLoginPage() {
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
-        CustomIntent.customType(this, "left-to-right")
+        CustomIntent.customType(this, "fadein-to-fadeout")
     }
-
 }
