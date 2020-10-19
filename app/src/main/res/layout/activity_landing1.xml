@@ -13,8 +13,8 @@
         android:id="@+id/hi_welcome_"
         android:layout_width="247dp"
         android:layout_height="123dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="36dp"
         android:text="@string/hi_welcome_"
@@ -25,8 +25,8 @@
         android:id="@+id/pick_your_r"
         android:layout_width="260dp"
         android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="182dp"
         android:text="@string/pick_your_r"
@@ -34,11 +34,11 @@
         android:gravity="top" />
 
     <ImageView
-        android:id="@+id/rectangle_8"
+        android:id="@+id/pi"
         android:layout_width="326dp"
         android:layout_height="197dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="230dp"
         android:background="@drawable/rectangle_8"
@@ -48,22 +48,22 @@
         android:id="@+id/rectangle_9"
         android:layout_width="326dp"
         android:layout_height="197dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="458dp"
         android:background="@drawable/rectangle_9"
         app:srcCompat="@drawable/gb2" />
 
-    <ImageView
-        android:id="@+id/rectangle_17"
-        android:layout_width="411dp"
-        android:layout_height="211dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="496dp"
-        android:background="@drawable/rectangle_13"
-        />
+<!--    <ImageView-->
+<!--        android:id="@+id/rectangle_17"-->
+<!--        android:layout_width="411dp"-->
+<!--        android:layout_height="211dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="496dp"-->
+<!--        android:background="@drawable/rectangle_13"-->
+<!--        />-->
 
     <ImageView
         android:id="@+id/rectangle_7"
