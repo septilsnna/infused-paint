@@ -9,12 +9,14 @@ interface Api{
     fun getUsers(): Call<ArrayList<UserGetResponse>>
 
     @FormUrlEncoded
-    @POST("users")
+    @POST("users/create")
     fun createUser(
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("name") name: String,
         @Field("email") email: String,
+        @Field("edit_freq") edit_freq: Int,
+        @Field("share_freq") share_freq: Int,
     ): Call<UserCreateResponse>
 
     @FormUrlEncoded
@@ -24,6 +26,8 @@ interface Api{
         @Field("password") password: String,
         @Field("name") name: String,
         @Field("email") email: String,
+        @Field("edit_freq") edit_freq: Int,
+        @Field("share_freq") share_freq: Int,
     ): Call<UserUpdateResponse>
 
     @DELETE("users/delete")
