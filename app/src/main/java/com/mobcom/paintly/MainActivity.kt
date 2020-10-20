@@ -1,5 +1,7 @@
 package com.mobcom.paintly
 
+import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,15 +13,17 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         val UploadSheetFragment = UploadSheetFragment()
 
-        btn_starryNight.setOnClickListener{
+        btn_starryNight.setOnClickListener {
             UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
         }
+
     }
 
 }
