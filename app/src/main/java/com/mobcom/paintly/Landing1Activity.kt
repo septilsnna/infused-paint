@@ -1,20 +1,13 @@
 package com.mobcom.paintly
 
-//<<<<<<< HEAD
-//=======
-//>>>>>>> cd30b6e67aabe863dbdc814099195f551a4ca641
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import maes.tech.intentanim.CustomIntent
 
-//<<<<<<< HEAD
-
-//=======
-class MainActivity : AppCompatActivity() {
+class Landing1Activity : AppCompatActivity() {
     private lateinit var button: Button
-//>>>>>>> cd30b6e67aabe863dbdc814099195f551a4ca641
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing1)
@@ -32,9 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-//<<<<<<< HEAD
-
-//=======
     override fun onPause() {
         super.onPause()
     }
@@ -51,7 +41,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, Landing2Activity::class.java)
         startActivity(intent)
         CustomIntent.customType(this, "left-to-right")
-//>>>>>>> cd30b6e67aabe863dbdc814099195f551a4ca641
     }
-
 }

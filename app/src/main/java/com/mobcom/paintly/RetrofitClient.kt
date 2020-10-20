@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://jsonplaceholder.typicode.com/" // sementara pake fake api
+    private const val BASE_URL = "https://www.infused-paint-web-services.pikupa.id/"
 
     val instance: Api by lazy {
         val retrofit = Retrofit.Builder()

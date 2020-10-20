@@ -157,6 +157,7 @@
         android:layout_marginTop="674dp"
         android:text="@string/don_t_have_"
         android:textAppearance="@style/sp16_ffffff_reg"
-        android:gravity="top" />
+        android:gravity="top"
+        android:onClick="goToRegist"/>
 
 </RelativeLayout>

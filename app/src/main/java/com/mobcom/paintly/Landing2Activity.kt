@@ -1,27 +1,26 @@
 package com.mobcom.paintly
 
-//<<<<<<< HEAD
-//=======
-//>>>>>>> cd30b6e67aabe863dbdc814099195f551a4ca641
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import maes.tech.intentanim.CustomIntent
 
-//<<<<<<< HEAD
-
-//=======
-class MainActivity : AppCompatActivity() {
+class Landing2Activity : AppCompatActivity() {
     private lateinit var button: Button
-//>>>>>>> cd30b6e67aabe863dbdc814099195f551a4ca641
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_landing1)
-        button = findViewById(R.id.landpage1_next)
+        setContentView(R.layout.activity_landing2)
+        button = findViewById(R.id.landpage2_next)
         button.setOnClickListener() {
-            goToPage2()
+            goToPage3()
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        CustomIntent.customType(this, "right-to-left")
     }
 
     override fun onStart() {
@@ -32,9 +31,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-//<<<<<<< HEAD
-
-//=======
     override fun onPause() {
         super.onPause()
     }
@@ -47,11 +43,10 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun goToPage2() {
-        val intent = Intent(this, Landing2Activity::class.java)
+    private fun goToPage3() {
+        val intent = Intent(this, Landing3Activity::class.java)
         startActivity(intent)
         CustomIntent.customType(this, "left-to-right")
-//>>>>>>> cd30b6e67aabe863dbdc814099195f551a4ca641
     }
 
 }

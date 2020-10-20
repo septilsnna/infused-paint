@@ -1,7 +1,5 @@
 package com.mobcom.paintly
 
-import java.util.*
-
 data class UserUpdateResponse(
     val username: String?,
     val password: String?,
@@ -9,5 +7,4 @@ data class UserUpdateResponse(
     val email: String?,
     val edit_freq: Int,
     val share_freq: Int,
-    val created_at: Date
 )
