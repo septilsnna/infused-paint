@@ -1,9 +1,9 @@
 package com.mobcom.paintly
 
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -15,10 +15,14 @@ import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var button: Button
-    val EXTRA_USERNAME = "com.mobcom.paintly.USERNAME"
+//    val PREFS_NAME = "RegisterSP"
+//    val KEY_USERNAME = "key.username"
+//    lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+//        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         button = findViewById(R.id.register_button)
         val email = findViewById<EditText>(R.id.email_input)
@@ -115,35 +119,42 @@ class RegisterActivity : AppCompatActivity() {
         if(!validateEmail() || !validatePassword()){
             return
         }
-        RetrofitClient.instance.createUser(
-            username,
-            password,
-            name,
-            email,
-            0,
-            0
-        ).enqueue(object : Callback<UserCreateResponse> {
-            override fun onFailure(call: Call<UserCreateResponse>, t: Throwable) {
-            }
 
-            override fun onResponse(
-                call: Call<UserCreateResponse>,
-                response: Response<UserCreateResponse>
-            ) {
-            }
-        })
-        val intent = Intent(this, BottomNavActivity::class.java).apply {
-            putExtra(EXTRA_USERNAME, username)
-        }
+//        RetrofitClient.instance.createUser(
+//            username,
+//            password,
+//            name,
+//            email,
+//            0,
+//            0
+//        ).enqueue(object : Callback<UserCreateResponse> {
+//            override fun onFailure(call: Call<UserCreateResponse>, t: Throwable) {
+//                Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_SHORT).show()
+//            }
+//            override fun onResponse(call: Call<UserCreateResponse>,response: Response<UserCreateResponse>) {
+//                if (response.code() == 200) {
+//                    Toast.makeText(this@RegisterActivity, "Register Success!", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Toast.makeText(this@RegisterActivity, "Register Failed!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
+
+//        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//        editor.putString(KEY_USERNAME, username)
+//        editor.apply()
+
+        val intent = Intent(this, BottomNavActivity::class.java)
+
         startActivity(intent)
         CustomIntent.customType(this, "fadein-to-fadeout")
         finish()
+
     }
 
-    fun goToLogin(view: View) {
+    fun goToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         CustomIntent.customType(this, "fadein-to-fadeout")
-        finish()
     }
 }

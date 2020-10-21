@@ -158,6 +158,6 @@
         android:text="@string/don_t_have_"
         android:textAppearance="@style/sp16_ffffff_reg"
         android:gravity="top"
-        android:onClick="goToRegist"/>
+        android:onClick="goToRegister"/>
 
 </RelativeLayout>

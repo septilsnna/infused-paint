@@ -5,8 +5,8 @@ import retrofit2.http.*
 
 interface Api{
     // users table
-    @GET("users/show")
-    fun getUsers(): Call<ArrayList<UserGetResponse>>
+    @GET("users/show/{id}")
+    fun getUser(@Path("username") username: String): Call<Void>
 
     @FormUrlEncoded
     @POST("users/create")
