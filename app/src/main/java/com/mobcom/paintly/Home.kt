@@ -32,10 +32,6 @@ class Home : Fragment() {
         }
         return mView
     }
-
-
-
-
 }
 
 
