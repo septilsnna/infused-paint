@@ -1,9 +1,9 @@
 package com.mobcom.paintly
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import maes.tech.intentanim.CustomIntent
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +37,17 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == 1){
+            finish()
+        }
+    }
+
     private fun goToPage2() {
-        val intent = Intent(this, Landing2Activity::class.java)
-        startActivity(intent)
+        val intent_lp1 = Intent(this, Landing2Activity::class.java)
+//        startActivity(intent)
+        startActivityForResult(intent_lp1, 1)
         CustomIntent.customType(this, "left-to-right")
     }
 

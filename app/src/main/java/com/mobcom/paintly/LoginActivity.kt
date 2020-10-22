@@ -56,10 +56,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        setResult(1)
         super.onStop()
     }
 
     override fun onDestroy() {
+        setResult(1)
         super.onDestroy()
     }
 
@@ -105,15 +107,12 @@ class LoginActivity : AppCompatActivity() {
 
 
         val intent = Intent(this, BottomNavActivity::class.java)
-//            .apply {
-//            putExtra(EXTRA_USERNAME, username)
-//        }
         startActivity(intent)
         CustomIntent.customType(this, "fadein-to-fadeout")
         finish()
     }
 
-    fun goToRegister() {
+    fun goToRegister(view: View) {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
         CustomIntent.customType(this, "fadein-to-fadeout")

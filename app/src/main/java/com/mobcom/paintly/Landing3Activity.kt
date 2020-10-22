@@ -35,16 +35,21 @@ class Landing3Activity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        setResult(1)
         super.onStop()
     }
 
     override fun onDestroy() {
+        setResult(1)
         super.onDestroy()
     }
 
     private fun goToLoginPage() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        val intent_lp3 = Intent(this, LoginActivity::class.java)
+//        intent_lp3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        startActivity(intent_lp3)
+        startActivityForResult(intent_lp3, 1)
         CustomIntent.customType(this, "fadein-to-fadeout")
+        finish()
     }
 }

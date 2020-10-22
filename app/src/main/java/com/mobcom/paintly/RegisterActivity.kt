@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -59,10 +60,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        setResult(1)
         super.onStop()
     }
 
     override fun onDestroy() {
+        setResult(1)
         super.onDestroy()
     }
 
@@ -152,7 +155,7 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    fun goToLogin() {
+    fun goToLogin(view: View) {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         CustomIntent.customType(this, "fadein-to-fadeout")
