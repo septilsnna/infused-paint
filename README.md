@@ -29,4 +29,4 @@ Mobile Computing Project - 113
   * [Watch Our Sprint 6 Meeting Here](https://youtu.be/pBNVHu6Ukag)
   
   * [Sprint Backlog : Sprint 7](https://drive.google.com/file/d/1QyGcg-mJs1JesZ5n_ENO2OyOiz3_9_I-/view?usp=sharing)
-  * [Watch Ourt Sprint 7 Meeting Here](https://youtu.be/9XIjACiSo_Y)
+  * [Watch Our Sprint 7 Meeting Here](https://youtu.be/9XIjACiSo_Y)
