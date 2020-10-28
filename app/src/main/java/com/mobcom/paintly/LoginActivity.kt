@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,22 +17,19 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var button: Button
-//    val EXTRA_USERNAME = "com.mobcom.paintly.USERNAME"
-//    val PREFS_NAME = "RegisterSP"
-//    val KEY_USERNAME = "key.username"
-//    lateinit var sharedPreferences: SharedPreferences
+    private lateinit var email: EditText
+    private lateinit var password: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-//        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        button = findViewById(R.id.login_button)
-        val email = findViewById<EditText>(R.id.email_input)
-        val password = findViewById<EditText>(R.id.password_input)
+        button = login_button
+        email = email_input
+        password = password_input
         button.setOnClickListener(){
             getUser(
-                email.text.toString().split("@").get(0),
+                email.text.toString(),
                 password.text.toString()
             )
         }
@@ -90,21 +88,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUser(username: String, password: String) {
+    private fun getUser(email: String, password: String) {
         if(!validateEmail() || !validatePassword()){
             return
         }
 
-//        RetrofitClient.instance.getUser(
-//            username
-//        ).enqueue(object : Callback<Void> {
-//            override fun onFailure(call: Call<Void>, t: Throwable) {
-//
-//            } override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//
-//            }
-//        })
-
+        // Implementasi Backend Login
 
         val intent = Intent(this, BottomNavActivity::class.java)
         startActivity(intent)

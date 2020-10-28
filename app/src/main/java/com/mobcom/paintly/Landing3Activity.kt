@@ -13,7 +13,12 @@ class Landing3Activity : AppCompatActivity() {
         setContentView(R.layout.activity_landing3)
         button = findViewById(R.id.button_ready)
         button.setOnClickListener() {
-            goToLoginPage()
+            val intent_lp3 = Intent(this, LoginActivity::class.java)
+//        intent_lp3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent_lp3)
+//        startActivityForResult(intent_lp3, 1)
+            CustomIntent.customType(this, "fadein-to-fadeout")
+//            finish()
         }
     }
 
@@ -31,6 +36,7 @@ class Landing3Activity : AppCompatActivity() {
     }
 
     override fun onPause() {
+        finish()
         super.onPause()
     }
 
@@ -44,12 +50,4 @@ class Landing3Activity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun goToLoginPage() {
-        val intent_lp3 = Intent(this, LoginActivity::class.java)
-//        intent_lp3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//        startActivity(intent_lp3)
-        startActivityForResult(intent_lp3, 1)
-        CustomIntent.customType(this, "fadein-to-fadeout")
-        finish()
-    }
 }

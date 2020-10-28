@@ -13,7 +13,9 @@ class Landing2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_landing2)
         button = findViewById(R.id.landpage2_next)
         button.setOnClickListener() {
-            goToPage3()
+            val intent_lp1 = Intent(this, Landing3Activity::class.java)
+            startActivityForResult(intent_lp1, 1)
+            CustomIntent.customType(this, "left-to-right")
         }
     }
 
@@ -47,15 +49,8 @@ class Landing2Activity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 1){
-            finish()
+            finishActivity(1)
         }
-    }
-
-    private fun goToPage3() {
-        val intent_lp2 = Intent(this, Landing3Activity::class.java)
-//        startActivity(intent)
-        startActivityForResult(intent_lp2, 1)
-        CustomIntent.customType(this, "left-to-right")
     }
 
 }

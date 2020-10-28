@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class UsersAdapter(private val list: ArrayList<UserGetResponse>): RecyclerView.Adapter<UsersAdapter.PostViewHolder>(){
+class UsersAdapter(private val list: ArrayList<UserGet>): RecyclerView.Adapter<UsersAdapter.PostViewHolder>(){
     inner class PostViewHolder(itemViev: View): RecyclerView.ViewHolder(itemViev){
-        fun bind(usersResponse: UserGetResponse){
+        fun bind(usersResponse: UserGet){
             val text: String = "username: ${usersResponse.username}\n" +
                     "password: ${usersResponse.password}\n" +
                     "name: ${usersResponse.name}\n" +

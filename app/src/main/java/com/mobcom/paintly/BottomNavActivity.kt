@@ -15,7 +15,7 @@ class BottomNavActivity : AppCompatActivity() {
         val homeFragment = Home()
         val galleryFragment = Gallery()
         val profileFragment = Profile()
-        val username = intent.getStringExtra("EXTRA_USERNAME")
+        val username = intent.getStringExtra("user_id")
 
         setCurrentFragment(homeFragment)
 

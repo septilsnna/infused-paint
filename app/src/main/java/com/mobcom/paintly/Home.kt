@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.layout_upload.*
 
-lateinit var mView: View
 class Home : Fragment() {
+    lateinit var mView: View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

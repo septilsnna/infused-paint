@@ -20,6 +20,8 @@
 
     <EditText
         android:id="@+id/email_input"
+        android:focusable="true"
+        android:nextFocusDown="@id/password_input"
         android:layout_width="305dp"
         android:layout_height="51dp"
         android:layout_alignParentStart="true"
@@ -57,6 +59,8 @@
 
     <EditText
         android:id="@+id/password_input"
+        android:focusable="true"
+        android:nextFocusDown="@id/confirm_password_input"
         android:layout_width="305dp"
         android:layout_height="51dp"
         android:layout_alignParentStart="true"

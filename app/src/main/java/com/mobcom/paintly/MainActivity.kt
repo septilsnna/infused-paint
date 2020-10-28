@@ -13,7 +13,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landing1)
         button = findViewById(R.id.landpage1_next)
         button.setOnClickListener() {
-            goToPage2()
+            val intent_lp1 = Intent(this, Landing2Activity::class.java)
+            startActivity(intent_lp1)
+//            startActivityForResult(intent_lp1, 1)
+            CustomIntent.customType(this, "left-to-right")
         }
     }
 
@@ -40,15 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 1){
-            finish()
+            finishActivity(1)
         }
     }
-
-    private fun goToPage2() {
-        val intent_lp1 = Intent(this, Landing2Activity::class.java)
-//        startActivity(intent)
-        startActivityForResult(intent_lp1, 1)
-        CustomIntent.customType(this, "left-to-right")
-    }
-
 }
