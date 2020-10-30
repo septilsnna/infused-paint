@@ -25,11 +25,17 @@ class Profile : Fragment(){
         about_app_button = mView.button_about
         about_app_button.setOnClickListener(){
             AboutAppDialog().show(this.childFragmentManager, "About App")
-//            aboutApp.showsDialog
-//            listener?.onAboutApp(aboutApp)
         }
 
+        setHasOptionsMenu(true)
         return mView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Set title bar
+        (activity as BottomNavActivity)
+            .setActionBarTitle("Profile")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

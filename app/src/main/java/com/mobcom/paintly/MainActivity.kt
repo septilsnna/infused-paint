@@ -21,33 +21,43 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var button: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_bottomnav)
-
-        val bar: android.app.ActionBar? = actionBar
-        bar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
-
-        val homeFragment = Home()
-        val galleryFragment = Gallery()
-        val profileFragment = Profile()
-        val username = intent.getStringExtra("user_id")
-
-        setCurrentFragment(homeFragment)
-
-        bottomNav.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
-                R.id.menu_home -> setCurrentFragment(homeFragment)
-                R.id.menu_gallery -> setCurrentFragment(galleryFragment)
-                R.id.menu_profile -> setCurrentFragment(profileFragment)
-            }
-            true
+        setContentView(R.layout.activity_landing1)
+        button = findViewById(R.id.landpage1_next)
+        button.setOnClickListener() {
+            val intent_lp1 = Intent(this, Landing2Activity::class.java)
+            startActivity(intent_lp1)
+//            startActivityForResult(intent_lp1, 1)
+            CustomIntent.customType(this, "left-to-right")
         }
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fl_fragment, fragment)
-            commit()
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == 1){
+            finishActivity(1)
         }
+    }
 }

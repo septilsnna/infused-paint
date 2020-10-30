@@ -17,10 +17,11 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyTheme">
+<!--        android:label="@string/app_name"-->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,23 +29,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".Landing1Activity"
-            android:label="Landing Page 1">
+            android:label="">
         </activity>
         <activity android:name=".Landing2Activity"
-            android:label="Landing Page 2">
+            android:label="">
         </activity>
         <activity android:name=".Landing3Activity"
-            android:label="Landing Page 3">
+            android:label="">
         </activity>
         <activity android:name=".RegisterActivity"
-            android:label="Register">
+            android:label="">
         </activity>
         <activity android:name=".LoginActivity"
-            android:label="Login">
+            android:label="">
         </activity>
         <activity android:name=".BottomNavActivity"
-            android:label="@string/app_name"
-            android:theme="@style/MyTheme">
+            android:label="">
         </activity>
     </application>
 
