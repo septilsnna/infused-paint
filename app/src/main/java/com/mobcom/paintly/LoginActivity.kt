@@ -89,9 +89,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getUser(email: String, password: String) {
-        if(!validateEmail() || !validatePassword()){
-            return
-        }
+//        if(!validateEmail() || !validatePassword()){
+//            return
+//        }
 
         // Implementasi Backend Login
 
