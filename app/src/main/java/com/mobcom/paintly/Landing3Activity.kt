@@ -13,7 +13,7 @@ class Landing3Activity : AppCompatActivity() {
         setContentView(R.layout.activity_landing3)
         button = findViewById(R.id.button_ready)
         button.setOnClickListener() {
-            val intent_lp3 = Intent(this, LoginActivity::class.java)
+            val intent_lp3 = Intent(this, StartActivity::class.java)
 //        intent_lp3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent_lp3)
 //        startActivityForResult(intent_lp3, 1)

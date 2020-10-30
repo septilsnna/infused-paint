@@ -13,13 +13,9 @@ class BottomNavActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottomnav)
 
-        val bar: android.app.ActionBar? = actionBar
-        bar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
-
         val homeFragment = Home()
         val galleryFragment = Gallery()
         val profileFragment = Profile()
-        val username = intent.getStringExtra("user_id")
 
         setCurrentFragment(homeFragment)
 

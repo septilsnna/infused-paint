@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         button = findViewById(R.id.landpage1_next)
         button.setOnClickListener() {
             val intent_lp1 = Intent(this, Landing2Activity::class.java)
-            startActivity(intent_lp1)
-//            startActivityForResult(intent_lp1, 1)
+//            startActivity(intent_lp1)
+            startActivityForResult(intent_lp1, 2)
             CustomIntent.customType(this, "left-to-right")
         }
     }
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        supportActionBar!!.title = ""
         super.onResume()
     }
 
@@ -55,9 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 1){
-            finishActivity(1)
+            finish()
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 }
