@@ -1,11 +1,9 @@
 package com.mobcom.paintly
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_bottomnav.*
 
 
 class BottomNavActivity : AppCompatActivity() {
@@ -13,9 +11,9 @@ class BottomNavActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottomnav)
 
-        val homeFragment = Home()
-        val galleryFragment = Gallery()
-        val profileFragment = Profile()
+        val homeFragment = HomeFragment()
+        val galleryFragment = GalleryFragment()
+        val profileFragment = ProfileFragment()
 
         setCurrentFragment(homeFragment)
 

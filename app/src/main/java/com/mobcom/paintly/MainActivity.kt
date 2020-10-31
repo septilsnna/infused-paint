@@ -21,44 +21,24 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var button: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_landing1)
-        button = findViewById(R.id.landpage1_next)
-        button.setOnClickListener() {
-            val intent_lp1 = Intent(this, Landing2Activity::class.java)
-//            startActivity(intent_lp1)
-            startActivityForResult(intent_lp1, 2)
-            CustomIntent.customType(this, "left-to-right")
+        setContentView(R.layout.activity_main)
+
+        val landing1_fragment = Landing1Fragment()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fl_main, landing1_fragment)
+            commit()
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun finish() {
+        CustomIntent.customType(this, "fadein-to-fadeout")
+        super.finish()
     }
 
     override fun onResume() {
         supportActionBar!!.title = ""
         super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(resultCode == 1){
-            finish()
-            super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 }

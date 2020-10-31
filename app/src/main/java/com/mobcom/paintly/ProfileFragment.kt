@@ -10,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class Profile : Fragment(){
+class ProfileFragment : Fragment(){
     lateinit var mView: View
     private lateinit var about_app_button: Button
 

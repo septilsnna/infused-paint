@@ -135,8 +135,7 @@ class RegisterFragment : Fragment() {
     fun goToApp() {
         val intent = Intent(activity, BottomNavActivity::class.java)
         startActivity(intent)
+        activity?.finish()
         CustomIntent.customType(activity, "fadein-to-fadeout")
-        (activity as Activity?)!!.overridePendingTransition(0, 0)
-//        finish()
     }
 }

@@ -27,25 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Landing1Activity"
-            android:label="">
-        </activity>
-        <activity android:name=".Landing2Activity"
-            android:label="">
-        </activity>
-        <activity android:name=".Landing3Activity"
-            android:label="">
-        </activity>
-        <activity android:name=".RegisterActivity"
-            android:label="">
-        </activity>
-        <activity android:name=".LoginActivity"
+        <activity android:name=".StartActivity"
             android:label="">
         </activity>
         <activity android:name=".BottomNavActivity"
-            android:label="">
-        </activity>
-        <activity android:name=".StartActivity"
             android:label="">
         </activity>
     </application>

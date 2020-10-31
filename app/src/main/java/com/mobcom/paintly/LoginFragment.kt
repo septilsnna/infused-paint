@@ -105,6 +105,7 @@ class LoginFragment : Fragment() {
     fun goToApp() {
         val intent = Intent(activity, BottomNavActivity::class.java)
         startActivity(intent)
+        activity?.finish()
         CustomIntent.customType(activity, "fadein-to-fadeout")
     }
 }

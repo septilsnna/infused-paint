@@ -5,17 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_home.view.*
 
-class Gallery : Fragment(R.layout.activity_gallery){
+class HomeFragment : Fragment() {
     lateinit var mView: View
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = inflater.inflate(R.layout.activity_gallery, container, false)
+        mView = inflater.inflate(R.layout.activity_home, container, false)
+        val UploadSheetFragment = UploadSheetFragment()
+        mView.btn_starryNight.setOnClickListener {
 
+            UploadSheetFragment.show(this.childFragmentManager, "UploadSheetDialog")
+        }
         return mView
     }
 
@@ -23,6 +27,10 @@ class Gallery : Fragment(R.layout.activity_gallery){
         super.onResume()
         // Set title bar
         (activity as BottomNavActivity)
-            .setActionBarTitle("Your Artwork Gallery")
+            .setActionBarTitle("Pick Your Style")
     }
+
+
 }
+
+
