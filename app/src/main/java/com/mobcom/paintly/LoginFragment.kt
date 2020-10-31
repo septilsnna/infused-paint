@@ -1,6 +1,5 @@
 package com.mobcom.paintly
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_login.view.*
 import maes.tech.intentanim.CustomIntent
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
@@ -36,9 +36,9 @@ class LoginFragment : Fragment() {
 
         mView.don_t_have_.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val fragment: Fragment = RegisterFragment()
-                val fragmentManager: FragmentManager = activity!!.supportFragmentManager
-                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = RegisterFragment()
+                val fragmentManager = activity!!.supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.fl_start, fragment)
                 fragmentTransaction.disallowAddToBackStack()
                 fragmentTransaction.commit()
@@ -74,16 +74,37 @@ class LoginFragment : Fragment() {
     }
 
     private fun getUser(email: String, password: String) {
-//        if(!validateEmail() || !validatePassword()){
-//            return
-//        }
+        // validasi email input dan password input user
+        if(!validateEmail() || !validatePassword()){
+            return
+        }
 
         // Implementasi Backend Login
+        RetrofitClient.instance.getUser(
+            email,
+        ).enqueue(object : Callback<UserGet?> {
+            override fun onFailure(call: Call<UserGet?>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
 
+            override fun onResponse(call: Call<UserGet?>, response: Response<UserGet?>) {
+                if (response.code() == 200) {
+                    if (password == response.body()?.password) {
+                        Toast.makeText(activity, "Login Success!", Toast.LENGTH_SHORT).show()
+                        goToApp()
+                    } else {
+                        Toast.makeText(activity, "Password Tidak Sesuai!", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(activity, "Login Failed!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    fun goToApp() {
         val intent = Intent(activity, BottomNavActivity::class.java)
         startActivity(intent)
         CustomIntent.customType(activity, "fadein-to-fadeout")
-        (activity as Activity?)!!.overridePendingTransition(0, 0)
-//        finish()
     }
 }

@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_register.view.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
@@ -44,9 +42,9 @@ class RegisterFragment : Fragment() {
 
         mView.already_hav.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val fragment: Fragment = LoginFragment()
-                val fragmentManager: FragmentManager = activity!!.supportFragmentManager
-                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = LoginFragment()
+                val fragmentManager = activity!!.supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.fl_start, fragment)
                 fragmentTransaction.disallowAddToBackStack()
                 fragmentTransaction.commit()
@@ -106,10 +104,12 @@ class RegisterFragment : Fragment() {
     }
 
     private fun createUser(username: String, password: String, name: String, email: String) {
+        // validasi email input dan password input user
         if(!validateEmail() || !validatePassword()){
             return
         }
 
+        // Implementasi Backend Register
         RetrofitClient.instance.createUser(
             username,
             password,
