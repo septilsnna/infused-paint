@@ -1,5 +1,8 @@
 package com.mobcom.paintly
 
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -7,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_profile.view.*
+import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +22,10 @@ class ProfileFragment : Fragment(){
     private lateinit var about_app_button: Button
     private lateinit var send_feedback_button: Button
     private lateinit var app_version_button: Button
+    private lateinit var email: String
+
+    val SHARED_PREFS = "sharedPrefs"
+    val EMAIL = "email"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +33,10 @@ class ProfileFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         mView = inflater.inflate(R.layout.activity_profile, container, false)
-        getUser("septilusianna19@gmail.com")
+
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        email = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(email)
 
         edit_profile_button = mView.editprofile_button
         edit_profile_button.setOnClickListener(){
@@ -97,7 +108,15 @@ class ProfileFragment : Fragment(){
     }
 
     private fun logout() {
-        Toast.makeText(activity, "Logout Pressed!", Toast.LENGTH_SHORT).show()
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.clear()
+        editor?.apply()
+        Toast.makeText(activity, "Logout Success!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, StartActivity::class.java)
+        startActivity(intent)
+        CustomIntent.customType(activity, "fadein-to-fadeout")
+        activity?.finish()
     }
 
 }

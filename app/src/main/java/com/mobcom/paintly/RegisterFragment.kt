@@ -1,6 +1,7 @@
 package com.mobcom.paintly
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,9 @@ import retrofit2.Response
 
 class RegisterFragment : Fragment() {
     lateinit var mView: View
+    val SHARED_PREFS = "sharedPrefs"
+    val EMAIL = "email"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -124,6 +128,7 @@ class RegisterFragment : Fragment() {
             override fun onResponse(call: Call<UserCreate?>, response: Response<UserCreate?>) {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Register Success!", Toast.LENGTH_SHORT).show()
+                    saveData(email)
                     goToApp()
                 } else {
                     Toast.makeText(activity, "Register Failed!", Toast.LENGTH_SHORT).show()
@@ -137,5 +142,12 @@ class RegisterFragment : Fragment() {
         startActivity(intent)
         activity?.finish()
         CustomIntent.customType(activity, "fadein-to-fadeout")
+    }
+
+    fun saveData(email: String) {
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.putString(EMAIL, email)
+        editor?.apply()
     }
 }

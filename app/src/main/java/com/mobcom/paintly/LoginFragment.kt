@@ -1,6 +1,8 @@
 package com.mobcom.paintly
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,8 @@ import retrofit2.Response
 
 class LoginFragment : Fragment() {
     lateinit var mView: View
+    val SHARED_PREFS = "sharedPrefs"
+    val EMAIL = "email"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,9 +95,11 @@ class LoginFragment : Fragment() {
                 if (response.code() == 200) {
                     if (password == response.body()?.password) {
                         Toast.makeText(activity, "Login Success!", Toast.LENGTH_SHORT).show()
+                        saveData(email)
                         goToApp()
                     } else {
-                        Toast.makeText(activity, "Password Tidak Sesuai!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Password Tidak Sesuai!", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 } else {
                     Toast.makeText(activity, "Login Failed!", Toast.LENGTH_SHORT).show()
@@ -107,5 +113,12 @@ class LoginFragment : Fragment() {
         startActivity(intent)
         activity?.finish()
         CustomIntent.customType(activity, "fadein-to-fadeout")
+    }
+
+    fun saveData(email: String) {
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.putString(EMAIL, email)
+        editor?.apply()
     }
 }
