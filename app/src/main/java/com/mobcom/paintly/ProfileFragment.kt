@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,12 +39,12 @@ class ProfileFragment : Fragment(){
 
         send_feedback_button = mView.button_sendfeedback
         send_feedback_button.setOnClickListener(){
-            Toast.makeText(activity, "Ready to send feedback!", Toast.LENGTH_SHORT).show()
+            AppRate.with(activity).showRateDialog(activity);
         }
 
         app_version_button = mView.button_app_version
         app_version_button.setOnClickListener(){
-            Toast.makeText(activity, "Version app pressed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "App Version 1.0.0", Toast.LENGTH_SHORT).show()
         }
 
         setHasOptionsMenu(true)
