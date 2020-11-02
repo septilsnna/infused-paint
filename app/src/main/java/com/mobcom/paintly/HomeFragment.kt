@@ -1,24 +1,14 @@
 package com.mobcom.paintly
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import maes.tech.intentanim.CustomIntent
 import android.view.LayoutInflater
 import android.view.View
-import kotlinx.android.synthetic.main.activity_home.*
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mobcom.paintly.R.id.btn_starryNight
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
-import kotlinx.android.synthetic.main.layout_upload.*
 
-lateinit var mView: View
-class Home : Fragment() {
+class HomeFragment : Fragment() {
+    lateinit var mView: View
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +22,18 @@ class Home : Fragment() {
         }
         return mView
     }
+<<<<<<< HEAD:app/src/main/java/com/mobcom/paintly/Home.kt
+=======
+
+    override fun onResume() {
+        super.onResume()
+        // Set title bar
+        (activity as BottomNavActivity)
+            .setActionBarTitle("Pick Your Style")
+    }
+
+
+>>>>>>> 7071c8d6d229533ff3077ed4976d79184a94f1a2:app/src/main/java/com/mobcom/paintly/HomeFragment.kt
 }
 
 

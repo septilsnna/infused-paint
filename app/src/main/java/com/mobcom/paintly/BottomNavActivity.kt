@@ -1,63 +1,45 @@
 package com.mobcom.paintly
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_bottomnav.*
+import maes.tech.intentanim.CustomIntent
+
 
 class BottomNavActivity : AppCompatActivity() {
+    private lateinit var email: String
+
+    val SHARED_PREFS = "sharedPrefs"
+    val EMAIL = "email"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottomnav)
 
-        val homeFragment = Home()
-        val galleryFragment = Gallery()
-        val profileFragment = Profile()
-        val username = intent.getStringExtra("EXTRA_USERNAME")
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        email = sharedPreferences?.getString(EMAIL, "").toString()
+        if(email.isEmpty()){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val homeFragment = HomeFragment()
+            val galleryFragment = GalleryFragment()
+            val profileFragment = ProfileFragment()
 
-        setCurrentFragment(homeFragment)
+            setCurrentFragment(homeFragment)
 
-        bottomNav.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
-                R.id.menu_home -> setCurrentFragment(homeFragment)
-                R.id.menu_gallery -> setCurrentFragment(galleryFragment)
-                R.id.menu_profile -> setCurrentFragment(profileFragment)
+            bottomNav.setOnNavigationItemSelectedListener {
+                when(it.itemId) {
+                    R.id.menu_home -> setCurrentFragment(homeFragment)
+                    R.id.menu_gallery -> setCurrentFragment(galleryFragment)
+                    R.id.menu_profile -> setCurrentFragment(profileFragment)
+                }
+                true
             }
-            true
         }
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("BottomNavBar Activity", "ON START")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("BottomNavBar Activity", "ON RESUME")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("BottomNavBar Activity", "ON PAUSE")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("BottomNavBar Activity", "ON STOP")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("BottomNavBar Activity", "ON RESTART")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("BottomNavBar Activity", "ON DESTROY")
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
@@ -65,4 +47,8 @@ class BottomNavActivity : AppCompatActivity() {
             replace(R.id.fl_fragment, fragment)
             commit()
         }
+
+    fun setActionBarTitle(title: String?) {
+        supportActionBar!!.title = title
+    }
 }

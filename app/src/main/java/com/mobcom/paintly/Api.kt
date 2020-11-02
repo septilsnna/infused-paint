@@ -3,34 +3,30 @@ package com.mobcom.paintly
 import retrofit2.Call
 import retrofit2.http.*
 
+
 interface Api{
-    // users table
-    @GET("users/show/{id}")
-    fun getUser(@Path("username") username: String): Call<Void>
+    
+    @GET("users/show/{email}")
+    fun getUser(@Path("email") email: String): Call<UserData>
+
+    @GET("imageresults/show/{username")
+    fun getGallery(@Path("username") username: String): Call<List<GalleryGet>>
 
     @FormUrlEncoded
     @POST("users/create")
-    fun createUser(
-        @Field("username") username: String,
+    fun createUser(@Field(
+        "username") username: String,
         @Field("password") password: String,
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("edit_freq") edit_freq: Int,
         @Field("share_freq") share_freq: Int,
-    ): Call<UserCreateResponse>
+    ): Call<UserData>
 
-    @FormUrlEncoded
-    @PUT("users/update")
-    fun updateUser(
-        @Field("username") username: String,
-        @Field("password") password: String,
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("edit_freq") edit_freq: Int,
-        @Field("share_freq") share_freq: Int,
-    ): Call<UserUpdateResponse>
+    @PUT("users/update/{email}")
+    fun updateUser(@Path("email") email: String, @Body userData: UserData): Call<UserData>
 
-    @DELETE("users/delete")
-    fun deleteUsers(): Call<ArrayList<UserDeleteResponse>>
+    @DELETE("users/delete/{email}")
+    fun deleteUser(@Path("email") email: String, @Body userData: UserData): Call<UserData>
 
 }

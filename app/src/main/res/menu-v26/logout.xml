@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark">
+
+<!--    <item-->
+<!--        android:id="@+id/button_logout"-->
+<!--        android:icon="@drawable/ic_logout"-->
+<!--        android:title=""-->
+<!--        android:tooltipText="Logout"-->
+<!--        app:showAsAction="ifRoom"/>-->
+
+    <item
+        android:id="@+id/button"
+        android:icon="@drawable/ic_logout"
+        app:showAsAction="ifRoom"
+        android:title="Logout">
+        <menu>
+            <item
+                android:id="@+id/button_logout"
+                android:icon="@drawable/ic_logout"
+                app:showAsAction="always"
+                android:title="Logout"/>
+        </menu>
+    </item>
+
+</menu>

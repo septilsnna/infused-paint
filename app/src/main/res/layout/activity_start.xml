@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark">
 
     <FrameLayout
-        android:id="@+id/fl_main"
+        android:id="@+id/fl_start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
