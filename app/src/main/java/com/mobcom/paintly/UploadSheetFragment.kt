@@ -1,27 +1,21 @@
 package com.mobcom.paintly
 
-import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.media.Image
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.core.content.PermissionChecker
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.features.ReturnMode
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mvp.handyopinion.URIPathHelper
-import kotlinx.android.synthetic.main.afterchoosingimage.*
 import kotlinx.android.synthetic.main.layout_upload.*
-import maes.tech.intentanim.CustomIntent
+
 
 
 class UploadSheetFragment: BottomSheetDialogFragment() {
@@ -49,9 +43,6 @@ class UploadSheetFragment: BottomSheetDialogFragment() {
                     .single() // single mode
                     .returnMode(ReturnMode.ALL)
                     .start();
-
-                val intent = Intent(activity, AfterUploadActivity::class.java)
-                startActivity(intent)
         }
 
 
@@ -60,10 +51,19 @@ class UploadSheetFragment: BottomSheetDialogFragment() {
 }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+
             if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                 val image : com.esafirm.imagepicker.model.Image = ImagePicker.getFirstImageOrNull(data)
+                val intent = Intent(activity, AfterUploadActivity::class.java)
+
+                val yourSelectedImage = BitmapFactory.decodeFile(image.path)
+                intent.putExtra("BitmapImage", yourSelectedImage)
+                startActivity(intent)
             }
-            super.onActivityResult(requestCode, resultCode, data);
+
+        super.onActivityResult(requestCode, resultCode, data);
+
 
         }
 }

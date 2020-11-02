@@ -45,6 +45,10 @@
         <activity android:name=".BottomNavActivity"
             android:label="Bottom Nav Activity">
         </activity>
+
+        <activity android:name=".AfterUploadActivity"
+            android:label="After Upload Activity">
+        </activity>
     </application>
 
 </manifest>
