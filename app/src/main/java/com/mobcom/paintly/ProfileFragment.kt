@@ -2,7 +2,6 @@ package com.mobcom.paintly
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
@@ -40,7 +39,7 @@ class ProfileFragment : Fragment(){
 
         edit_profile_button = mView.editprofile_button
         edit_profile_button.setOnClickListener(){
-            Toast.makeText(activity, "Edit Profile Pressed!", Toast.LENGTH_SHORT).show()
+            EditProfileDialog().show(this.childFragmentManager, "Edit Profile")
         }
 
         about_app_button = mView.button_about
@@ -84,12 +83,12 @@ class ProfileFragment : Fragment(){
     private fun getUser(email: String) {
         RetrofitClient.instance.getUser(
             email,
-        ).enqueue(object : Callback<UserGet?> {
-            override fun onFailure(call: Call<UserGet?>, t: Throwable) {
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<UserGet?>, response: Response<UserGet?>) {
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     mView.name.setText(response.body()?.name)
                     mView.email.setText(response.body()?.email)

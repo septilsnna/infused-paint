@@ -1,61 +1,51 @@
 package com.mobcom.paintly
 
-import android.app.Activity
+import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialogFragment
 import kotlinx.android.synthetic.main.activity_register.view.*
-import maes.tech.intentanim.CustomIntent
+import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterFragment : Fragment() {
+
+class EditProfileDialog : AppCompatDialogFragment() {
     lateinit var mView: View
+
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.activity_register, container, false)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val builder = AlertDialog.Builder(requireActivity())
 
-        val button = mView.register_button
-        val email = mView.email_input
-        val password = mView.password_input
-        val username = mView.email_input
-        val name = mView.email_input
+        val inflater = requireActivity().layoutInflater
+        mView = inflater.inflate(R.layout.fragment_edit_profile, null)
 
-        button.setOnClickListener(){
-            createUser(
-                username.text.toString().split("@").get(0),
-                password.text.toString(),
-                name.text.toString().split(
-                    "@"
-                ).get(0),
-                email.text.toString()
-            )
-        }
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(emaill)
 
-        mView.already_hav.setOnClickListener(object : View.OnClickListener {
+        val edit_foto_btn = mView.edit_foto_btn
+        val save_btn = mView.save_btn
+
+        edit_foto_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val fragment = LoginFragment()
-                val fragmentManager = activity!!.supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.fl_start, fragment)
-                fragmentTransaction.disallowAddToBackStack()
-                fragmentTransaction.commit()
+                Toast.makeText(activity, "Ready to upload photo", Toast.LENGTH_SHORT).show()
             }
         })
 
-        return mView
+        save_btn.setOnClickListener(){
+            updateUser(mView.et_nama.text.toString(), mView.et_email.text.toString())
+        }
+
+        builder.setView(mView).setTitle("Edit Profile")
+        return builder.create()
+
     }
 
     private fun validateEmail()
@@ -107,41 +97,43 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun createUser(username: String, password: String, name: String, email: String) {
-        // validasi email input dan password input user
-        if(!validateEmail() || !validatePassword()){
-            return
-        }
-
-        // Implementasi Backend Register
-        RetrofitClient.instance.createUser(
-            username,
-            password,
-            name,
+    private fun getUser(email: String) {
+        RetrofitClient.instance.getUser(
             email,
-            0,
-            0
-        ).enqueue(object : Callback<UserData> {
+        ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
-                    Toast.makeText(activity, "Register Success!", Toast.LENGTH_SHORT).show()
-                    saveData(email)
-                    goToApp()
+                    mView.et_nama.setText(response.body()?.name)
+                    mView.et_email.setText(response.body()?.email)
                 } else {
-                    Toast.makeText(activity, "Register Failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }
             }
+
         })
     }
 
-    fun goToApp() {
-        val intent = Intent(activity, BottomNavActivity::class.java)
-        startActivity(intent)
-        activity?.finish()
-        CustomIntent.customType(activity, "fadein-to-fadeout")
+    private fun updateUser(name: String, email: String) {
+        val usrUpdt = UserData(null, null, name, email, null, null, null)
+        RetrofitClient.instance.updateUser(
+            email,
+            usrUpdt
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
+                if (response.code() == 200) {
+                    saveData(email)
+                } else {
+                    Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
     }
 
     fun saveData(email: String) {

@@ -2,7 +2,6 @@ package com.mobcom.paintly
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -86,12 +85,12 @@ class LoginFragment : Fragment() {
         // Implementasi Backend Login
         RetrofitClient.instance.getUser(
             email,
-        ).enqueue(object : Callback<UserGet?> {
-            override fun onFailure(call: Call<UserGet?>, t: Throwable) {
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<UserGet?>, response: Response<UserGet?>) {
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     if (password == response.body()?.password) {
                         Toast.makeText(activity, "Login Success!", Toast.LENGTH_SHORT).show()
