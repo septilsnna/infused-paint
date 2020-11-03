@@ -43,10 +43,8 @@ class UploadSheetFragment: BottomSheetDialogFragment() {
                     .single() // single mode
                     .returnMode(ReturnMode.ALL)
                     .start();
+
         }
-
-
-
     }
 }
 
