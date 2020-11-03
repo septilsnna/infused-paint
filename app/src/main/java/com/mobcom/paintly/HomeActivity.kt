@@ -14,7 +14,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        button = findViewById(R.id.btn_starryNight)
+        button = findViewById(R.id.btn_upload)
         button.setOnClickListener() {
             UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
         }

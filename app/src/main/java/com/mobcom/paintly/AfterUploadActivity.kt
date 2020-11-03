@@ -16,11 +16,5 @@ class AfterUploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(afterchoosingimage)
-
-        val intent = intent
-        val bitmap = intent.getParcelableExtra<Parcelable>("BitmapImage") as? Bitmap
-        val d: Drawable = BitmapDrawable(bitmap)
-
-        image_view.setImageDrawable(d)
     }
 }

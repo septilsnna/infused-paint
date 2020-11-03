@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.features.ReturnMode
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.layout_upload.*
 
 
@@ -55,11 +56,9 @@ class UploadSheetFragment: BottomSheetDialogFragment() {
 
             if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                 val image : com.esafirm.imagepicker.model.Image = ImagePicker.getFirstImageOrNull(data)
-                val intent = Intent(activity, AfterUploadActivity::class.java)
 
                 val yourSelectedImage = BitmapFactory.decodeFile(image.path)
-                intent.putExtra("BitmapImage", yourSelectedImage)
-                startActivity(intent)
+                img_result.setImageBitmap(yourSelectedImage)
             }
 
         super.onActivityResult(requestCode, resultCode, data);
