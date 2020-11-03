@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,39 +7,131 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark">
 
-    <ImageView
-        android:id="@+id/img_result"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
-        android:src="@drawable/upload_image" />
+<!--    <TextView-->
+<!--        android:id="@+id/title"-->
+<!--        android:layout_width="185dp"-->
+<!--        android:layout_height="29dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="@string/pick_your_s"-->
+<!--        android:textAppearance="@style/pick_your_s"-->
+<!--        android:gravity="top"-->
+<!--        />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/starry_night"/>
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/btn_starryNight"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:onClick="uploadStarry"
+        android:background="@drawable/starry_night"
+        app:srcCompat="@drawable/rectangle_style"
+        />
 
-    <Button
-        android:id="@+id/btn_upload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload Image"/>
+    <TextView
+        android:id="@+id/img_title_1"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="179dp"
+        android:text="@string/starry_nigh"
+        android:textAppearance="@style/style_title"
+        android:gravity="top"
+        />
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Result"/>
+    <TextView
+        android:id="@+id/img_author_1"
+        android:layout_width="169dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="203dp"
+        android:text="@string/by_vincent_"
+        android:textAppearance="@style/style_author"
+        android:gravity="top"
+        />
 
+    <ImageButton
+        android:id="@+id/img_button_2"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="276dp"
+        android:background="@drawable/looking_for"
+        app:srcCompat="@drawable/rectangle_style"
+        />
 
-    <Button
-        android:id="@+id/btn_share"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Share Result"/>
+    <TextView
+        android:id="@+id/img_title_2"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="402dp"
+        android:text="@string/looking_for"
+        android:textAppearance="@style/style_title"
+        android:gravity="top"
+        />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/img_author_2"
+        android:layout_width="91dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="426dp"
+        android:text="@string/by_piscasso"
+        android:textAppearance="@style/style_author"
+        android:gravity="top"
+        />
+
+    <ImageButton
+        android:id="@+id/img_button_3"
+        android:layout_width="348dp"
+        android:layout_height="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="502dp"
+        android:background="@drawable/the_great"
+        app:srcCompat="@drawable/rectangle_style" />
+
+    <TextView
+        android:id="@+id/img_title_3"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="644dp"
+        android:text="@string/the_great_w"
+        android:textAppearance="@style/style_title"
+        android:gravity="top"
+        />
+
+    <TextView
+        android:id="@+id/img_author_3"
+        android:layout_width="136dp"
+        android:layout_height="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="668dp"
+        android:text="@string/by_katsushi"
+        android:textAppearance="@style/style_author"
+        android:gravity="top"
+        />
+
+</RelativeLayout>

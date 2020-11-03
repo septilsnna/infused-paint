@@ -56,21 +56,10 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
-<<<<<<< HEAD
-///<<<<<<< HEAD
     implementation 'org.tensorflow:tensorflow-android:+'
     implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.0'
     implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.0'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
-//=======
     implementation 'com.github.hotchemi:android-rate:1.0.1'
-//>>>>>>> 7071c8d6d229533ff3077ed4976d79184a94f1a2
-=======
-    implementation 'org.tensorflow:tensorflow-android:1.13.1'
-    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.0'
-    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.0'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'com.github.hotchemi:android-rate:1.0.1'
->>>>>>> c51933a2e8826ad33538b8848736dd2f1e3e8411
 
 }

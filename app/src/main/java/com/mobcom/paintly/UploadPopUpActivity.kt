@@ -19,7 +19,7 @@ class UploadPopUpActivity : AppCompatActivity(){
 
         val UploadSheetFragment = UploadSheetFragment()
 
-        btn_upload.setOnClickListener {
+        btn_starryNight.setOnClickListener {
             UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
         }
     }
