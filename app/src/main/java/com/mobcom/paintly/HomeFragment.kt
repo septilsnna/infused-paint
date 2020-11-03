@@ -22,8 +22,6 @@ class HomeFragment : Fragment() {
         }
         return mView
     }
-<<<<<<< HEAD:app/src/main/java/com/mobcom/paintly/Home.kt
-=======
 
     override fun onResume() {
         super.onResume()
@@ -32,8 +30,6 @@ class HomeFragment : Fragment() {
             .setActionBarTitle("Pick Your Style")
     }
 
-
->>>>>>> 7071c8d6d229533ff3077ed4976d79184a94f1a2:app/src/main/java/com/mobcom/paintly/HomeFragment.kt
 }
 
 

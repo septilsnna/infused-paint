@@ -20,15 +20,18 @@ class EditProfileDialog : AppCompatDialogFragment() {
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(emaill)
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
 
         val inflater = requireActivity().layoutInflater
         mView = inflater.inflate(R.layout.fragment_edit_profile, null)
-
-        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
-        getUser(emaill)
 
         val edit_foto_btn = mView.edit_foto_btn
         val save_btn = mView.save_btn
@@ -40,7 +43,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
 
         save_btn.setOnClickListener(){
-            updateUser(mView.et_nama.text.toString(), mView.et_email.text.toString())
+//            updateUser(mView.et_nama.text.toString(), mView.et_email.text.toString())
         }
 
         builder.setView(mView).setTitle("Edit Profile")
@@ -127,9 +130,11 @@ class EditProfileDialog : AppCompatDialogFragment() {
             }
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
+//                        Toast.makeText(activity, response.body()?.name, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, response.body()?.email, Toast.LENGTH_SHORT).show()
                     saveData(email)
                 } else {
-                    Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Failed to update user", Toast.LENGTH_SHORT).show()
                 }
             }
 

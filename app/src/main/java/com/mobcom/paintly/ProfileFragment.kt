@@ -26,16 +26,20 @@ class ProfileFragment : Fragment(){
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        email = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(email)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mView = inflater.inflate(R.layout.activity_profile, container, false)
-
-        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
-        email = sharedPreferences?.getString(EMAIL, "").toString()
-        getUser(email)
 
         edit_profile_button = mView.editprofile_button
         edit_profile_button.setOnClickListener(){
