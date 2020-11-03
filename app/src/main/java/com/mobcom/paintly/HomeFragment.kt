@@ -95,10 +95,10 @@ class HomeFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             img_result.setImageURI(data?.data)
+
         }
 
 //>>>>>>> 7071c8d6d229533ff3077ed4976d79184a94f1a2:app/src/main/java/com/mobcom/paintly/HomeFragment.kt
-    }
-}
+    }}
 
 
