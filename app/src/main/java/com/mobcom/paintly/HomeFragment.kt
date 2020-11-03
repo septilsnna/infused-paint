@@ -4,10 +4,14 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
+import android.content.ContentResolver;
+import android.graphics.BitmapFactory
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.PermissionChecker
@@ -15,6 +19,7 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
+
 
 class HomeFragment : Fragment() {
     lateinit var mView: View
@@ -31,7 +36,8 @@ class HomeFragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (context?.let { it1 ->
                         checkSelfPermission(
-                            it1,(Manifest.permission.READ_EXTERNAL_STORAGE))
+                            it1, (Manifest.permission.READ_EXTERNAL_STORAGE)
+                        )
                     } ==
                     PermissionChecker.PERMISSION_DENIED
                 ) {
@@ -75,15 +81,19 @@ class HomeFragment : Fragment() {
     }
 
     //handle requested permission result
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when(requestCode){
             PERMISSION_CODE -> {
-                if (grantResults.size >0 && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED){
+                if (grantResults.size > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
                     //permission from popup granted
                     pickImageFromGallery()
-                }
-                else{
+                } else {
                     //permission from popup denied
                     Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
                 }
@@ -94,7 +104,13 @@ class HomeFragment : Fragment() {
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            img_result.setImageURI(data?.data)
+            val selectedImage : Uri? = data?.data
+
+
+            val image_stream =
+                selectedImage?.let { context?.getContentResolver()?.openInputStream(it) };
+            val getBitmap = BitmapFactory.decodeStream(image_stream);
+            img_result.setImageBitmap(getBitmap)
 
         }
 
