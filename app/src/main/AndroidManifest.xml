@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".BottomNavActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,8 +30,12 @@
         <activity android:name=".StartActivity"
             android:label="">
         </activity>
-        <activity android:name=".BottomNavActivity"
+        <activity android:name=".MainActivity"
             android:label="">
+        </activity>
+
+        <activity android:name=".AfterUploadActivity"
+            android:label="After Upload Activity">
         </activity>
     </application>
 
