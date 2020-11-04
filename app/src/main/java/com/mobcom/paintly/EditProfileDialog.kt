@@ -12,6 +12,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import kotlinx.android.synthetic.main.activity_register.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +49,8 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
 
         save_btn.setOnClickListener(){
-            updateUser(mView.et_nama.text.toString(), mView.et_email.text.toString())
+            Toast.makeText(activity, mView.et_nama.text.toString() + " " + mView.et_email.text.toString(), Toast.LENGTH_SHORT).show()
+//            updateUser(emaill)
         }
 
         builder.setView(mView).setTitle("Edit Profile")
@@ -99,19 +104,17 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
     }
 
-    private fun updateUser(name: String, email: String) {
-//         validasi email input user
+    private fun updateUser(emaill: String) {
+        // validasi email input user
         if(!validateEmail()){
             return
         }
 
         // implementasi backend update
-        val fields: MutableMap<String, String> = HashMap()
-        fields["name"] = name
-        fields["email"] = email
+        val fields = UserData("syaspti", "apapunlahya", mView.et_nama.text.toString(), mView.et_email.text.toString(), 2, 3, null)
 
         RetrofitClient.instance.updateUser(
-            email,
+            emaill,
             fields
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
@@ -120,11 +123,10 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
-//                    Toast.makeText(activity, response.body()?.name, Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(activity, response.body()?.email, Toast.LENGTH_SHORT).show()
-//                    saveData(email)
+                    mView.et_nama.setText(response.body()?.name)
+                    mView.et_email.setText(response.body()?.email)
                 } else {
-                    Toast.makeText(activity, "Failed to update user", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }
             }
 
