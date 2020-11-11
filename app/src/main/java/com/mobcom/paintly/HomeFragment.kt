@@ -57,11 +57,14 @@ class HomeFragment : Fragment() {
 
         return mView
     }
+<<<<<<< HEAD
 //<<<<<<< HEAD
 //<<<<<<< HEAD:app/src/main/java/com/mobcom/paintly/Home.kt
 //=======
 //=======
 //>>>>>>> c51933a2e8826ad33538b8848736dd2f1e3e8411
+=======
+>>>>>>> 49f19b9ba2a1475ada99dce4f3583239498e50a2
 
     override fun onResume() {
         super.onResume()
@@ -104,7 +107,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+<<<<<<< HEAD
 //<<<<<<< HEAD
+=======
+>>>>>>> 49f19b9ba2a1475ada99dce4f3583239498e50a2
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
@@ -118,10 +124,15 @@ class HomeFragment : Fragment() {
 
         }
 
+<<<<<<< HEAD
 //>>>>>>> 7071c8d6d229533ff3077ed4976d79184a94f1a2:app/src/main/java/com/mobcom/paintly/HomeFragment.kt
     }}
 //=======
 
 //>>>>>>> c51933a2e8826ad33538b8848736dd2f1e3e8411
+=======
+    }
+}
+>>>>>>> 49f19b9ba2a1475ada99dce4f3583239498e50a2
 
 
