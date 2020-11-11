@@ -14,8 +14,8 @@ interface Api{
 
     @FormUrlEncoded
     @POST("users/create")
-    fun createUser(
-        @Field("username") username: String,
+    fun createUser(@Field(
+        "username") username: String,
         @Field("password") password: String,
         @Field("name") name: String,
         @Field("email") email: String,
