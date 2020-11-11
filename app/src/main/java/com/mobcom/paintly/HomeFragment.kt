@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
             img_result.setImageBitmap(getBitmap)
 
         }
-
     }
 }
 
