@@ -121,38 +121,33 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
     }
 
-<<<<<<< HEAD
-    private fun updateUser(emaill: String) {
-        // validasi email input user
-        if(!validateEmail()){
-            return
-        }
+//    private fun updateUser(emaill: String) {
+//        // validasi email input user
+//        if(!validateEmail()){
+//            return
+//        }
+//
+//        // implementasi backend update
+//        val fields = UserData("syaspti", "apapunlahya", mView.et_nama.text.toString(), mView.et_email.text.toString(), 2, 3, null)
+//
+//        RetrofitClient.instance.updateUser(
+//            emaill,
+//            fields
 
-        // implementasi backend update
-        val fields = UserData("syaspti", "apapunlahya", mView.et_nama.text.toString(), mView.et_email.text.toString(), 2, 3, null)
-
-        RetrofitClient.instance.updateUser(
-            emaill,
-            fields
-=======
     private fun updateUser(name: String, email: String) {
         val usrUpdt = UserData(null, null, name, email, null, null, null)
         RetrofitClient.instance.updateUser(
             email,
             usrUpdt
->>>>>>> 37162014e2dd1f9f4a75a5a932c6b763631f7491
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
-<<<<<<< HEAD
                     mView.et_nama.setText(response.body()?.name)
                     mView.et_email.setText(response.body()?.email)
-=======
                     saveData(email)
->>>>>>> 37162014e2dd1f9f4a75a5a932c6b763631f7491
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }

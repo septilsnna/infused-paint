@@ -3,6 +3,7 @@ package com.mobcom.paintly
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,18 +35,18 @@ class HomeFragment : Fragment() {
     }
 
     //handle result of picked image
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            val selectedImage : Uri? = data?.data
-
-
-            val image_stream =
-                selectedImage?.let { context?.getContentResolver()?.openInputStream(it) };
-            val getBitmap = BitmapFactory.decodeStream(image_stream);
-            img_result.setImageBitmap(getBitmap)
-
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+//            val selectedImage : Uri? = data?.data
+//
+//
+//            val image_stream =
+//                selectedImage?.let { context?.getContentResolver()?.openInputStream(it) };
+//            val getBitmap = BitmapFactory.decodeStream(image_stream);
+//            img_result.setImageBitmap(getBitmap)
+//
+//        }
+//    }
 }
 
 

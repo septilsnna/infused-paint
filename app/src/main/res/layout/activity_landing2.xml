@@ -1,101 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
-    tools:ignore="ExtraText">
+    android:background="@color/colorPrimaryDark">
 
-    <TextView
-        android:id="@+id/choose_your"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="30dp"
-        android:text="Choose your best photo"
-        android:textAppearance="@style/choose_your"
-        android:gravity="left"/>
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDark"
+        tools:ignore="ExtraText">
 
-    <ImageView
-        android:id="@+id/landpage_pict3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/landpage_pict3"
-        app:srcCompat="@drawable/gb3"
-        android:layout_gravity="center_horizontal"
-        />
+        <TextView
+            android:id="@+id/choose_your"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="30dp"
+            android:text="Choose your best photo"
+            android:textAppearance="@style/choose_your"
+            android:gravity="left"/>
 
-    <ImageView
-        android:id="@+id/cursor_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-45dp"
-        android:layout_marginLeft="300dp"
-        android:background="@drawable/pict_cursor"
-        />
+        <ImageView
+            android:id="@+id/landpage_pict3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/landpage_pict3"
+            app:srcCompat="@drawable/gb3"
+            android:layout_gravity="center_horizontal"
+            />
 
-    <ImageView
-        android:id="@+id/landpage_pict4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/landpage_pict4"
-        app:srcCompat="@drawable/gb4"
-        android:layout_gravity="center_horizontal"
-        />
+        <ImageView
+            android:id="@+id/cursor_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-45dp"
+            android:layout_marginLeft="300dp"
+            android:background="@drawable/pict_cursor"
+            />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/rectangle_17"-->
-<!--        android:layout_width="411dp"-->
-<!--        android:layout_height="211dp"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginTop="496dp"-->
-<!--        android:background="@drawable/rectangle_13"-->
-<!--        />-->
+        <ImageView
+            android:id="@+id/landpage_pict4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/landpage_pict4"
+            app:srcCompat="@drawable/gb4"
+            android:layout_gravity="center_horizontal"
+            />
 
-    <Button
-        android:id="@+id/landpage2_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-80dp"
-        android:background="@drawable/button_next"
-        android:text="@string/next"
-        android:textAppearance="@style/next"
-        android:layout_gravity="center_horizontal"
-        />
+    <!--    <ImageView-->
+    <!--        android:id="@+id/rectangle_17"-->
+    <!--        android:layout_width="411dp"-->
+    <!--        android:layout_height="211dp"-->
+    <!--        android:layout_alignParentLeft="true"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_marginTop="496dp"-->
+    <!--        android:background="@drawable/rectangle_13"-->
+    <!--        />-->
 
-    <View
-        android:id="@+id/ellipse_2"
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="-20dp"
-        android:background="@drawable/ellipse_inactive"
-        android:layout_gravity="center"
-        />
+        <Button
+            android:id="@+id/landpage2_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-80dp"
+            android:background="@drawable/button_next"
+            android:text="@string/next"
+            android:textAppearance="@style/next"
+            android:layout_gravity="center_horizontal"
+            />
 
-    <View
-        android:id="@+id/ellipse_1"
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_marginTop="-9dp"
-        android:background="@drawable/ellipse_active"
-        android:layout_gravity="center_horizontal"
-        />
+        <View
+            android:id="@+id/ellipse_2"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="-20dp"
+            android:background="@drawable/ellipse_inactive"
+            android:layout_gravity="center"
+            />
 
-    <View
-        android:id="@+id/ellipse_3"
-        android:layout_width="9dp"
-        android:layout_height="9dp"
-        android:layout_marginTop="-9dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/ellipse_inactive"
-        android:layout_gravity="center"
-        />
+        <View
+            android:id="@+id/ellipse_1"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_marginTop="-9dp"
+            android:background="@drawable/ellipse_active"
+            android:layout_gravity="center_horizontal"
+            />
 
-</LinearLayout>
+        <View
+            android:id="@+id/ellipse_3"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_marginTop="-9dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/ellipse_inactive"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+</ScrollView>
