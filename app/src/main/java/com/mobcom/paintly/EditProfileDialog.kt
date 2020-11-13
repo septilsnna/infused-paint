@@ -1,7 +1,10 @@
 package com.mobcom.paintly
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -39,13 +42,14 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
         edit_foto_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                Toast.makeText(activity, "Ready to upload photo", Toast.LENGTH_SHORT).show()
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.type = "image/*"
+                startActivityForResult(intent, 100)
             }
         })
 
         save_btn.setOnClickListener(){
-            Toast.makeText(activity, mView.et_nama.text.toString() + " " + mView.et_email.text.toString(), Toast.LENGTH_SHORT).show()
-//            updateUser(emaill)
+            updateUser(emaill)
         }
 
         builder.setView(mView).setTitle("Edit Profile")
@@ -102,6 +106,17 @@ class EditProfileDialog : AppCompatDialogFragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 100){
+            mView.profile_image.setImageURI(data?.data)
+        }
+        if (requestCode==123)
+        {
+            var bmp= data?.extras?.get("data") as? Bitmap
+            mView.profile_image.setImageBitmap(bmp)
+        }
+    }
+
     private fun getUser(email: String) {
         RetrofitClient.instance.getUser(
             email,
@@ -121,33 +136,19 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
     }
 
-//    private fun updateUser(emaill: String) {
-//        // validasi email input user
-//        if(!validateEmail()){
-//            return
-//        }
-//
-//        // implementasi backend update
-//        val fields = UserData("syaspti", "apapunlahya", mView.et_nama.text.toString(), mView.et_email.text.toString(), 2, 3, null)
-//
-//        RetrofitClient.instance.updateUser(
-//            emaill,
-//            fields
-
-    private fun updateUser(name: String, email: String) {
-        val usrUpdt = UserData(null, null, name, email, null, null, null)
+    private fun updateUser(emaill : String) {
         RetrofitClient.instance.updateUser(
-            email,
-            usrUpdt
+            emaill,
+            mView.et_nama.text.toString(),
+            mView.et_email.text.toString()
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
-                    mView.et_nama.setText(response.body()?.name)
-                    mView.et_email.setText(response.body()?.email)
-                    saveData(email)
+                    saveData(mView.et_email.text.toString())
+                    Toast.makeText(activity, "Update Success!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }

@@ -23,8 +23,12 @@ interface Api{
         @Field("share_freq") share_freq: Int,
     ): Call<UserData>
 
+    @FormUrlEncoded
     @PUT("users/update/{email}")
-    fun updateUser(@Path("email") email: String, @Body userData: UserData): Call<UserData>
+    fun updateUser(@Path("email") email: String,
+        @Field("name") name: String,
+        @Field("email") new_email: String,
+    ): Call<UserData>
 
     @DELETE("users/delete/{email}")
     fun deleteUser(@Path("email") email: String, @Body userData: UserData): Call<UserData>
