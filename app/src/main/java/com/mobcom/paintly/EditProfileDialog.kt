@@ -6,19 +6,19 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import kotlinx.android.synthetic.main.activity_register.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 class EditProfileDialog : AppCompatDialogFragment() {
@@ -33,12 +33,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
         val inflater = requireActivity().layoutInflater
         mView = inflater.inflate(R.layout.fragment_edit_profile, null)
 
-        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
-        getUser(emaill)
-
         val edit_foto_btn = mView.edit_foto_btn
-        val save_btn = mView.save_btn
 
         edit_foto_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -48,13 +43,23 @@ class EditProfileDialog : AppCompatDialogFragment() {
             }
         })
 
+        builder.setView(mView).setTitle("Edit Profile")
+        return builder.create()
+
+    }
+
+    override fun onResume() {
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(emaill)
+
+        val save_btn = mView.save_btn
+
         save_btn.setOnClickListener(){
             updateUser(emaill)
         }
 
-        builder.setView(mView).setTitle("Edit Profile")
-        return builder.create()
-
+        super.onResume()
     }
 
     private fun validateEmail()
@@ -82,7 +87,11 @@ class EditProfileDialog : AppCompatDialogFragment() {
             Toast.makeText(activity, "Konfirmasi Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
             return false
         } else if(!v_password.matches(Regex("^.{8,}$"))){
-            Toast.makeText(activity, "Password harus terdiri lebih dari 8 karakter", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                activity,
+                "Password harus terdiri lebih dari 8 karakter",
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
 //        else if(!v_password.matches(Regex("^(?=\\s+$)$"))){
@@ -117,6 +126,26 @@ class EditProfileDialog : AppCompatDialogFragment() {
         }
     }
 
+//    private fun createTempFile(bitmap: Bitmap): File? {
+//        val file = File(
+//            getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+//            System.currentTimeMillis().toString() + "_image.webp"
+//        )
+//        val bos = ByteArrayOutputStream()
+//        bitmap.compress(Bitmap.CompressFormat.WEBP, 0, bos)
+//        val bitmapdata: ByteArray = bos.toByteArray()
+//        //write the bytes in file
+//        try {
+//            val fos = FileOutputStream(file)
+//            fos.write(bitmapdata)
+//            fos.flush()
+//            fos.close()
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
+//        return file
+//    }
+
     private fun getUser(email: String) {
         RetrofitClient.instance.getUser(
             email,
@@ -124,6 +153,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
+
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     mView.et_nama.setText(response.body()?.name)
@@ -136,7 +166,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
     }
 
-    private fun updateUser(emaill : String) {
+    private fun updateUser(emaill: String) {
         RetrofitClient.instance.updateUser(
             emaill,
             mView.et_nama.text.toString(),
@@ -145,6 +175,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
             }
+
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     saveData(mView.et_email.text.toString())

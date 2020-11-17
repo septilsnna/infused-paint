@@ -17,10 +17,10 @@ class UploadPopUpActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val UploadSheetFragment = UploadSheetFragment()
-
-        btn_starryNight.setOnClickListener {
-            UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
-        }
+//        val UploadSheetFragment = UploadSheetFragment()
+//
+//        btn_starryNight.setOnClickListener {
+//            UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
+//        }
     }
 }

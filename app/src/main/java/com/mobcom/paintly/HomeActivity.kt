@@ -14,10 +14,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        button = findViewById(R.id.btn_starryNight)
-        button.setOnClickListener() {
-            UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
-        }
+//        button = findViewById(R.id.btn_starryNight)
+//        button.setOnClickListener() {
+//            UploadSheetFragment.show(supportFragmentManager, "UploadSheetDialog")
+//        }
     }
 }
 

@@ -1,17 +1,17 @@
 package com.mobcom.paintly
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_home.view.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), StyleAdapter.OnItemClickListener {
+    private val styleList = generateDummyList(12)
+    private val adapter = StyleAdapter(styleList, this)
     lateinit var mView: View
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,11 +19,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mView = inflater.inflate(R.layout.activity_home, container, false)
-        val UploadSheetFragment = UploadSheetFragment()
-        mView.btn_starryNight.setOnClickListener {
+//        mView.btn_starryNight.setOnClickListener {
+//
+//            UploadSheetFragment.show(this.childFragmentManager, "UploadSheetDialog")
+//        }
 
-            UploadSheetFragment.show(this.childFragmentManager, "UploadSheetDialog")
-        }
+        mView.rv_style.adapter = adapter
+        mView.rv_style.layoutManager = LinearLayoutManager(activity)
+        mView.rv_style.setHasFixedSize(true)
+
         return mView
     }
 
@@ -47,6 +51,39 @@ class HomeFragment : Fragment() {
 //
 //        }
 //    }
+
+    private fun generateDummyList(size: Int): List<StyleItem> {
+        val list = ArrayList<StyleItem>()
+        for (i in 0 until size) {
+            val drawable = when (i % 3) {
+                0 -> R.drawable.starry_night
+                1 -> R.drawable.looking_for
+                else -> R.drawable.the_great
+            }
+
+            val text1 = when (i % 3) {
+                0 -> "Starry Night"
+                1 -> "Looking For"
+                else -> "The Great"
+            }
+
+            val text2 = when (i % 3) {
+                0 -> "Starry Night"
+                1 -> "Looking For"
+                else -> "The Great"
+            }
+
+            val item = StyleItem(drawable, text1, text2)
+            list += item
+        }
+        return list
+    }
+
+    override fun onItemClick(position: Int) {
+//        Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
+        UploadSheetFragment().show(this.childFragmentManager, "UploadSheetDialog")
+        adapter.notifyItemChanged(position)
+    }
 }
 
 
