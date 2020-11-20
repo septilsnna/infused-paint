@@ -2,8 +2,6 @@ package com.mobcom.paintly
 
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -17,8 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.layout_upload.*
 
 
-
 class UploadSheetFragment: BottomSheetDialogFragment() {
+    val EXTRA_BITMAP_IMAGE = "BITMAPIMAGE"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,11 +52,13 @@ class UploadSheetFragment: BottomSheetDialogFragment() {
 
 
             if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-                val image : com.esafirm.imagepicker.model.Image = ImagePicker.getFirstImageOrNull(data)
-                val intent = Intent(activity, AfterUploadActivity::class.java)
+                val image : com.esafirm.imagepicker.model.Image = ImagePicker.getFirstImageOrNull(
+                    data
+                )
+                val intent = Intent(activity, AfterUploadFragment::class.java)
 
                 val yourSelectedImage = BitmapFactory.decodeFile(image.path)
-                intent.putExtra("BitmapImage", yourSelectedImage)
+                intent.putExtra(EXTRA_BITMAP_IMAGE, yourSelectedImage)
                 startActivity(intent)
             }
 

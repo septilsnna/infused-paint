@@ -6,12 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
+import com.amazonaws.regions.Regions
+import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import kotlinx.android.synthetic.main.activity_home.view.*
+import org.jetbrains.anko.support.v4.runOnUiThread
+import java.util.*
 
-class HomeFragment : Fragment(), StyleAdapter.OnItemClickListener {
-    private val styleList = generateDummyList(12)
-    private val adapter = StyleAdapter(styleList, this)
+
+class HomeFragment : Fragment()
+    , StyleAdapter.ClickListener
+{
+    private val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+    private val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+    private val SECRET_KEY = "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"
+    private var deepArtEffectsClient: DeepArtEffectsClient? = null
+
+//    private val styleList = generateDummyList(12)
+//    private val adapter = StyleAdapter(styleList, this)
     lateinit var mView: View
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,9 +39,29 @@ class HomeFragment : Fragment(), StyleAdapter.OnItemClickListener {
 //            UploadSheetFragment.show(this.childFragmentManager, "UploadSheetDialog")
 //        }
 
-        mView.rv_style.adapter = adapter
-        mView.rv_style.layoutManager = LinearLayoutManager(activity)
-        mView.rv_style.setHasFixedSize(true)
+        // AWS untuk akses api nya deepart
+        val factory = ApiClientFactory()
+            .apiKey(API_KEY)
+            .credentialsProvider(object : AWSCredentialsProvider {
+                override fun getCredentials(): AWSCredentials {
+                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+                }
+
+                override fun refresh() {}
+            }).region(Regions.EU_WEST_1.getName())
+        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+        // AWS untuk akses api nya deepart
+
+//        mView.rv_style.layoutManager = LinearLayoutManager(activity)
+//            GridLayoutManager(this, 4) // layout manager rv nya di set jadi grid dan dibagi 4 kolom
+//        mView.rv_style.itemAnimator = DefaultItemAnimator() // animasi item rv nya di set default
+
+        loadingStyles()
+
+//        val styles = deepArtEffectsClient?.stylesGet()
+//        mView.rv_style.adapter = StyleAdapter(styles!!, this)
+//        mView.rv_style.layoutManager = LinearLayoutManager(context)
+//        mView.rv_style.setHasFixedSize(true)
 
         return mView
     }
@@ -51,6 +86,47 @@ class HomeFragment : Fragment(), StyleAdapter.OnItemClickListener {
 //
 //        }
 //    }
+
+    private fun loadingStyles() {
+//        mStatusText.setText(R.string.loading) // status text di set yang di layout xml
+        Thread {
+            val styles =
+                deepArtEffectsClient!!.stylesGet() // semua style yang didapat dari api, di simpan di variable styles yang bentuknya Style (package com.deeparteffects.sdk.android.model)
+            val styleAdapter = StyleAdapter( // deklarasi styleAdapter yang bentuknya StyleAdapter()
+                // deklarasi styleAdapter yang bentuknya StyleAdapter()
+                this.requireContext(),
+                styles,
+                object : StyleAdapter.ClickListener {
+                    override fun onClick(styleId: String?) {
+//                        if (!isProcessing) {
+//                            if (mImageBitmap != null) {
+//                                Log.d(
+//                                    MainActivity.TAG,
+//                                    String.format("Style with ID %s clicked.", styleId)
+//                                )
+//                                isProcessing = true
+//                                mProgressbarView.setVisibility(View.VISIBLE)
+//                                uploadImage(styleId)
+//                            } else {
+//                                Toast.makeText(
+//                                    mActivity, "Please choose a picture first",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                        }
+                    }
+                }
+            )
+            runOnUiThread(){
+                mView.rv_style.adapter =
+                    styleAdapter // adapter dari rv nya di set jadi styleAdapter (dideclare di atas)
+                mView.rv_style.layoutManager = LinearLayoutManager(context)
+                //                mProgressbarView.setVisibility(View.GONE) // visibilitas progressive barnya di set gone (ilang)
+                //                mStatusText.setText("") // statusnya di set jadi kosong ("")
+            }
+        }.start() // mulai ehehehehehe
+
+    }
 
     private fun generateDummyList(size: Int): List<StyleItem> {
         val list = ArrayList<StyleItem>()
@@ -79,11 +155,15 @@ class HomeFragment : Fragment(), StyleAdapter.OnItemClickListener {
         return list
     }
 
-    override fun onItemClick(position: Int) {
-//        Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
-        UploadSheetFragment().show(this.childFragmentManager, "UploadSheetDialog")
-        adapter.notifyItemChanged(position)
+    override fun onClick(styleId: String?) {
+        TODO("Not yet implemented")
     }
+
+//    fun onItemClick(position: Int) {
+////        Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
+//        adapter.notifyItemChanged(position)
+//        UploadSheetFragment().show(this.childFragmentManager, "UploadSheetDialog")
+//    }
 }
 
 
