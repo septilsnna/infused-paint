@@ -55,6 +55,7 @@ class AfterUploadActivity() : AppCompatActivity() {
         }
     }
 
+    //gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == HomeFragment().REQUEST_GALLERY) {
             if (resultCode == RESULT_OK) {
@@ -67,6 +68,11 @@ class AfterUploadActivity() : AppCompatActivity() {
                         this.contentResolver, HomeFragment().IMAGE_MAX_SIDE_LENGTH
                     )
                 }
+                imageBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
+                    data!!.data,
+                    this.contentResolver, HomeFragment().IMAGE_MAX_SIDE_LENGTH
+
+                )
                 image_view.setImageBitmap(imageBitmap)
             } else {
                 finish()
