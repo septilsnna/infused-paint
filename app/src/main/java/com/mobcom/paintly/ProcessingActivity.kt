@@ -2,7 +2,6 @@ package com.mobcom.paintly
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.widget.Toast
@@ -17,7 +16,6 @@ import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import com.deeparteffects.sdk.android.model.UploadRequest
 import com.mobcom.paintly.R.layout.activity_result
 import kotlinx.android.synthetic.main.activity_result.*
-import kotlinx.coroutines.NonCancellable.cancel
 import java.io.ByteArrayOutputStream
 
 class ProcessingActivity() : AppCompatActivity() {
@@ -119,14 +117,14 @@ class ProcessingActivity() : AppCompatActivity() {
             val response = deepArtEffectsClient!!.uploadPost(uploadRequest)
             val submissionId = response.submissionId
             try {
-                val result = deepArtEffectsClient!!.resultGet("2dcf752d-5e2d-4184-80be-3de091ab6634")
-//                val submissionStatus = result.status
-//                if (submissionStatus == "finished") {
+                val result = deepArtEffectsClient!!.resultGet(submissionId)
+                val submissionStatus = result.status
+                if (submissionStatus != "error") {
                     runOnUiThread {
                         Toast.makeText(this, result.status, Toast.LENGTH_LONG).show()
                         Glide.with(this).load(result.url).into(result_image)
                     }
-//                }
+                }
             } catch (e: Exception) {
             }
 //            runOnUiThread {
