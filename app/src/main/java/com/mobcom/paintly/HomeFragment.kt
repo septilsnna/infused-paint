@@ -1,138 +1,87 @@
 package com.mobcom.paintly
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
-import android.content.ContentResolver;
-import android.graphics.BitmapFactory
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.PermissionChecker
-import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_home.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
+import com.amazonaws.regions.Regions
+import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import kotlinx.android.synthetic.main.activity_home.view.*
+import org.jetbrains.anko.support.v4.runOnUiThread
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
+    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+    val SECRET_KEY = "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"
+    val TAG = HomeFragment::class.java.simpleName
+    var deepArtEffectsClient: DeepArtEffectsClient? = null
+
+    val REQUEST_GALLERY = 100
+    val CHECK_RESULT_INTERVAL_IN_MS = 2500
+    val IMAGE_MAX_SIDE_LENGTH: Int = 768
+
     lateinit var mView: View
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         mView = inflater.inflate(R.layout.activity_home, container, false)
-        val UploadSheetFragment = UploadSheetFragment()
-        mView.btn_upload.setOnClickListener {
 
-            //check runtime permission
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (context?.let { it1 ->
-                        checkSelfPermission(
-                            it1, (Manifest.permission.READ_EXTERNAL_STORAGE)
-                        )
-                    } ==
-                    PermissionChecker.PERMISSION_DENIED
-                ) {
-                    //permission denied
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE);
-                } else {
-                    //permission already granted
-                    pickImageFromGallery();
+        // AWS untuk akses api nya deepart
+        val factory = ApiClientFactory()
+            .apiKey(API_KEY)
+            .credentialsProvider(object : AWSCredentialsProvider {
+                override fun getCredentials(): AWSCredentials {
+                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
                 }
-            } else {
-                //system OS is < Marshmallow
-                pickImageFromGallery();
-            }
-        }
+
+                override fun refresh() {}
+            }).region(Regions.EU_WEST_1.getName())
+        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+        // AWS untuk akses api nya deepart
+
+        loadingStyles()
 
         return mView
     }
-<<<<<<< HEAD
-//<<<<<<< HEAD
-//<<<<<<< HEAD:app/src/main/java/com/mobcom/paintly/Home.kt
-//=======
-//=======
-//>>>>>>> c51933a2e8826ad33538b8848736dd2f1e3e8411
-=======
->>>>>>> 49f19b9ba2a1475ada99dce4f3583239498e50a2
 
     override fun onResume() {
         super.onResume()
         // Set title bar
         (activity as BottomNavActivity)
-            .setActionBarTitle("Create Your Artwork")
-    }
-    private fun pickImageFromGallery() {
-        //Intent to pick image
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+            .setActionBarTitle("Pick Your Style")
     }
 
-    companion object {
-        //image pick code
-        private val IMAGE_PICK_CODE = 1000;
-        //Permission code
-        private val PERMISSION_CODE = 1001;
-    }
-
-    //handle requested permission result
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            PERMISSION_CODE -> {
-                if (grantResults.size > 0 && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    //permission from popup granted
-                    pickImageFromGallery()
-                } else {
-                    //permission from popup denied
-                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+    private fun loadingStyles() {
+        Thread {
+            val styles =
+                deepArtEffectsClient!!.stylesGet() // semua style yang didapat dari api, di simpan di variable styles yang bentuknya Style (package com.deeparteffects.sdk.android.model)
+            val styleAdapter = StyleAdapter( // deklarasi styleAdapter yang bentuknya StyleAdapter()
+                this.requireContext(),
+                styles,
+                object : StyleAdapter.ClickListener {
+                    override fun onClick(styleId: String?) {
+                        UploadSheetFragment(styleId).show(childFragmentManager, "UploadSheetDialog")
+                    }
                 }
+            )
+            runOnUiThread() {
+                mView.rv_style.adapter =
+                    styleAdapter // adapter dari rv nya di set jadi styleAdapter (dideclare di atas)
+                mView.rv_style.layoutManager = LinearLayoutManager(context)
             }
-        }
+        }.start() // mulai ehehehehehe
     }
 
-<<<<<<< HEAD
-//<<<<<<< HEAD
-=======
->>>>>>> 49f19b9ba2a1475ada99dce4f3583239498e50a2
-    //handle result of picked image
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            val selectedImage : Uri? = data?.data
-
-
-            val image_stream =
-                selectedImage?.let { context?.getContentResolver()?.openInputStream(it) };
-            val getBitmap = BitmapFactory.decodeStream(image_stream);
-            img_result.setImageBitmap(getBitmap)
-
-        }
-
-<<<<<<< HEAD
-//>>>>>>> 7071c8d6d229533ff3077ed4976d79184a94f1a2:app/src/main/java/com/mobcom/paintly/HomeFragment.kt
-    }}
-//=======
-
-//>>>>>>> c51933a2e8826ad33538b8848736dd2f1e3e8411
-=======
-    }
 }
->>>>>>> 49f19b9ba2a1475ada99dce4f3583239498e50a2
 
 

@@ -25,6 +25,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+//    configurations {
+//        all { // You should exclude one of them not both of them
+//            exclude group: "com.google.gson", module: "gson"
+////            exclude group: "com.android.support", module: "support-compat"
+//        }
+//    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,8 +52,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.1'
-    implementation 'androidx.navigation:navigation-ui:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -57,18 +63,22 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
 
+
     implementation 'org.tensorflow:tensorflow-android:+'
 
     implementation 'org.tensorflow:tensorflow-android:1.13.1'
+
     implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.0'
-    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
     implementation 'com.github.hotchemi:android-rate:1.0.1'
 
+
     implementation 'org.tensorflow:tensorflow-android:1.13.1'
-    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.0'
     implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.0'
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.github.hotchemi:android-rate:1.0.1'
+
+    implementation 'commons-logging:commons-logging-api:1.1'
+
 
 }
