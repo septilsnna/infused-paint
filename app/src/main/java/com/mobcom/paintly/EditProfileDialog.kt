@@ -9,10 +9,14 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
+import kotlinx.android.synthetic.main.activity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
+import kotlinx.android.synthetic.main.fragment_login.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +27,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
     lateinit var mView: View
     lateinit var imageBitmap: Bitmap
     lateinit var imageString: String
+    lateinit var emaill: String
 
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
@@ -34,19 +39,12 @@ class EditProfileDialog : AppCompatDialogFragment() {
         mView = inflater.inflate(R.layout.fragment_edit_profile, null)
 
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(emaill)
+
         mView.profile_image_edit.visibility = View.INVISIBLE
         mView.progress_edit.visibility = View.VISIBLE
         mView.save_btn.visibility = View.GONE
-        getUser(emaill)
-
-        val save_btn = mView.save_btn
-
-        save_btn.setOnClickListener(){
-            mView.progress_edit.visibility = View.VISIBLE
-            mView.save_btn.visibility = View.GONE
-            updateUser(emaill)
-        }
 
         val edit_foto_btn = mView.edit_foto_btn
 
@@ -57,6 +55,16 @@ class EditProfileDialog : AppCompatDialogFragment() {
                 startActivityForResult(intent, 100)
             }
         })
+
+        mView.save_btn.setOnClickListener(){
+            if (mView.et_email.text.toString() != emaill){
+                checkEmail(emaill, mView.et_email.text.toString())
+            } else {
+                mView.progress_edit.visibility = View.VISIBLE
+                mView.save_btn.visibility = View.GONE
+                updateUser(emaill)
+            }
+        }
 
         builder.setView(mView).setTitle("Edit Profile")
         return builder.create()
@@ -92,10 +100,12 @@ class EditProfileDialog : AppCompatDialogFragment() {
                     mView.et_nama.setText(response.body()?.name)
                     mView.et_email.setText(response.body()?.email)
                     imageString = response.body()?.photo!!
-//
-                    val decodedString = Base64.decode(imageString, Base64.DEFAULT)
-                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                    mView.profile_image_edit.setImageBitmap(decodedByte)
+
+                    if(response.body()?.photo != ""){
+                        val decodedString = Base64.decode(imageString, Base64.DEFAULT)
+                        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                        mView.profile_image_edit.setImageBitmap(decodedByte)
+                    }
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }
@@ -104,7 +114,29 @@ class EditProfileDialog : AppCompatDialogFragment() {
         })
     }
 
+    private fun validateEmail()
+            : Boolean {
+        val v_email = mView.et_email.text.toString()
+        if(v_email.isEmpty()){
+            Toast.makeText(activity, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            return false
+        } else if(!v_email.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
+            Toast.makeText(activity, "Email tidak valid", Toast.LENGTH_SHORT).show()
+            return false
+        } else {
+            return true
+        }
+    }
+
     private fun updateUser(emaill: String) {
+        // validasi email input user
+        if(!validateEmail()){
+            mView.progress_edit.visibility = View.GONE
+            mView.save_btn.visibility = View.VISIBLE
+            return
+        }
+
+        // Implementasi Edit Profile
         RetrofitClient.instance.updateUser(
             emaill,
             mView.et_nama.text.toString(),
@@ -141,5 +173,26 @@ class EditProfileDialog : AppCompatDialogFragment() {
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 50, stream)
         val byteArray = stream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+    fun checkEmail(email: String, emailNew: String) {
+        RetrofitClient.instance.getUser(
+            emailNew,
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
+                if (response.code() == 200) {
+                    Toast.makeText(activity, "Email sudah digunakan", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    mView.progress_edit.visibility = View.VISIBLE
+                    mView.save_btn.visibility = View.GONE
+                    updateUser(email)
+                }
+            }
+        })
     }
 }

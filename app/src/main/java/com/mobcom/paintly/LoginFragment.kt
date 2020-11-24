@@ -82,7 +82,7 @@ class LoginFragment : Fragment() {
             return
         }
 
-        // Implementasi Backend Login
+        // Implementasi Login
         RetrofitClient.instance.getUser(
             email,
         ).enqueue(object : Callback<UserData?> {

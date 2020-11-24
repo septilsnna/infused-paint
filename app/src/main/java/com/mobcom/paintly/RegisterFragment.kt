@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_register.view.*
@@ -16,6 +17,9 @@ import retrofit2.Response
 
 class RegisterFragment : Fragment() {
     lateinit var mView: View
+    lateinit var password: EditText
+    lateinit var username: EditText
+    lateinit var name: EditText
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
 
@@ -28,19 +32,12 @@ class RegisterFragment : Fragment() {
 
         val button = mView.register_button
         val email = mView.email_input
-        val password = mView.password_input
-        val username = mView.email_input
-        val name = mView.email_input
+        password = mView.password_input
+        username = mView.email_input
+        name = mView.email_input
 
         button.setOnClickListener(){
-            createUser(
-                username.text.toString().split("@").get(0),
-                password.text.toString(),
-                name.text.toString().split(
-                    "@"
-                ).get(0),
-                email.text.toString()
-            )
+            checkEmail(email.text.toString())
         }
 
         mView.already_hav.setOnClickListener(object : View.OnClickListener {
@@ -79,7 +76,7 @@ class RegisterFragment : Fragment() {
             Toast.makeText(activity, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
             return false
         } else if(v_confirm_password.isEmpty()){
-            Toast.makeText(activity, "Konfirmasi Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Konfirmasi password tidak boleh kosong", Toast.LENGTH_SHORT).show()
             return false
         } else if(!v_password.matches(Regex("^.{8,}$"))){
             Toast.makeText(activity, "Password harus terdiri lebih dari 8 karakter", Toast.LENGTH_SHORT).show()
@@ -108,11 +105,11 @@ class RegisterFragment : Fragment() {
 
     private fun createUser(username: String, password: String, name: String, email: String) {
         // validasi email input dan password input user
-        if(!validateEmail() || !validatePassword()){
+        if(!validateEmail() || !validatePassword()) {
             return
         }
 
-        // Implementasi Backend Register
+        // Implementasi Register
         RetrofitClient.instance.createUser(
             username,
             password,
@@ -148,5 +145,30 @@ class RegisterFragment : Fragment() {
         val editor = sharedPreferences?.edit()
         editor?.putString(EMAIL, email)
         editor?.apply()
+    }
+
+    fun checkEmail(email: String){
+        RetrofitClient.instance.getUser(
+            email,
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
+                if (response.code() == 200) {
+                    Toast.makeText(activity, "Email sudah digunakan", Toast.LENGTH_SHORT).show()
+                } else {
+                    createUser(
+                        username.text.toString().split("@").get(0),
+                        password.text.toString(),
+                        name.text.toString().split(
+                            "@"
+                        ).get(0),
+                        email
+                    )
+                }
+            }
+        })
     }
 }

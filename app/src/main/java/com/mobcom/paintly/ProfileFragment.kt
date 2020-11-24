@@ -103,9 +103,11 @@ class ProfileFragment : Fragment(){
                         )
                     mView.number_artwork.text = "Number of Artwork: " + response.body()?.edit_freq
 
-                    val decodedString = Base64.decode(response.body()?.photo, Base64.DEFAULT)
-                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                    mView.profile_image.setImageBitmap(decodedByte)
+                    if(response.body()?.photo != "") {
+                        val decodedString = Base64.decode(response.body()?.photo, Base64.DEFAULT)
+                        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                        mView.profile_image.setImageBitmap(decodedByte)
+                    }
 
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
