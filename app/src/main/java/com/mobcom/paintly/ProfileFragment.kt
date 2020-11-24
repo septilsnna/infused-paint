@@ -2,7 +2,9 @@ package com.mobcom.paintly
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.*
 import android.widget.Button
 import android.widget.Toast
@@ -33,27 +35,23 @@ class ProfileFragment : Fragment(){
     ): View? {
         mView = inflater.inflate(R.layout.activity_profile, container, false)
 
-        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
-        email = sharedPreferences?.getString(EMAIL, "").toString()
-        getUser(email)
-
         edit_profile_button = mView.editprofile_button
-        edit_profile_button.setOnClickListener(){
+        edit_profile_button.setOnClickListener {
             EditProfileDialog().show(this.childFragmentManager, "Edit Profile")
         }
 
         about_app_button = mView.button_about
-        about_app_button.setOnClickListener(){
+        about_app_button.setOnClickListener {
             AboutAppDialog().show(this.childFragmentManager, "About App")
         }
 
         send_feedback_button = mView.button_sendfeedback
-        send_feedback_button.setOnClickListener(){
-            AppRate.with(activity).showRateDialog(activity);
+        send_feedback_button.setOnClickListener {
+            AppRate.with(activity).showRateDialog(activity)
         }
 
         app_version_button = mView.button_app_version
-        app_version_button.setOnClickListener(){
+        app_version_button.setOnClickListener {
             Toast.makeText(activity, "App Version 1.0.0", Toast.LENGTH_SHORT).show()
         }
 
@@ -62,10 +60,15 @@ class ProfileFragment : Fragment(){
     }
 
     override fun onResume() {
-        super.onResume()
         // Set title bar
         (activity as BottomNavActivity)
             .setActionBarTitle("Profile")
+
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        email = sharedPreferences?.getString(EMAIL, "").toString()
+        getUser(email)
+
+        super.onResume()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -74,7 +77,7 @@ class ProfileFragment : Fragment(){
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             R.id.button_logout -> logout()
         }
         return super.onOptionsItemSelected(item)
@@ -90,14 +93,20 @@ class ProfileFragment : Fragment(){
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
-                    mView.name.setText(response.body()?.name)
-                    mView.email.setText(response.body()?.email)
-                    mView.created_at.setText(
+                    mView.progress_profile.visibility = View.GONE
+                    mView.info_profile.visibility = View.VISIBLE
+                    mView.name.text = response.body()?.name
+                    mView.email.text = response.body()?.email
+                    mView.created_at.text =
                         "Joined At: " + response.body()?.created_at?.split(" ")?.get(
                             0
                         )
-                    )
-                    mView.number_artwork.setText("Number of Artwork: " + response.body()?.edit_freq)
+                    mView.number_artwork.text = "Number of Artwork: " + response.body()?.edit_freq
+
+                    val decodedString = Base64.decode(response.body()?.photo, Base64.DEFAULT)
+                    val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                    mView.profile_image.setImageBitmap(decodedByte)
+
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }

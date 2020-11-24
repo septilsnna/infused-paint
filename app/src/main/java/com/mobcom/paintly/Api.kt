@@ -28,6 +28,7 @@ interface Api{
     fun updateUser(@Path("email") email: String,
         @Field("name") name: String,
         @Field("email") new_email: String,
+        @Field("photo") photo: String
     ): Call<UserData>
 
     @DELETE("users/delete/{email}")

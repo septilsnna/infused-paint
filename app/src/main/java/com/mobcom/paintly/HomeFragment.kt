@@ -32,19 +32,19 @@ class HomeFragment : Fragment(){
         mView = inflater.inflate(R.layout.activity_home, container, false)
 
         // AWS untuk akses api nya deepart
-        val factory = ApiClientFactory()
-            .apiKey(API_KEY)
-            .credentialsProvider(object : AWSCredentialsProvider {
-                override fun getCredentials(): AWSCredentials {
-                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
-                }
-
-                override fun refresh() {}
-            }).region(Regions.EU_WEST_1.getName())
-        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-        // AWS untuk akses api nya deepart
-
-        loadingStyles()
+//        val factory = ApiClientFactory()
+//            .apiKey(API_KEY)
+//            .credentialsProvider(object : AWSCredentialsProvider {
+//                override fun getCredentials(): AWSCredentials {
+//                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+//                }
+//
+//                override fun refresh() {}
+//            }).region(Regions.EU_WEST_1.getName())
+//        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+//        // AWS untuk akses api nya deepart
+//
+//        loadingStyles()
 
         return mView
     }
