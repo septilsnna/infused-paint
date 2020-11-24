@@ -2,6 +2,7 @@ package com.mobcom.paintly
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.fragment_register.view.*
+import kotlinx.android.synthetic.main.fragment_register.view.email_input
+import kotlinx.android.synthetic.main.fragment_register.view.google_login_button
+import kotlinx.android.synthetic.main.fragment_register.view.password_input
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,6 +49,19 @@ class RegisterFragment : Fragment() {
             checkEmail(email.text.toString())
         }
 
+        // google register
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+        val googleLoginBtn = mView.google_login_button
+        googleLoginBtn.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val signInIntent = mGoogleSignInClient.signInIntent
+                startActivityForResult(signInIntent, 111)
+            }
+        })
+
         mView.already_hav.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val fragment = LoginFragment()
@@ -52,6 +74,36 @@ class RegisterFragment : Fragment() {
         })
 
         return mView
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 111) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            val acct = GoogleSignIn.getLastSignedInAccount(activity)
+            if (acct != null) {
+                val personName = acct.displayName
+                val personGivenName = acct.givenName
+                val personFamilyName = acct.familyName
+                val personEmail = acct.email
+                val personId = acct.id
+                val personPhoto: Uri? = acct.photoUrl
+                createUser(
+                    personEmail!!.split("@").get(0),
+                    personId!!,
+                    personName!!,
+                    personEmail
+                )
+            }
+
+        } catch (e: ApiException) { }
     }
 
     private fun validateEmail()
@@ -104,11 +156,6 @@ class RegisterFragment : Fragment() {
     }
 
     private fun createUser(username: String, password: String, name: String, email: String) {
-        // validasi email input dan password input user
-        if(!validateEmail() || !validatePassword()) {
-            return
-        }
-
         // Implementasi Register
         RetrofitClient.instance.createUser(
             username,
@@ -159,6 +206,9 @@ class RegisterFragment : Fragment() {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Email sudah digunakan", Toast.LENGTH_SHORT).show()
                 } else {
+                    if(!validateEmail() || !validatePassword()) {
+                        return
+                    }
                     createUser(
                         username.text.toString().split("@").get(0),
                         password.text.toString(),

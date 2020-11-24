@@ -8,6 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
@@ -30,12 +35,31 @@ class LoginFragment : Fragment() {
         val button = mView.login_button
         val email = mView.email_input
         val password = mView.password_input
-        button.setOnClickListener(){
-            getUser(
-                email.text.toString(),
-                password.text.toString()
-            )
-        }
+        button.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                // validasi email input dan password input user
+                if(!validateEmail() || !validatePassword()){
+                    return
+                }
+                getUser(
+                    email.text.toString(),
+                    password.text.toString()
+                )
+            }
+        })
+
+        // google login
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+        val googleLoginBtn = mView.google_login_button
+        googleLoginBtn.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val signInIntent = mGoogleSignInClient.signInIntent
+                startActivityForResult(signInIntent, 111)
+            }
+        })
 
         mView.don_t_have_.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -49,6 +73,27 @@ class LoginFragment : Fragment() {
         })
 
         return mView
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 111) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            val acct = GoogleSignIn.getLastSignedInAccount(activity)
+            if (acct != null) {
+                val personEmail = acct.email
+                val personId = acct.id
+                getUser(personEmail!!, personId!!)
+            }
+
+        } catch (e: ApiException) { }
     }
 
     private fun validateEmail()
@@ -77,11 +122,6 @@ class LoginFragment : Fragment() {
     }
 
     private fun getUser(email: String, password: String) {
-        // validasi email input dan password input user
-        if(!validateEmail() || !validatePassword()){
-            return
-        }
-
         // Implementasi Login
         RetrofitClient.instance.getUser(
             email,

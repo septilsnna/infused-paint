@@ -71,5 +71,4 @@ dependencies {
     implementation 'commons-logging:commons-logging-api:1.1'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
-
 }
