@@ -1,6 +1,6 @@
 package com.mobcom.paintly
 
-class GalleryGet(
+class GalleryData(
     val photo_id: Int,
     val user_id: String,
     val style_id: Int,

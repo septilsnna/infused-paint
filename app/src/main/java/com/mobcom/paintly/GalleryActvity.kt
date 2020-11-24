@@ -2,12 +2,8 @@ package com.mobcom.paintly
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_gallery.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class GalleryActvity : Activity() {
     private lateinit var button: Button
     private lateinit var Api : Api
-    private lateinit var gallery : List<GalleryGet>
+    private lateinit var gallery : List<GalleryData>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
@@ -31,7 +27,7 @@ class GalleryActvity : Activity() {
         recyclerview.setHasFixedSize(true)
     }
 
-    private fun getGalleryList() : List<GalleryGet>{
+    private fun getGalleryList() : List<GalleryData>{
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://www.infused-paint-web-services.pikupa.id/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -39,13 +35,13 @@ class GalleryActvity : Activity() {
 
         Api = retrofit.create(Api::class.java)
 
-        val call : Call<List<GalleryGet>> = Api.getGallery("septilsnna")
+        val call : Call<List<GalleryData>> = Api.getGallery("septilsnna")
 
-        call.enqueue(object : Callback<List<GalleryGet>> {
-            override fun onResponse(call: Call<List<GalleryGet>>, response: Response<List<GalleryGet>>) {
+        call.enqueue(object : Callback<List<GalleryData>> {
+            override fun onResponse(call: Call<List<GalleryData>>, response: Response<List<GalleryData>>) {
                 gallery = response.body()!!
             }
-            override fun onFailure(call: Call<List<GalleryGet>>, t: Throwable) {
+            override fun onFailure(call: Call<List<GalleryData>>, t: Throwable) {
 
             }
         })

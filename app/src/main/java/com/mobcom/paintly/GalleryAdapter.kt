@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.gallery_item.view.*
 
-class GalleryAdapter(private val galleryList: List<GalleryGet>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+class GalleryAdapter(private val galleryList: List<GalleryData>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.gallery_item, parent, false)

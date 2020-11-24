@@ -35,6 +35,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         val emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        mView.profile_image_edit.visibility = View.INVISIBLE
         mView.progress_edit.visibility = View.VISIBLE
         mView.save_btn.visibility = View.GONE
         getUser(emaill)
@@ -87,6 +88,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
                 if (response.code() == 200) {
                     mView.progress_edit.visibility = View.GONE
                     mView.save_btn.visibility = View.VISIBLE
+                    mView.profile_image_edit.visibility = View.VISIBLE
                     mView.et_nama.setText(response.body()?.name)
                     mView.et_email.setText(response.body()?.email)
                     imageString = response.body()?.photo!!

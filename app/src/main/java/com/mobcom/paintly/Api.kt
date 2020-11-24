@@ -10,7 +10,7 @@ interface Api{
     fun getUser(@Path("email") email: String): Call<UserData>
 
     @GET("imageresults/show/{username")
-    fun getGallery(@Path("username") username: String): Call<List<GalleryGet>>
+    fun getGallery(@Path("username") username: String): Call<List<GalleryData>>
 
     @FormUrlEncoded
     @POST("users/create")

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,8 +17,7 @@
             android:id="@+id/logo_image"
             android:layout_width="132dp"
             android:layout_height="132dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="49dp"
             app:srcCompat="@drawable/logo" />
 
@@ -26,26 +25,22 @@
             android:id="@+id/email_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="222dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
             android:background="@drawable/input"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingHorizontal="15dp"
             android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="215dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="-60dp"
+            android:layout_marginStart="50dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/email"
             android:textAppearance="@style/sp12_ffffff_reg"
             android:gravity="center_vertical"
@@ -55,26 +50,22 @@
             android:id="@+id/password_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="312dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
             android:background="@drawable/input"
             android:ems="10"
             android:inputType="textPassword"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingHorizontal="15dp"
             android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="305dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="-60dp"
+            android:paddingHorizontal="10dp"
             android:text="@string/password"
             android:textAppearance="@style/sp12_ffffff_reg"
             android:gravity="center_vertical"
@@ -84,9 +75,8 @@
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="390dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
             android:background="@drawable/button_rectangle"
             android:text="@string/log_in"
             android:textAppearance="@style/sp16_000000_bold" />
@@ -95,45 +85,47 @@
             android:id="@+id/vector_1"
             android:layout_width="277dp"
             android:layout_height="2dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="479dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
             android:background="@drawable/vector_1" />
 
         <TextView
             android:id="@+id/or"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="468dp"
-            android:paddingLeft="23dp"
-            android:paddingRight="23dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-15dp"
+            android:paddingHorizontal="23dp"
             android:text="@string/or"
             android:textAppearance="@style/sp16_ffffff_bold"
             android:background="@color/colorPrimaryDark"/>
 
-        <Button
-            android:id="@+id/google_login_button"
-            android:layout_width="305dp"
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="277dp"
             android:layout_height="51dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="524dp"
-            android:background="@drawable/button_rectangle"
-            android:text="@string/login_with_"
-            android:textAppearance="@style/sp16_000000_bold" />
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/google_login_button"-->
+<!--            android:layout_width="305dp"-->
+<!--            android:layout_height="51dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:background="@drawable/button_rectangle"-->
+<!--            android:text="@string/login_with_"-->
+<!--            android:textAppearance="@style/sp16_000000_bold" />-->
 
         <TextView
             android:id="@+id/don_t_have_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="674dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
             android:text="@string/don_t_have_"
             android:textAppearance="@style/sp16_ffffff_reg"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

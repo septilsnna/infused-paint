@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_login.view.*
+import kotlinx.android.synthetic.main.fragment_login.view.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +25,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = inflater.inflate(R.layout.activity_login, container, false)
+        mView = inflater.inflate(R.layout.fragment_login, container, false)
 
         val button = mView.login_button
         val email = mView.email_input

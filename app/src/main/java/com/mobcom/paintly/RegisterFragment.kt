@@ -1,6 +1,5 @@
 package com.mobcom.paintly
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_register.view.*
+import kotlinx.android.synthetic.main.fragment_register.view.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,7 +24,7 @@ class RegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = inflater.inflate(R.layout.activity_register, container, false)
+        mView = inflater.inflate(R.layout.fragment_register, container, false)
 
         val button = mView.register_button
         val email = mView.email_input

@@ -73,19 +73,9 @@ class ProcessingFragment : Fragment() {
                         val submissionStatus = result.status
                         if (submissionStatus == "finished") {
                             runOnUiThread {
-//                                mView.processing.isGone
+                                mView.processing.visibility = View.GONE
+                                mView.result.visibility = View.VISIBLE
                                 Glide.with(mView.context).load(result.url).into(mView.result_image)
-//                                val fragment = ResultFragment()
-//                                val arguments = Bundle()
-//                                arguments.putString("urlResult", result.url)
-//                                fragment.arguments = arguments
-//
-////                              pindah ke  fragment result
-//                                val fragmentManager = activity?.supportFragmentManager
-//                                val fragmentTransaction = fragmentManager?.beginTransaction()
-//                                fragmentTransaction?.replace(R.id.fl_processing, fragment)
-//                                fragmentTransaction?.disallowAddToBackStack()
-//                                fragmentTransaction?.commit()
                             }
                         }
                     } catch (e: java.lang.Exception) {

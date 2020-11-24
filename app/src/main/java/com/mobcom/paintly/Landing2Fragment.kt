@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_landing2.view.*
+import kotlinx.android.synthetic.main.fragment_landing2.view.*
 
 class Landing2Fragment : Fragment() {
     lateinit var mView: View
@@ -15,7 +15,7 @@ class Landing2Fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mView = inflater.inflate(R.layout.activity_landing2, container, false)
+        mView = inflater.inflate(R.layout.fragment_landing2, container, false)
 
         val button = mView.landpage2_next
 

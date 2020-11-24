@@ -35,7 +35,8 @@
                     android:layout_marginTop="20dp"
                     app:civ_border_color="#fff"
                     android:gravity="center_horizontal"
-                    app:civ_border_width="2dp"/>
+                    app:civ_border_width="2dp"
+                    android:src="@drawable/logo"/>
 
                 <TextView
                     android:id="@+id/name"
