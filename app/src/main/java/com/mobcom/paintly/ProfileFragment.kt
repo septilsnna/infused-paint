@@ -9,6 +9,10 @@ import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import maes.tech.intentanim.CustomIntent
@@ -24,6 +28,7 @@ class ProfileFragment : Fragment(){
     private lateinit var send_feedback_button: Button
     private lateinit var app_version_button: Button
     private lateinit var email: String
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
@@ -54,6 +59,12 @@ class ProfileFragment : Fragment(){
         app_version_button.setOnClickListener {
             Toast.makeText(activity, "App Version 1.0.0", Toast.LENGTH_SHORT).show()
         }
+
+        // google auth for logout
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
 
         setHasOptionsMenu(true)
         return mView
@@ -103,9 +114,13 @@ class ProfileFragment : Fragment(){
                         )
                     mView.number_artwork.text = "Number of Artwork: " + response.body()?.edit_freq
 
-                    if(response.body()?.photo != "") {
+                    if (response.body()?.photo != "") {
                         val decodedString = Base64.decode(response.body()?.photo, Base64.DEFAULT)
-                        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                        val decodedByte = BitmapFactory.decodeByteArray(
+                            decodedString,
+                            0,
+                            decodedString.size
+                        )
                         mView.profile_image.setImageBitmap(decodedByte)
                     }
 
@@ -122,6 +137,7 @@ class ProfileFragment : Fragment(){
         val editor = sharedPreferences?.edit()
         editor?.clear()
         editor?.apply()
+        mGoogleSignInClient.signOut()
         Toast.makeText(activity, "Logout Success!", Toast.LENGTH_SHORT).show()
         val intent = Intent(activity, StartActivity::class.java)
         startActivity(intent)
