@@ -3,7 +3,7 @@ package com.mobcom.paintly
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +13,10 @@ import maes.tech.intentanim.CustomIntent
 import java.io.ByteArrayOutputStream
 
 
-class AfterUploadActivity() : AppCompatActivity() {
+class AfterUploadActivity : AppCompatActivity() {
     var media: String? = null
-    private var imageBitmap: Bitmap? = null
+    lateinit var imageBitmap: Bitmap
+    var image_uri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +29,16 @@ class AfterUploadActivity() : AppCompatActivity() {
             val values = ContentValues()
             values.put(MediaStore.Images.Media.TITLE, "New Picture")
             values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-            val image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent_action.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+//            intent_action.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         } else {
             intent_action = Intent(Intent.ACTION_GET_CONTENT)
             intent_action.type = "image/*"
         }
 
         CustomIntent.customType(this, "fadein-to-fadeout")
-        startActivityForResult(intent_action, HomeFragment().REQUEST_GALLERY)
+        startActivityForResult(intent_action, 100)
 
         button_process.setOnClickListener() {
             // Convert to byte array
@@ -57,23 +58,19 @@ class AfterUploadActivity() : AppCompatActivity() {
 
     //gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == HomeFragment().REQUEST_GALLERY) {
+        if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
-                    val a = intent.getByteArrayExtra(MediaStore.EXTRA_OUTPUT)
-                    imageBitmap = BitmapFactory.decodeByteArray(a, 0, a.size)
+//                    val a = intent.getByteArrayExtra(MediaStore.EXTRA_OUTPUT)
+//                    imageBitmap = image_uri
+                    image_view.setImageURI(image_uri)
                 } else {
                     imageBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
                         data!!.data,
-                        this.contentResolver, HomeFragment().IMAGE_MAX_SIDE_LENGTH
-                    )
+                        this.contentResolver, 768
+                    )!!
+                    image_view.setImageBitmap(imageBitmap)
                 }
-                imageBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
-                    data!!.data,
-                    this.contentResolver, HomeFragment().IMAGE_MAX_SIDE_LENGTH
-
-                )
-                image_view.setImageBitmap(imageBitmap)
             } else {
                 finish()
             }

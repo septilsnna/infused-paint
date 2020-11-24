@@ -12,13 +12,14 @@ import kotlinx.android.synthetic.main.layout_upload.*
 import maes.tech.intentanim.CustomIntent
 
 
-class UploadSheetFragment(styleId: String?) : BottomSheetDialogFragment() {
-    val styleId = styleId
+class UploadSheetFragment : BottomSheetDialogFragment() {
+    var styleId: String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        styleId = arguments?.getString("styleId")
         return inflater.inflate(R.layout.layout_upload, container, false)
     }
 

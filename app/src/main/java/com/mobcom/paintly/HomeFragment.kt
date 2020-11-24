@@ -20,12 +20,7 @@ class HomeFragment : Fragment(){
     val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
     val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
     val SECRET_KEY = "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"
-    val TAG = HomeFragment::class.java.simpleName
     var deepArtEffectsClient: DeepArtEffectsClient? = null
-
-    val REQUEST_GALLERY = 100
-    val CHECK_RESULT_INTERVAL_IN_MS = 2500
-    val IMAGE_MAX_SIDE_LENGTH: Int = 768
 
     lateinit var mView: View
 
@@ -70,11 +65,15 @@ class HomeFragment : Fragment(){
                 styles,
                 object : StyleAdapter.ClickListener {
                     override fun onClick(styleId: String?) {
-                        UploadSheetFragment(styleId).show(childFragmentManager, "UploadSheetDialog")
+                        val arguments = Bundle()
+                        arguments.putString("styleId", styleId)
+                        val fragment = UploadSheetFragment()
+                        fragment.arguments = arguments
+                        fragment.show(childFragmentManager, "UploadSheetDialog")
                     }
                 }
             )
-            runOnUiThread() {
+            runOnUiThread {
                 mView.rv_style.adapter =
                     styleAdapter // adapter dari rv nya di set jadi styleAdapter (dideclare di atas)
                 mView.rv_style.layoutManager = LinearLayoutManager(context)

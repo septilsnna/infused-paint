@@ -49,10 +49,6 @@
         <activity android:name=".ProcessingActivity"
             android:label="">
         </activity>
-
-        <activity android:name=".ResultActivity"
-            android:label="">
-        </activity>
     </application>
 
 </manifest>

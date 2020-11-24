@@ -1,144 +1,129 @@
 package com.mobcom.paintly
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.amazonaws.auth.AWSCredentials
-import com.amazonaws.auth.AWSCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
-import com.amazonaws.regions.Regions
-import com.bumptech.glide.Glide
-import com.deeparteffects.sdk.android.DeepArtEffectsClient
-import com.deeparteffects.sdk.android.model.UploadRequest
-import com.mobcom.paintly.R.layout.activity_result
-import kotlinx.android.synthetic.main.activity_result.*
-import java.io.ByteArrayOutputStream
+import maes.tech.intentanim.CustomIntent
 
-class ProcessingActivity() : AppCompatActivity() {
-    private val isProcessing = false
-    var uriResult: String? = null
-    lateinit var styleId: String
-    lateinit var imageBitmap: Bitmap
-    lateinit var deepArtEffectsClient: DeepArtEffectsClient
-
-
+class ProcessingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(activity_result)
+        setContentView(R.layout.activity_processing)
 
-        // AWS untuk akses api nya deepart
-        val factory = ApiClientFactory()
-            .apiKey(HomeFragment().API_KEY)
-            .credentialsProvider(object : AWSCredentialsProvider {
-                override fun getCredentials(): AWSCredentials {
-                    return BasicAWSCredentials(HomeFragment().ACCESS_KEY, HomeFragment().SECRET_KEY)
-                }
-
-                override fun refresh() {}
-            }).region(Regions.EU_WEST_1.getName())
-        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-        // AWS untuk akses api nya deepart
-
-        styleId = intent.getStringExtra("STYLE_ID")
+        val styleId = intent.getStringExtra("STYLE_ID")
         val byteArray = intent.getByteArrayExtra("IMAGE")
-        imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+
+        val processing_fragment = ProcessingFragment()
+        val arguments = Bundle()
+        arguments.putString("STYLE_ID", styleId)
+        arguments.putByteArray("IMAGE", byteArray)
+        processing_fragment.arguments = arguments
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fl_processing, processing_fragment)
+
+            commit()
+        }
+    }
+
+    override fun finish() {
+        CustomIntent.customType(this, "fadein-to-fadeout")
+        super.finish()
+    }
+}
+
+//class ProcessingActivity : AppCompatActivity() {
+//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+//    val SECRET_KEY = "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"
+//
+//    lateinit var result_image: ImageView
+//    lateinit var submissionId: String
+//    lateinit var styleId: String
+//    lateinit var imageBitmap: Bitmap
+//    lateinit var deepArtEffectsClient: DeepArtEffectsClient
+//
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(fragment_result)
+
+        // AWS untuk akses api nya deepart
+//        val factory = ApiClientFactory()
+//            .apiKey(API_KEY)
+//            .credentialsProvider(object : AWSCredentialsProvider {
+//                override fun getCredentials(): AWSCredentials {
+//                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+//                }
+//
+//                override fun refresh() {}
+//            }).region(Regions.EU_WEST_1.getName())
+//        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+//        deepArtEffectsClient = HomeFragment().deepArtEffectsClient!!
+        // AWS untuk akses api nya deepart
+
+//        styleId = intent.getStringExtra("STYLE_ID")
+//        val byteArray = intent.getByteArrayExtra("IMAGE")
+//        imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+//        result_image = findViewById(R.id.result_image)
 
 //        image_result.setImageBitmap(imageBitmap)
 //        processing.setVisibility(View.GONE)
 //        processing_img.setVisibility(View.VISIBLE)
-        uploadImage()
+//        uploadImage()
 //        Toast.makeText(this, uriResult, Toast.LENGTH_SHORT).show()
 //        image_result.setImageURI(Uri.parse(uriResult))
-    }
-
-//    private class ImageReadyCheckTimer internal constructor(submissionId: String) : TimerTask() {
-//        private val mSubmissionId: String
-//        override fun run() {
-//            try {
-//                val result: Result = HomeFragment().deepArtEffectsClient!!.resultGet(mSubmissionId)
-//                val submissionStatus = result.status
-//                if (submissionStatus == "finished") {
-//                    runOnUiThread(Runnable {
-//                        Glide.with(this).load(result.url).centerCrop().crossFade()
-//                            .into(R.id.image_result)
-//                        mProgressbarView.setVisibility(View.GONE)
-//                        mImageView.setVisibility(View.VISIBLE)
-//                        mStatusText.setText("")
-//                    })
-//                    isProcessing = false
-//                    cancel()
-//                }
-//            } catch (e: Exception) {
-//                cancel()
-//            }
-//        }
-//
-//        init {
-//            mSubmissionId = submissionId
-//        }
 //    }
 
-    private fun uploadImage() {
+//    private fun uploadImage() {
 //        Thread {
 //            val uploadRequest = UploadRequest()
 //            uploadRequest.styleId = styleId
 //            uploadRequest.imageBase64Encoded = convertBitmapToBase64(imageBitmap)
-//            val response = deepArtEffectsClient?.uploadPost(uploadRequest)
-//            val submissionId = response?.submissionId
-////            val timer = Timer()
-////            timer.scheduleAtFixedRate(
-////                ImageReadyCheckTimer(submissionId),
-////                HomeFragment().CHECK_RESULT_INTERVAL_IN_MS.toLong(),
-////                HomeFragment().CHECK_RESULT_INTERVAL_IN_MS.toLong()
-////            )
-//            runOnUiThread() {
-//                val result = deepArtEffectsClient?.resultGet(submissionId)
-////                val submissionStatus = result.status
-////                if (submissionStatus == "finished") {
-////                    runOnUiThread(Runnable {
-////            image_result.setImageURI(Uri.parse(result?.url))
-////                    })
-//                Toast.makeText(this, result?.status, Toast.LENGTH_SHORT).show()
-////            Glide.with(this).load(result?.url).centerCrop()
-////            .into(image_result)
-//            }
-////                mStatusText.setText(R.string.processing)
-////            }
-//        }.start()
-
-        Thread {
-            val uploadRequest = UploadRequest()
-            uploadRequest.styleId = styleId
-            uploadRequest.imageBase64Encoded = convertBitmapToBase64(imageBitmap)
-            val response = deepArtEffectsClient!!.uploadPost(uploadRequest)
-            val submissionId = response.submissionId
-            try {
-                val result = deepArtEffectsClient!!.resultGet(submissionId)
-                val submissionStatus = result.status
-                if (submissionStatus != "error") {
-                    runOnUiThread {
-                        Toast.makeText(this, result.status, Toast.LENGTH_LONG).show()
-                        Glide.with(this).load(result.url).into(result_image)
-                    }
-                }
-            } catch (e: Exception) {
-            }
+//            val response = deepArtEffectsClient.uploadPost(uploadRequest)
+//            submissionId = response.submissionId
+//            val timer = Timer()
+//            timer.scheduleAtFixedRate(
+//                ImageReadyCheckTimer(submissionId),
+//                2500.toLong(),
+//                2500.toLong()
+//            )
 //            runOnUiThread {
-//                uriResult = submissionId
+//                Toast.makeText(this, submissionId, Toast.LENGTH_SHORT).show()
 //            }
-        }.start()
+//        }.start()
+//    }
+//
+//    private fun convertBitmapToBase64(bitmap: Bitmap?): String? {
+//        val stream = ByteArrayOutputStream()
+//        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//        val byteArray = stream.toByteArray()
+//        return Base64.encodeToString(byteArray, 0)
+//    }
+//
+//    private class ImageReadyCheckTimer(submissionId: String) : TimerTask() {
+//        private var mSubmissionId = submissionId
+//        private val deepArtEffectsClient = ProcessingActivity().deepArtEffectsClient
+//        override fun run() {
+//            try {
+//                val result = deepArtEffectsClient.resultGet(mSubmissionId)
+//                val submissionStatus = result.status
+//                if (submissionStatus == "finished") {
+//                    ProcessingActivity().runOnUiThread {
+//                        Glide.with(ProcessingActivity()).load(result.url).centerCrop().into(
+//                            ProcessingActivity().result_image
+//                        )
+//                    }
+////                    isProcessing = false
+//                    cancel()
+//                }
+//            } catch (e: java.lang.Exception) {
+//                cancel()
+//            }
+//        }
+////
+////        init {
+////            mSubmissionId = submissionId
+////        }
+//    }
 
-    }
+//}
 
-    private fun convertBitmapToBase64(bitmap: Bitmap?): String? {
-        val stream = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val byteArray = stream.toByteArray()
-        return Base64.encodeToString(byteArray, 0)
-    }
-
-}
