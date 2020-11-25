@@ -33,6 +33,11 @@ class HomeFragment : Fragment(){
     val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
     val SECRET_KEY = "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"
 
+    //mikum
+  val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
+    val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
+    val SECRET_KEY = "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"
+
     var deepArtEffectsClient: DeepArtEffectsClient? = null
 
     lateinit var mView: View

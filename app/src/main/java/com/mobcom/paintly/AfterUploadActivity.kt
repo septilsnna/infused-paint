@@ -1,8 +1,10 @@
 package com.mobcom.paintly
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,6 +22,7 @@ class AfterUploadActivity : AppCompatActivity() {
     var media: String? = null
     lateinit var imageBitmap: Bitmap
     var image_uri: Uri? = null
+    val REQUEST_CODE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,9 @@ class AfterUploadActivity : AppCompatActivity() {
             values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
             image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//            intent_action.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+
+        //intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            //intent_action.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         } else {
             intent_action = Intent(Intent.ACTION_GET_CONTENT)
             intent_action.type = "image/*"
@@ -59,24 +64,38 @@ class AfterUploadActivity : AppCompatActivity() {
         }
     }
 
+
+
+
     //gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
-//                    val a = intent.getByteArrayExtra(MediaStore.EXTRA_OUTPUT)
-//                    imageBitmap = image_uri
-                    image_view.setImageURI(image_uri)
+                    if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
+                        val img = data.extras?.get("data") as Bitmap
+                        val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
+                        Glide.with(this).load(img2).into(image_view)
+                    }
                 } else {
                     val bitmap_img = ImageHelper.loadSizeLimitedBitmapFromUri(
                         data!!.data,
                         this.contentResolver, 768
                     )!!
+<<<<<<< HEAD
 
                     imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
                         (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
 
                     Glide.with(this).load(imageBitmap).into(image_view)
+||||||| merged common ancestors
+                    image_view.setImageBitmap(imageBitmap)
+=======
+                    val img = imageBitmap
+                    val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
+                    Glide.with(this).load(img2).into(image_view)
+>>>>>>> cbd68907d631b50d251ad4d2c60134638c8235f4
                 }
             } else {
                 finish()
