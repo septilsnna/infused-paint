@@ -74,9 +74,12 @@ class AfterUploadActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
-                        val img = data.extras?.get("data") as Bitmap
-                        val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
-                        Glide.with(this).load(img2).into(image_view)
+                        val bitmap_img = data.extras?.get("data") as Bitmap
+                        imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
+                            (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
+
+                        Glide.with(this).load(imageBitmap).into(image_view)
+
                     }
                 } else {
                     val bitmap_img = ImageHelper.loadSizeLimitedBitmapFromUri(
@@ -88,10 +91,24 @@ class AfterUploadActivity : AppCompatActivity() {
                         (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
 
                     Glide.with(this).load(imageBitmap).into(image_view)
+<<<<<<< HEAD
                     image_view.setImageBitmap(imageBitmap)
                     val img = imageBitmap
                     val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
                     Glide.with(this).load(img2).into(image_view)
+||||||| merged common ancestors
+||||||| merged common ancestors
+                    image_view.setImageBitmap(imageBitmap)
+=======
+                    val img = imageBitmap
+                    val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
+                    Glide.with(this).load(img2).into(image_view)
+>>>>>>> cbd68907d631b50d251ad4d2c60134638c8235f4
+=======
+
+
+
+>>>>>>> f62b915edc45539b1f600adf2f181b021403eff3
                 }
             } else {
                 finish()
