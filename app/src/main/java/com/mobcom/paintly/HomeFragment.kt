@@ -17,9 +17,21 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 
 
 class HomeFragment : Fragment(){
-    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-    val SECRET_KEY = "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"
+    //septilsnna
+//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+//    val SECRET_KEY = "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"
+
+    //soegiebawi
+//    val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
+//    val ACCESS_KEY = "AKIA3XE3HF7SQUKGI4ES"
+//    val SECRET_KEY = "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"
+
+    //alohaloha
+//    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
+//    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
+//    val SECRET_KEY = "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"
+
     var deepArtEffectsClient: DeepArtEffectsClient? = null
 
     lateinit var mView: View
@@ -32,19 +44,19 @@ class HomeFragment : Fragment(){
         mView = inflater.inflate(R.layout.activity_home, container, false)
 
         // AWS untuk akses api nya deepart
-//        val factory = ApiClientFactory()
-//            .apiKey(API_KEY)
-//            .credentialsProvider(object : AWSCredentialsProvider {
-//                override fun getCredentials(): AWSCredentials {
-//                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
-//                }
-//
-//                override fun refresh() {}
-//            }).region(Regions.EU_WEST_1.getName())
-//        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-//        // AWS untuk akses api nya deepart
-//
-//        loadingStyles()
+        val factory = ApiClientFactory()
+            .apiKey(API_KEY)
+            .credentialsProvider(object : AWSCredentialsProvider {
+                override fun getCredentials(): AWSCredentials {
+                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+                }
+
+                override fun refresh() {}
+            }).region(Regions.EU_WEST_1.getName())
+        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+        // AWS untuk akses api nya deepart
+
+        loadingStyles()
 
         return mView
     }
