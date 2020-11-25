@@ -14,9 +14,11 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
+import kotlinx.android.synthetic.main.fragment_processing.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,7 +52,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
         edit_foto_btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val intent = Intent(Intent.ACTION_PICK)
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
                 intent.type = "image/*"
                 startActivityForResult(intent, 100)
             }
@@ -80,7 +82,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
             imageString = convertBitmapToBase64(imageBitmap)!!
 
-            mView.profile_image_edit.setImageBitmap(imageBitmap)
+            Glide.with(mView.context).load(imageBitmap).centerInside().into(mView.profile_image_edit)
         }
     }
 
@@ -104,7 +106,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
                     if(response.body()?.photo != ""){
                         val decodedString = Base64.decode(imageString, Base64.DEFAULT)
                         val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                        mView.profile_image_edit.setImageBitmap(decodedByte)
+                        Glide.with(mView.context).load(decodedByte).centerInside().into(mView.profile_image_edit)
                     }
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
@@ -170,7 +172,7 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
     private fun convertBitmapToBase64(bitmap: Bitmap?): String? {
         val stream = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 40, stream)
         val byteArray = stream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }

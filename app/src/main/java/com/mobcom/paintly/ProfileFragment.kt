@@ -9,12 +9,14 @@ import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_profile.view.*
+import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
@@ -121,7 +123,7 @@ class ProfileFragment : Fragment(){
                             0,
                             decodedString.size
                         )
-                        mView.profile_image.setImageBitmap(decodedByte)
+                        Glide.with(mView.context).load(decodedByte).centerInside().into(mView.profile_image)
                     }
 
                 } else {

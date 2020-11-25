@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide
 import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import com.deeparteffects.sdk.android.model.UploadRequest
 import kotlinx.android.synthetic.main.fragment_processing.view.*
+import maes.tech.intentanim.CustomIntent
 import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,9 +48,9 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "YqpRytiUKbKeTfiv5kLXMDmT8UJnTbpDEB6pIeaK"
 
     //alohaloha
-//    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-//    val SECRET_KEY = "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"
+    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
+    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
+    val SECRET_KEY = "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"
 
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
@@ -96,6 +97,11 @@ class ProcessingFragment : Fragment() {
         return mView
     }
 
+    override fun onDestroy() {
+        CustomIntent.customType(activity, "fadein-to-fadeout")
+        super.onDestroy()
+    }
+
     private fun uploadImage(styleId: String, imageBitmap: Bitmap) {
         Thread {
             val uploadRequest = UploadRequest()
@@ -127,9 +133,9 @@ class ProcessingFragment : Fragment() {
 
     private fun convertBitmapToBase64(bitmap: Bitmap?): String? {
         val stream = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 70, stream)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val byteArray = stream.toByteArray()
-        return Base64.encodeToString(byteArray, 0)
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
     private fun saveResult() {
@@ -153,7 +159,7 @@ class ProcessingFragment : Fragment() {
         RetrofitClient.instance.addResult(
             userData.email!!,
             styleId,
-            convertBitmapToBase64(imageBitmap)!!,
+            "",
             convertBitmapToBase64(imageResult)!!
         ).enqueue(object : Callback<GalleryData?> {
             override fun onFailure(call: Call<GalleryData?>, t: Throwable) {
@@ -175,6 +181,8 @@ class ProcessingFragment : Fragment() {
         )
         Uri.parse(savedImageURL)
 
+        mView.save_result.isEnabled = false
+//        mView.save_result.isClickable = false
         Toast.makeText(activity, "Save Success!", Toast.LENGTH_SHORT).show()
 
     }

@@ -13,6 +13,7 @@ import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.amazonaws.regions.Regions
 import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import kotlinx.android.synthetic.main.activity_home.view.*
+import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 
 
@@ -28,9 +29,9 @@ class HomeFragment : Fragment(){
 //    val SECRET_KEY = "YqpRytiUKbKeTfiv5kLXMDmT8UJnTbpDEB6pIeaK"
 
     //alohaloha
-//    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-//    val SECRET_KEY = "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"
+    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
+    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
+    val SECRET_KEY = "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"
 
     var deepArtEffectsClient: DeepArtEffectsClient? = null
 
@@ -69,6 +70,7 @@ class HomeFragment : Fragment(){
     }
 
     private fun loadingStyles() {
+        mView.progress_bar_style.visibility = View.VISIBLE
         Thread {
             val styles =
                 deepArtEffectsClient!!.stylesGet() // semua style yang didapat dari api, di simpan di variable styles yang bentuknya Style (package com.deeparteffects.sdk.android.model)
@@ -89,6 +91,7 @@ class HomeFragment : Fragment(){
                 mView.rv_style.adapter =
                     styleAdapter // adapter dari rv nya di set jadi styleAdapter (dideclare di atas)
                 mView.rv_style.layoutManager = LinearLayoutManager(context)
+                mView.progress_bar_style.visibility = View.GONE
             }
         }.start() // mulai ehehehehehe
     }

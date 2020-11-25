@@ -7,10 +7,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.mobcom.paintly.R.layout.afterchoosingimage
 import kotlinx.android.synthetic.main.afterchoosingimage.*
+import kotlinx.android.synthetic.main.fragment_processing.view.*
 import maes.tech.intentanim.CustomIntent
 import java.io.ByteArrayOutputStream
+import kotlin.math.roundToInt
 
 
 class AfterUploadActivity : AppCompatActivity() {
@@ -43,7 +46,7 @@ class AfterUploadActivity : AppCompatActivity() {
         button_process.setOnClickListener() {
             // Convert to byte array
             val stream = ByteArrayOutputStream()
-            imageBitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val byteArray = stream.toByteArray()
 
             // pindah ke halaman proses pake intent
@@ -65,11 +68,15 @@ class AfterUploadActivity : AppCompatActivity() {
 //                    imageBitmap = image_uri
                     image_view.setImageURI(image_uri)
                 } else {
-                    imageBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
+                    val bitmap_img = ImageHelper.loadSizeLimitedBitmapFromUri(
                         data!!.data,
                         this.contentResolver, 768
                     )!!
-                    image_view.setImageBitmap(imageBitmap)
+
+                    imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
+                        (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
+
+                    Glide.with(this).load(imageBitmap).into(image_view)
                 }
             } else {
                 finish()

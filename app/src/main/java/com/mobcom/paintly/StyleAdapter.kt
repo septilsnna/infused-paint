@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.deeparteffects.sdk.android.model.Styles
 import com.mobcom.paintly.StyleAdapter.ViewHolder
+import kotlinx.android.synthetic.main.style_item.view.*
 
 class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.Adapter (langsung di set)
     private val mContext: Context,
@@ -20,6 +22,7 @@ class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.A
         View.OnClickListener {
         // ViewHolder berbentuk RecyclerView.ViewHolder (langsung di set)
         var styleImage: ImageView?
+        var img_title: TextView
         override fun onClick(view: View) {
             if (styleImage == null) {
                 return
@@ -29,6 +32,7 @@ class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.A
 
         init {
             styleImage = view.findViewById(R.id.btn_style) // image view dari item_style.xml
+            img_title = view.img_title
             view.setOnClickListener(this)
         }
     }
@@ -41,7 +45,9 @@ class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageUrl = mStyles[position].url
+        val title = mStyles[position].title
         Glide.with(mContext).load(imageUrl).centerCrop().into(holder.styleImage!!)
+        holder.img_title.text = title
     }
 
     override fun getItemCount(): Int {

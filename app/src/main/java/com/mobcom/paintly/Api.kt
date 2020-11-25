@@ -40,6 +40,9 @@ interface Api{
                            @Field("share_freq") share_freq: Int,
     ): Call<UserData>
 
+    @GET("imageresults/show/{user_email}")
+    fun getGallery(@Path("user_email") user_email: String): Call<List<GalleryData>>
+
     @FormUrlEncoded
     @POST("/imageresults/create")
     fun addResult(@Field("user_email") user_email: String,
@@ -51,7 +54,5 @@ interface Api{
     @DELETE("users/delete/{email}")
     fun deleteUser(@Path("email") email: String, @Body userData: UserData): Call<UserData>
 
-    @GET("imageresults/show/{username}")
-    fun getGallery(@Path("username") username: String): Call<List<GalleryData>>
 
 }

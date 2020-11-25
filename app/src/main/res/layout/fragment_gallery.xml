@@ -7,8 +7,19 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark">
 
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ups, there is no artwork"
+        android:textAppearance="@style/profile"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        />
+
     <ProgressBar
-        android:id="@+id/progress_bar_style"
+        android:id="@+id/progress_bar_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -16,9 +27,11 @@
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_style"
+        android:id="@+id/rv_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/style_item"/>
+        tools:listitem="@layout/gallery_item"/>
+
+
 
 </LinearLayout>
