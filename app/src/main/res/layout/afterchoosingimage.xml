@@ -8,7 +8,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight = "1"
             android:orientation="vertical">
 
                 <TextView
@@ -16,8 +17,9 @@
                     android:layout_height="wrap_content"
                     android:text="Are you sure?"
                     style="@style/profile"
+                    android:layout_weight="0"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     />
 
                 <ImageView
@@ -32,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:baselineAlignBottom="true"
-                    android:background="@drawable/button_rectangle"
+                    android:background="@drawable/ripple"
                     android:layout_gravity="center_horizontal"
                     android:text="Process"
                     android:textAppearance="@style/sp16_000000_bold"/>

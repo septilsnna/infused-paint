@@ -86,7 +86,7 @@
             android:layout_gravity="center_horizontal"
             android:text="Edit Profile"
             android:textAppearance="@style/sp16_ffffff_bold"
-            android:background="@drawable/editprofile"
+            android:background="@drawable/button_next"
             android:gravity="center"
             />
 
