@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.mobcom.paintly.R.layout.afterchoosingimage
 import kotlinx.android.synthetic.main.afterchoosingimage.*
-import kotlinx.android.synthetic.main.fragment_processing.view.*
 import maes.tech.intentanim.CustomIntent
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
-
 
 class AfterUploadActivity : AppCompatActivity() {
     var media: String? = null
@@ -74,8 +71,14 @@ class AfterUploadActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
+<<<<<<< HEAD
                         val bitmap_img = data.extras?.get("data") as Bitmap
                         image_view.setImageBitmap(bitmap_img)
+=======
+                        imageBitmap = data.extras?.get("data") as Bitmap
+
+                        Glide.with(this).load(imageBitmap).into(image_view)
+>>>>>>> e432caefe1da107a257869fb8d2157d49c0bc162
 
                     }
                 } else {
@@ -84,13 +87,11 @@ class AfterUploadActivity : AppCompatActivity() {
                         this.contentResolver, 768
                     )!!
 
-                    imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
-                        (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
+                    imageBitmap = bitmap_img
+                        Bitmap.createScaledBitmap(bitmap_img,
+                        (bitmap_img.width * 0.9).roundToInt(), (bitmap_img.height * 0.9).roundToInt(), false)
 
                     Glide.with(this).load(imageBitmap).into(image_view)
-
-
-
                 }
             } else {
                 finish()

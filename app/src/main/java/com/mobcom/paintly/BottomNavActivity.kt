@@ -4,6 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
+import com.amazonaws.regions.Regions
+import com.deeparteffects.sdk.android.DeepArtEffectsClient
+import com.deeparteffects.sdk.android.model.Styles
 import kotlinx.android.synthetic.main.activity_bottomnav.*
 import maes.tech.intentanim.CustomIntent
 

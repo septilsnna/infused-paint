@@ -40,6 +40,9 @@ interface Api{
                            @Field("share_freq") share_freq: Int,
     ): Call<UserData>
 
+    @GET("imagestyles")
+    fun getStyles(): Call<List<StyleData>>
+
     @GET("imageresults/show/{user_email}")
     fun getGallery(@Path("user_email") user_email: String): Call<List<GalleryData>>
 

@@ -38,6 +38,7 @@
             android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/horay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Horay!\nHere's your artwork."
