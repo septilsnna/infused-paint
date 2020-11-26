@@ -4,62 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amazonaws.auth.AWSCredentials
-import com.amazonaws.auth.AWSCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
-import com.amazonaws.regions.Regions
-import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import kotlinx.android.synthetic.main.activity_home.view.*
-import kotlinx.android.synthetic.main.fragment_gallery.view.*
 import org.jetbrains.anko.support.v4.runOnUiThread
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment(){
-    //septilsnna
-//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-//    val SECRET_KEY = "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"
-
-    //soegiebawi
-//    val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
-//    val ACCESS_KEY = "AKIA3XE3HF7SQUKGI4ES"
-//    val SECRET_KEY = "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"
-
-    //alohaloha
-<<<<<<< HEAD
-//    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-//    val SECRET_KEY = "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"
-
-    //leejaewook
-    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-    val SECRET_KEY = "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"
-||||||| merged common ancestors
-    val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-    val SECRET_KEY = "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"
-
-    //mikum
-  val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
-    val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
-    val SECRET_KEY = "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"
-=======
-   // val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-    //val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-    //val SECRET_KEY = "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"
-
-    //mikum
-  val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
-    val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
-    val SECRET_KEY = "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"
->>>>>>> f62b915edc45539b1f600adf2f181b021403eff3
-
-    var deepArtEffectsClient: DeepArtEffectsClient? = null
-
     lateinit var mView: View
 
     override fun onCreateView(
@@ -69,20 +23,19 @@ class HomeFragment : Fragment(){
     ): View? {
         mView = inflater.inflate(R.layout.activity_home, container, false)
 
-        // AWS untuk akses api nya deepart
-        val factory = ApiClientFactory()
-            .apiKey(API_KEY)
-            .credentialsProvider(object : AWSCredentialsProvider {
-                override fun getCredentials(): AWSCredentials {
-                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+        RetrofitClient.instance.getStyles(
+        ).enqueue(object : Callback<List<StyleData>> {
+            override fun onFailure(call: Call<List<StyleData>>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<List<StyleData>>, response: Response<List<StyleData>>) {
+                if (response.code() == 200) {
+                    loadingStyles(response.body()!!)
+                } else {
                 }
-
-                override fun refresh() {}
-            }).region(Regions.EU_WEST_1.getName())
-        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-        // AWS untuk akses api nya deepart
-
-        loadingStyles()
+            }
+        })
 
         return mView
     }
@@ -94,14 +47,12 @@ class HomeFragment : Fragment(){
             .setActionBarTitle("Pick Your Style")
     }
 
-    private fun loadingStyles() {
+    private fun loadingStyles(styleData: List<StyleData>) {
         mView.progress_bar_style.visibility = View.VISIBLE
         Thread {
-            val styles =
-                deepArtEffectsClient!!.stylesGet() // semua style yang didapat dari api, di simpan di variable styles yang bentuknya Style (package com.deeparteffects.sdk.android.model)
             val styleAdapter = StyleAdapter( // deklarasi styleAdapter yang bentuknya StyleAdapter()
                 this.requireContext(),
-                styles,
+                styleData,
                 object : StyleAdapter.ClickListener {
                     override fun onClick(styleId: String?) {
                         val arguments = Bundle()

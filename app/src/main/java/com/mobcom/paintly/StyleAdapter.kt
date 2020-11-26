@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.style_item.view.*
 
 class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.Adapter (langsung di set)
     private val mContext: Context,
-    private val mStyles: Styles,
+    private val mStyles: List<StyleData>,
+//    private val mStyles: Styles,
     private val mClickListener: ClickListener
 ) :
     RecyclerView.Adapter<ViewHolder>() {
@@ -27,7 +28,7 @@ class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.A
             if (styleImage == null) {
                 return
             }
-            mClickListener.onClick(mStyles[adapterPosition].id)
+            mClickListener.onClick(mStyles[adapterPosition].style_id)
         }
 
         init {
@@ -44,7 +45,7 @@ class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val imageUrl = mStyles[position].url
+        val imageUrl = mStyles[position].image_file
         val title = mStyles[position].title
         Glide.with(mContext).load(imageUrl).centerCrop().into(holder.styleImage!!)
         holder.img_title.text = title

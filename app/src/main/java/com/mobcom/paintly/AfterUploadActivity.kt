@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.mobcom.paintly.R.layout.afterchoosingimage
 import kotlinx.android.synthetic.main.afterchoosingimage.*
-import kotlinx.android.synthetic.main.fragment_processing.view.*
 import maes.tech.intentanim.CustomIntent
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
-
 
 class AfterUploadActivity : AppCompatActivity() {
     var media: String? = null
@@ -74,9 +71,7 @@ class AfterUploadActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
-                        val bitmap_img = data.extras?.get("data") as Bitmap
-                        imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
-                            (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
+                        imageBitmap = data.extras?.get("data") as Bitmap
 
                         Glide.with(this).load(imageBitmap).into(image_view)
 
@@ -87,28 +82,11 @@ class AfterUploadActivity : AppCompatActivity() {
                         this.contentResolver, 768
                     )!!
 
-                    imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
-                        (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
+                    imageBitmap = bitmap_img
+                        Bitmap.createScaledBitmap(bitmap_img,
+                        (bitmap_img.width * 0.9).roundToInt(), (bitmap_img.height * 0.9).roundToInt(), false)
 
                     Glide.with(this).load(imageBitmap).into(image_view)
-<<<<<<< HEAD
-                    image_view.setImageBitmap(imageBitmap)
-                    val img = imageBitmap
-                    val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
-                    Glide.with(this).load(img2).into(image_view)
-||||||| merged common ancestors
-||||||| merged common ancestors
-                    image_view.setImageBitmap(imageBitmap)
-=======
-                    val img = imageBitmap
-                    val img2 = Bitmap.createScaledBitmap(img, (img.width*0.7).roundToInt(), (img.height*0.7).roundToInt(), false)
-                    Glide.with(this).load(img2).into(image_view)
->>>>>>> cbd68907d631b50d251ad4d2c60134638c8235f4
-=======
-
-
-
->>>>>>> f62b915edc45539b1f600adf2f181b021403eff3
                 }
             } else {
                 finish()
