@@ -75,10 +75,7 @@ class AfterUploadActivity : AppCompatActivity() {
                 if (media == "CAMERA") {
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
                         val bitmap_img = data.extras?.get("data") as Bitmap
-                        imageBitmap = Bitmap.createScaledBitmap(bitmap_img,
-                            (bitmap_img.width * 0.7).roundToInt(), (bitmap_img.height * 0.7).roundToInt(), false)
-
-                        Glide.with(this).load(imageBitmap).into(image_view)
+                        image_view.setImageBitmap(bitmap_img)
 
                     }
                 } else {
