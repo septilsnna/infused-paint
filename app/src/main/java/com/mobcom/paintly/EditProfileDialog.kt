@@ -46,7 +46,6 @@ class EditProfileDialog : AppCompatDialogFragment() {
 
         mView.profile_image_edit.visibility = View.INVISIBLE
         mView.progress_edit.visibility = View.VISIBLE
-        mView.save_btn.visibility = View.GONE
 
         val edit_foto_btn = mView.edit_foto_btn
 
@@ -57,16 +56,6 @@ class EditProfileDialog : AppCompatDialogFragment() {
                 startActivityForResult(intent, 100)
             }
         })
-
-        mView.save_btn.setOnClickListener(){
-            if (mView.et_email.text.toString() != emaill){
-                checkEmail(emaill, mView.et_email.text.toString())
-            } else {
-                mView.progress_edit.visibility = View.VISIBLE
-                mView.save_btn.visibility = View.GONE
-                updateUser(emaill)
-            }
-        }
 
         builder.setView(mView).setTitle("Edit Profile")
         return builder.create()
@@ -97,7 +86,6 @@ class EditProfileDialog : AppCompatDialogFragment() {
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     mView.progress_edit.visibility = View.GONE
-                    mView.save_btn.visibility = View.VISIBLE
                     mView.profile_image_edit.visibility = View.VISIBLE
                     mView.et_nama.setText(response.body()?.name)
                     mView.et_email.setText(response.body()?.email)
@@ -134,7 +122,6 @@ class EditProfileDialog : AppCompatDialogFragment() {
         // validasi email input user
         if(!validateEmail()){
             mView.progress_edit.visibility = View.GONE
-            mView.save_btn.visibility = View.VISIBLE
             return
         }
 
@@ -154,7 +141,6 @@ class EditProfileDialog : AppCompatDialogFragment() {
                     saveData(mView.et_email.text.toString())
                     Toast.makeText(activity, "Update Success!", Toast.LENGTH_SHORT).show()
                     mView.progress_edit.visibility = View.GONE
-                    mView.save_btn.visibility = View.VISIBLE
                 } else {
                     Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                 }
@@ -191,7 +177,6 @@ class EditProfileDialog : AppCompatDialogFragment() {
                         .show()
                 } else {
                     mView.progress_edit.visibility = View.VISIBLE
-                    mView.save_btn.visibility = View.GONE
                     updateUser(email)
                 }
             }

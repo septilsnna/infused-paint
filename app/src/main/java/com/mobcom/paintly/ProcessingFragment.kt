@@ -100,9 +100,9 @@ class ProcessingFragment : Fragment() {
         return mView
     }
 
-    override fun onStop() {
+    override fun onDestroy() {
         CustomIntent.customType(activity, "fadein-to-fadeout")
-        super.onStop()
+        super.onDestroy()
     }
 
     private fun uploadImage(styleId: String, imageBitmap: Bitmap) {
