@@ -21,6 +21,36 @@
             android:layout_marginTop="50dp"
             app:srcCompat="@drawable/logo" />
 
+        <Button
+            android:id="@+id/google_login_button"
+            android:layout_width="305dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_rectangle"
+            android:text="Login With Google"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"
+            android:textAppearance="@style/sp16_000000_bold" />
+
+        <View
+            android:id="@+id/vector_1"
+            android:layout_width="277dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/vector_1" />
+
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-15dp"
+            android:paddingHorizontal="23dp"
+            android:text="@string/or"
+            android:textAppearance="@style/sp16_ffffff_bold"
+            android:background="@color/colorPrimaryDark"/>
+
         <EditText
             android:id="@+id/email_input"
             android:layout_width="wrap_content"
@@ -81,24 +111,7 @@
             android:text="@string/log_in"
             android:textAppearance="@style/sp16_000000_bold" />
 
-        <View
-            android:id="@+id/vector_1"
-            android:layout_width="277dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/vector_1" />
 
-        <TextView
-            android:id="@+id/or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-15dp"
-            android:paddingHorizontal="23dp"
-            android:text="@string/or"
-            android:textAppearance="@style/sp16_ffffff_bold"
-            android:background="@color/colorPrimaryDark"/>
 
 <!--        <com.google.android.gms.common.SignInButton-->
 <!--            android:id="@+id/sign_in_button"-->
@@ -107,15 +120,7 @@
 <!--            android:layout_gravity="center_horizontal"-->
 <!--            android:layout_margin="20dp"/>-->
 
-        <Button
-            android:id="@+id/google_login_button"
-            android:layout_width="305dp"
-            android:layout_height="51dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button_rectangle"
-            android:text="@string/login_with_"
-            android:textAppearance="@style/sp16_000000_bold" />
+
 
         <TextView
             android:id="@+id/don_t_have_"

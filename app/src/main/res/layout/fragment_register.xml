@@ -22,6 +22,38 @@
             android:layout_marginTop="50dp"
             app:srcCompat="@drawable/logo" />
 
+
+
+        <Button
+            android:id="@+id/google_login_button"
+            android:layout_width="305dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_rectangle"
+            android:text="Register With Google"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"
+            android:textAppearance="@style/sp16_000000_bold"/>
+
+        <View
+            android:id="@+id/vector_1"
+            android:layout_width="277dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/vector_1" />
+
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-15dp"
+            android:text="@string/or"
+            android:paddingHorizontal="23dp"
+            android:background="@color/colorPrimaryDark"
+            android:textAppearance="@style/sp16_ffffff_bold" />
+
         <EditText
             android:id="@+id/email_input"
             android:layout_width="wrap_content"
@@ -33,6 +65,8 @@
             android:inputType="textEmailAddress"
             android:paddingHorizontal="15dp"
             android:textColor="@color/colorPrimary" />
+
+
 
         <TextView
             android:id="@+id/email"
@@ -101,34 +135,7 @@
             android:text="@string/register"
             android:textAppearance="@style/sp16_000000_bold" />
 
-        <View
-            android:id="@+id/vector_1"
-            android:layout_width="277dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/vector_1" />
 
-        <TextView
-            android:id="@+id/or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-15dp"
-            android:text="@string/or"
-            android:paddingHorizontal="23dp"
-            android:background="@color/colorPrimaryDark"
-            android:textAppearance="@style/sp16_ffffff_bold" />
-
-        <Button
-            android:id="@+id/google_login_button"
-            android:layout_width="305dp"
-            android:layout_height="51dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button_rectangle"
-            android:text="@string/register_wi"
-            android:textAppearance="@style/sp16_000000_bold"/>
 
         <TextView
             android:id="@+id/already_hav"
