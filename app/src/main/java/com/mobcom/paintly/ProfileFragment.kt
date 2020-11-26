@@ -13,10 +13,8 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.OnCompleteListener
 import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_profile.view.*
-import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
 import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +42,9 @@ class ProfileFragment : Fragment(){
 
         edit_profile_button = mView.editprofile_button
         edit_profile_button.setOnClickListener {
-            EditProfileDialog().show(this.childFragmentManager, "Edit Profile")
+            val intent = Intent(activity, EditProfileActivity::class.java)
+            startActivity(intent)
+            CustomIntent.customType(activity, "fadein-to-fadeout")
         }
 
         about_app_button = mView.button_about

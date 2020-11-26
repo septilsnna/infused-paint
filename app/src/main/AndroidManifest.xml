@@ -49,6 +49,10 @@
         <activity android:name=".ProcessingActivity"
             android:label="">
         </activity>
+
+        <activity android:name=".EditProfileActivity"
+            android:label="Edit Profile">
+        </activity>
     </application>
 
 </manifest>
