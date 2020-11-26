@@ -71,9 +71,13 @@ class AfterUploadActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
+
+
+
                         imageBitmap = data.extras?.get("data") as Bitmap
 
                         Glide.with(this).load(imageBitmap).into(image_view)
+
 
                     }
                 } else {
