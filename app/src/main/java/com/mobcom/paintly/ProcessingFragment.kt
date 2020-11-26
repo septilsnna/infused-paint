@@ -2,6 +2,7 @@ package com.mobcom.paintly
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -95,6 +96,10 @@ class ProcessingFragment : Fragment() {
 
         mView.save_result.setOnClickListener {
             saveResult()
+        }
+
+        mView.share_result.setOnClickListener {
+            shareResult()
         }
 
         return mView
@@ -191,6 +196,29 @@ class ProcessingFragment : Fragment() {
     }
 
     private  fun shareResult() {
+        // Step 1: Create Share itent
+        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+
+        // Step 2: Get Bitmap from your imageView
+        val bitmap = mView.result_image.drawable.toBitmap()
+
+
+        // Step 3: Compress image
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+
+        // Step 4: Save image & get path of it
+        val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "tempimage", null)
+
+        // Step 5: Get URI of saved image
+        val uri = Uri.parse(path)
+
+        // Step 6: Put Uri as extra to share intent
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        intent.putExtra(Intent.EXTRA_TEXT,"I made this with Infused Paint!");
+
+        // Step 7: Start/Launch Share intent
+        startActivity(intent)
 
     }
 

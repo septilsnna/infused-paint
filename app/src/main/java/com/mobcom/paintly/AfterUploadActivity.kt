@@ -71,14 +71,13 @@ class AfterUploadActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
                     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
-<<<<<<< HEAD
-                        val bitmap_img = data.extras?.get("data") as Bitmap
-                        image_view.setImageBitmap(bitmap_img)
-=======
+
+
+
                         imageBitmap = data.extras?.get("data") as Bitmap
 
                         Glide.with(this).load(imageBitmap).into(image_view)
->>>>>>> e432caefe1da107a257869fb8d2157d49c0bc162
+
 
                     }
                 } else {
