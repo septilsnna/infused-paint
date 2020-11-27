@@ -38,13 +38,15 @@ import android.graphics.*
 import android.graphics.Paint.ANTI_ALIAS_FLAG
 import android.graphics.Paint.DITHER_FLAG
 import androidx.annotation.ColorInt
+import com.amazonaws.mobileconnectors.apigateway.ApiClientException
+import kotlinx.android.synthetic.*
 
 
 class ProcessingFragment : Fragment() {
     //septilsnna
-    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-    val SECRET_KEY = "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"
+//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+//    val SECRET_KEY = "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"
 
     //soegiebawi
 //    val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
@@ -57,24 +59,9 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "r6Spwvzco96Qwl/xn5eOTosgDtITJrM4H3rS8xi0"
 
     //leejaewook
-<<<<<<< HEAD
-//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-//    val SECRET_KEY = "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"
-||||||| merged common ancestors
     val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
     val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
     val SECRET_KEY = "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"
-=======
-//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-//    val SECRET_KEY = "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"
-
-    //mikum
-    val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
-    val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
-    val SECRET_KEY = "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"
->>>>>>> 7c9e4a46fae2dfd88c0170908a2e0531c363a0c3
 
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
@@ -89,76 +76,84 @@ class ProcessingFragment : Fragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_processing, container, false)
 
-////        AWS untuk akses api nya deepart
-//        val factory = ApiClientFactory()
-//            .apiKey(API_KEY)
-//            .credentialsProvider(object : AWSCredentialsProvider {
-//                override fun getCredentials(): AWSCredentials {
-//                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
-//                }
-//
-//                override fun refresh() {}
-//            }).region(Regions.EU_WEST_1.getName())
-//        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-////        AWS untuk akses api nya deepart
-//
-//        val arguments = arguments
-//        styleId = arguments?.getString("STYLE_ID")!!
-//        val byteArray = arguments?.getByteArray("IMAGE")
-//        imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
-//
-//        // load data user
-//        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-//        val email = sharedPreferences?.getString("email", "").toString()
-//        getUser(email)
-//
-//        uploadImage(styleId, imageBitmap)
-//
-//        mView.save_result.setOnClickListener {
-//            saveResult()
-//        }
-//
-//        mView.share_result.setOnClickListener {
-//            shareResult()
-//        }
+//        AWS untuk akses api nya deepart
+        val factory = ApiClientFactory()
+            .apiKey(API_KEY)
+            .credentialsProvider(object : AWSCredentialsProvider {
+                override fun getCredentials(): AWSCredentials {
+                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+                }
+
+                override fun refresh() {}
+            }).region(Regions.EU_WEST_1.getName())
+        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+//        AWS untuk akses api nya deepart
+
+        val arguments = arguments
+        styleId = arguments?.getString("STYLE_ID")!!
+        val byteArray = arguments?.getByteArray("IMAGE")
+        imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+
+        // load data user
+        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val email = sharedPreferences?.getString("email", "").toString()
+        getUser(email)
+
+        uploadImage(styleId, imageBitmap)
+
+        mView.save_result.setOnClickListener {
+            saveResult()
+        }
+
+        mView.share_result.setOnClickListener {
+            shareResult()
+        }
 
         return mView
     }
 
     override fun onDestroy() {
-        CustomIntent.customType(activity, "fadein-to-fadeout")
+        activity?.finish()
+        deepArtEffectsClient.apply { clearFindViewByIdCache() }
         super.onDestroy()
     }
 
-
-
     private fun uploadImage(styleId: String, imageBitmap: Bitmap) {
-        Thread {
-            val uploadRequest = UploadRequest()
-            uploadRequest.styleId = styleId
-            uploadRequest.imageBase64Encoded = convertBitmapToBase64(imageBitmap)
-            val response = deepArtEffectsClient.uploadPost(uploadRequest)
-            val submissionId = response.submissionId
-            val timer = Timer()
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    try {
-                        val result = deepArtEffectsClient.resultGet(submissionId)
-                        val submissionStatus = result.status
-                        if (submissionStatus == "finished") {
-                            runOnUiThread {
-                                mView.processing.visibility = View.GONE
-                                mView.result.visibility = View.VISIBLE
-                                Glide.with(mView.context).load(result.url).into(mView.result_image)
+        try {
+            Thread {
+                val uploadRequest = UploadRequest()
+                uploadRequest.styleId = styleId
+                uploadRequest.imageBase64Encoded = convertBitmapToBase64(imageBitmap)
+                val response = deepArtEffectsClient.uploadPost(uploadRequest)
+                val submissionId = response.submissionId
+                val timer = Timer()
+                timer.scheduleAtFixedRate(object : TimerTask() {
+                    override fun run() {
+                        try {
+                            val result = deepArtEffectsClient.resultGet(submissionId)
+                            val submissionStatus = result.status
+                            if (submissionStatus == "finished") {
+                                runOnUiThread {
+                                    mView.processing.visibility = View.GONE
+                                    mView.result.visibility = View.VISIBLE
+                                    Glide.with(mView.context).load(result.url)
+                                        .into(mView.result_image)
+                                }
                             }
-                        }
-                    } catch (e: java.lang.Exception) {
-                        Toast.makeText(activity, "Failed to processing image", Toast.LENGTH_LONG).show()
+                        } catch (e: java.lang.IllegalStateException) { }
                     }
-                }
-            }, 2500.toLong(), 2500.toLong())
-            runOnUiThread { }
-        }.start()
+                }, 2500.toLong(), 2500.toLong())
+                runOnUiThread { }
+            }.start()
+        } catch (e : ApiClientException) {
+            Toast.makeText(activity, "Failed when processing image, try again later.", Toast.LENGTH_LONG).show()
+            val intent = Intent(activity, BottomNavActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+            CustomIntent.customType(activity, "fadein-to-fadeout")
+        } catch (e: java.net.ConnectException) {
+
+        }
     }
 
     fun addWatermark(
@@ -314,7 +309,7 @@ class ProcessingFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
         // Step 4: Save image & get path of it
-        val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "tempimage", null)
+        val path = MediaStore.Images.Media.insertImage(activity?.contentResolver, bitmap, "tempimage", null)
 
         // Step 5: Get URI of saved image
         val uri = Uri.parse(path)

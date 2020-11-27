@@ -35,7 +35,6 @@ class HomeFragment : Fragment(){
         ).enqueue(object : Callback<List<StyleData>> {
             override fun onFailure(call: Call<List<StyleData>>, t: Throwable) {
                 mView.failed_styles.visibility = View.VISIBLE
-//                Toast.makeText(activity, "Failed to load styles, please check your connection.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<List<StyleData>>, response: Response<List<StyleData>>) {
@@ -61,7 +60,7 @@ class HomeFragment : Fragment(){
         mView.progress_bar_style.visibility = View.VISIBLE
         Thread {
             val styleAdapter = StyleAdapter( // deklarasi styleAdapter yang bentuknya StyleAdapter()
-                this.requireContext(),
+                mView.context,
                 styleData,
                 object : StyleAdapter.ClickListener {
                     override fun onClick(styleId: String?) {

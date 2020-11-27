@@ -12,16 +12,14 @@ import com.deeparteffects.sdk.android.model.Styles
 import com.mobcom.paintly.StyleAdapter.ViewHolder
 import kotlinx.android.synthetic.main.style_item.view.*
 
-class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.Adapter (langsung di set)
+class StyleAdapter internal constructor(
     private val mContext: Context,
     private val mStyles: List<StyleData>,
-//    private val mStyles: Styles,
     private val mClickListener: ClickListener
 ) :
     RecyclerView.Adapter<ViewHolder>() {
     inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
-        // ViewHolder berbentuk RecyclerView.ViewHolder (langsung di set)
         var styleImage: ImageView?
         var img_title: TextView
         override fun onClick(view: View) {
@@ -32,7 +30,7 @@ class StyleAdapter internal constructor(// StyleAdapter berbentuk RecyclerView.A
         }
 
         init {
-            styleImage = view.findViewById(R.id.btn_style) // image view dari item_style.xml
+            styleImage = view.findViewById(R.id.btn_style) // image view dari style_item.xml
             img_title = view.img_title
             view.setOnClickListener(this)
         }
