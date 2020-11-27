@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_ready"
+            android:background="@drawable/ripple"
             android:text="@string/i_m_ready_"
             android:textAppearance="@style/i_m_ready_"
             />

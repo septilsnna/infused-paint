@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -16,20 +17,24 @@
                 <ProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingHorizontal="100dp"/>
+                    android:paddingHorizontal="100dp"
+                    android:layout_marginBottom="100dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
-                    android:layout_marginTop="-150dp"
+                    android:layout_marginTop="-250dp"
                     android:text="Please wait ...\nYour image is currently processing"
                     style="@style/sp16_ffffff_bold"
                     />
 
         </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/result"
             android:layout_width="match_parent"
@@ -41,7 +46,7 @@
                     android:id="@+id/horay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Horay!\nHere's your artwork."
+                    android:text="Hooray!\nHere's your artwork."
                     style="@style/profile"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
@@ -65,11 +70,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorPrimary"
-                            android:layout_gravity="center_horizontal"
                             android:text="SAVE"
                             android:textAppearance="@style/sp16_000000_bold"
-                            android:paddingHorizontal="50dp"
+                            android:paddingHorizontal="40dp"
                             android:layout_marginHorizontal="20dp"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:clickable="true"
                             />
 
                         <Button
@@ -80,12 +86,17 @@
                             android:layout_gravity="center_horizontal"
                             android:text="SHARE"
                             android:textAppearance="@style/sp16_000000_bold"
-                            android:paddingHorizontal="50dp"
+                            android:paddingHorizontal="40dp"
                             android:layout_marginHorizontal="20dp"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:clickable="true"
+
                             />
 
                 </LinearLayout>
 
         </LinearLayout>
+
+        </ScrollView>
 
 </LinearLayout>

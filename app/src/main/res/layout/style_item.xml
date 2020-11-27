@@ -18,22 +18,24 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/starry_night"
             android:background="@drawable/rectangle_style"
+            android:foreground="@drawable/rectangle_style"
+
             />
 
         <TextView
             android:id="@+id/img_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="-70dp"
-            android:text="@string/starry_nigh"
-            android:textAppearance="@style/style_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-55dp"
             android:paddingHorizontal="15dp"
             android:paddingVertical="8dp"
-            android:background="@color/colorPrimaryDark"
+            android:text="@string/starry_nigh"
+            android:textAppearance="@style/style_title"
+
             />
 
-<!--        <TextView-->
+        <!--        <TextView-->
 <!--            android:id="@+id/img_author"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->

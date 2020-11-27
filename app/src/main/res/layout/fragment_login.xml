@@ -23,11 +23,11 @@
 
         <Button
             android:id="@+id/google_login_button"
-            android:layout_width="305dp"
+            android:layout_width="300dp"
             android:layout_height="51dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:background="@drawable/button_rectangle"
+            android:background="@drawable/ripple"
             android:text="Login With Google"
             android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"
             android:textAppearance="@style/sp16_000000_bold" />
@@ -107,9 +107,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="80dp"
-            android:background="@drawable/button_rectangle"
+            android:background="@drawable/ripple"
             android:text="@string/log_in"
-            android:textAppearance="@style/sp16_000000_bold" />
+            android:textAppearance="@style/sp16_000000_bold"
+            />
 
 
 
@@ -129,7 +130,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             android:text="@string/don_t_have_"
-            android:textAppearance="@style/sp16_ffffff_reg"/>
+            android:textAppearance="@style/sp16_ffffff_reg"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"/>
 
     </LinearLayout>
 

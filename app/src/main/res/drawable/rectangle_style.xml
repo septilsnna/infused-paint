@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/colorPrimaryDark">
+    <item>
 <vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
@@ -33,7 +36,7 @@
                         >
                         <item
                             android:color="#171D1D1D"
-                            android:offset="0.594"
+                            android:offset="0.4"
                             />
                         <item
                             android:color="#A8000000"
@@ -45,3 +48,5 @@
         </group>
     </group>
 </vector>
+    </item>
+</ripple>

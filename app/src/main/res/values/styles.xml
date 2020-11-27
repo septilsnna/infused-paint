@@ -10,7 +10,7 @@
 
     <style name="sp12_ffffff_reg">
         <item name="android:textSize">
-            12sp
+            12dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -22,7 +22,7 @@
 
     <style name="sp16_000000_bold">
         <item name="android:textSize">
-            16sp
+            14dp
         </item>
         <item name="android:textColor">
             #000000
@@ -34,7 +34,7 @@
 
     <style name="sp16_ffffff_bold">
         <item name="android:textSize">
-            16sp
+            16dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -46,7 +46,7 @@
 
     <style name="sp16_ffffff_reg">
         <item name="android:textSize">
-            16sp
+            16dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -58,7 +58,7 @@
 
     <style name="hi_welcome_">
         <item name="android:textSize">
-            34sp
+            34dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -70,7 +70,7 @@
 
     <style name="pick_your_r">
         <item name="android:textSize">
-            20sp
+            20dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -82,7 +82,7 @@
 
     <style name="next">
         <item name="android:textSize">
-            16sp
+            16dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -94,7 +94,7 @@
 
     <style name="choose_your">
         <item name="android:textSize">
-            20sp
+            20dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -106,7 +106,7 @@
 
     <style name="share_the_r">
         <item name="android:textSize">
-            20sp
+            20dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -118,7 +118,7 @@
 
     <style name="are_you_rea">
         <item name="android:textSize">
-            34sp
+            34dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -130,7 +130,7 @@
 
     <style name="i_m_ready_">
         <item name="android:textSize">
-            16sp
+            16dp
         </item>
         <item name="android:textColor">
             #000000
@@ -142,7 +142,7 @@
 
     <style name="profile">
         <item name="android:textSize">
-            24sp
+            24dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -157,7 +157,7 @@
             center
         </item>
         <item name="android:textSize">
-            16sp
+            16dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -169,7 +169,7 @@
 
     <style name="style_title">
         <item name="android:textSize">
-            20sp
+            14dp
         </item>
         <item name="android:textColor">
             #FFFFFF
@@ -181,7 +181,7 @@
 
     <style name="style_author">
         <item name="android:textSize">
-            16sp
+            16dp
         </item>
         <item name="android:textColor">
             #FFFFFF
