@@ -1,13 +1,21 @@
 package com.mobcom.paintly
 
+import android.Manifest
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.mobcom.paintly.R.layout.afterchoosingimage
 import kotlinx.android.synthetic.main.afterchoosingimage.*
@@ -24,26 +32,56 @@ class AfterUploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(afterchoosingimage)
-
+        val intent_action: Intent
         media = intent.getStringExtra("MEDIA")
         val styleId = intent.getStringExtra("STYLE_ID")
-        val intent_action: Intent
-        if (media == "CAMERA") {
-            val values = ContentValues()
-            values.put(MediaStore.Images.Media.TITLE, "New Picture")
-            values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-            image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
-        //intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            //intent_action.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+
+        if (media == "CAMERA") {
+            val intent_action : Intent
+            //if system os is Marshmallow or Above, we need to request runtime permission
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (checkSelfPermission(Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_DENIED ||
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED){
+                    //permission was not enabled
+                    val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    //show popup to request permission
+                    requestPermissions(permission, REQUEST_CODE)
+                }
+                else{
+                    //permission already granted
+                    val values = ContentValues()
+                    values.put(MediaStore.Images.Media.TITLE, "New Picture")
+                    values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+                    image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                    intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    CustomIntent.customType(this, "fadein-to-fadeout")
+                    startActivityForResult(intent_action, 100)
+                }
+            }
+            else{
+                //system os is < marshmallow
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.TITLE, "New Picture")
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+                image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                CustomIntent.customType(this, "fadein-to-fadeout")
+                startActivityForResult(intent_action, 100)
+            }
+
+
+
         } else {
             intent_action = Intent(Intent.ACTION_GET_CONTENT)
             intent_action.type = "image/*"
+            CustomIntent.customType(this, "fadein-to-fadeout")
+            startActivityForResult(intent_action, 100)
         }
 
-        CustomIntent.customType(this, "fadein-to-fadeout")
-        startActivityForResult(intent_action, 100)
+
 
         button_process.setOnClickListener() {
             // Convert to byte array
