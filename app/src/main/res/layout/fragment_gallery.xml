@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Ups, there is no artwork"
-        android:textAppearance="@style/profile"
+        android:textAppearance="@style/sp16_ffffff_bold"
         android:layout_gravity="center_horizontal"
         android:visibility="gone"
         />
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/gallery_item"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 
 

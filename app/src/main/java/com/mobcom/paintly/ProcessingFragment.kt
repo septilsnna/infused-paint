@@ -44,9 +44,9 @@ import kotlinx.android.synthetic.*
 
 class ProcessingFragment : Fragment() {
     //septilsnna
-//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-//    val SECRET_KEY = "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"
+    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+    val SECRET_KEY = "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"
 
     //soegiebawi
 //    val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
@@ -59,9 +59,9 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "r6Spwvzco96Qwl/xn5eOTosgDtITJrM4H3rS8xi0"
 
     //leejaewook
-    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-    val SECRET_KEY = "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"
+//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
+//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
+//    val SECRET_KEY = "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"
 
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
@@ -146,13 +146,27 @@ class ProcessingFragment : Fragment() {
                 runOnUiThread { }
             }.start()
         } catch (e : ApiClientException) {
-            Toast.makeText(activity, "Failed when processing image, try again later.", Toast.LENGTH_LONG).show()
+            if (e.serviceName == "DeepArtEffectsClient") {
+                Toast.makeText(
+                    activity,
+                    "Failed when processing image, try again later.",
+                    Toast.LENGTH_LONG
+                ).show()
+                val intent = Intent(activity, BottomNavActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+                CustomIntent.customType(activity, "fadein-to-fadeout")
+            }
+        } catch (e: java.net.ConnectException) {
+            Toast.makeText(
+                activity,
+                "Phone not connected to the internet",
+                Toast.LENGTH_LONG
+            ).show()
             val intent = Intent(activity, BottomNavActivity::class.java)
             startActivity(intent)
             activity?.finish()
             CustomIntent.customType(activity, "fadein-to-fadeout")
-        } catch (e: java.net.ConnectException) {
-
         }
     }
 
@@ -290,7 +304,7 @@ class ProcessingFragment : Fragment() {
         Uri.parse(savedImageURL)
 
         mView.save_result.isEnabled = false
-//        mView.save_result.isClickable = false
+        mView.save_result.isClickable = false
         Toast.makeText(activity, "Save Success!", Toast.LENGTH_SHORT).show()
 
     }

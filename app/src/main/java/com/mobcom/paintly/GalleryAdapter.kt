@@ -2,6 +2,7 @@ package com.mobcom.paintly
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.media.Image
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -19,13 +20,15 @@ class GalleryAdapter(
     private val mClickListener: ClickListener
 ) :
     RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
-    inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view),
+    inner class GalleryViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
+        lateinit var resultImage: ImageView
         override fun onClick(view: View) {
             mClickListener.onClick(galleryList[adapterPosition].file_result)
         }
 
         init {
+            resultImage = view.findViewById(R.id.image_result_item)
             view.setOnClickListener(this)
         }
     }
@@ -33,7 +36,6 @@ class GalleryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.gallery_item,
             parent, false)
-
         return GalleryViewHolder(itemView)
     }
 
@@ -42,14 +44,10 @@ class GalleryAdapter(
 
         val decodedString = Base64.decode(currentItem.file_result, Base64.DEFAULT)
         val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-        Glide.with(mContext).load(decodedByte).centerInside().into(holder.resultImage)
+        Glide.with(mContext).load(decodedByte).centerCrop().into(holder.resultImage)
     }
 
     override fun getItemCount() = galleryList.size
-
-    class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val resultImage = itemView.image_result_item
-    }
 
     interface ClickListener {
         fun onClick(file_result: String?)

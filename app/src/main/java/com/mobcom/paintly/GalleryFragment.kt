@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
+import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,50 +45,48 @@ class GalleryFragment : Fragment() {
 
     private fun galleryGet(email: String) {
         mView.progress_bar_gallery.visibility = View.VISIBLE
-        RetrofitClient.instance.getGallery(
-            email,
-        ).enqueue(object : Callback<List<GalleryData>> {
-            override fun onResponse(call: Call<List<GalleryData>>, response: Response<List<GalleryData>>) {
-                if (response.code() == 200) {
-                    mView.rv_gallery.visibility = View.VISIBLE
-                    if (response.body() != null) {
-                        val galleryAdapter = GalleryAdapter(response.body()!!,
-                            mView.context,
-                            object : GalleryAdapter.ClickListener {
-                                override fun onClick(file_result: String?) {
-                                    Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show()
-//                                    val arguments = Bundle()
-//                                    arguments.putString("imageBitmap", convertBitmapToBase64(imageBitmap))
-//                                    val fragment = GalleryInfoDialog()
-//                                    fragment.arguments = arguments
-//                                    fragment.show(childFragmentManager, "ArtworkInfo")
-                                }
-                        })
-                        mView.rv_gallery.adapter = galleryAdapter
-                        mView.rv_gallery.layoutManager = LinearLayoutManager(context)
+        Thread {
+            RetrofitClient.instance.getGallery(
+                email,
+            ).enqueue(object : Callback<List<GalleryData>> {
+                override fun onResponse(
+                    call: Call<List<GalleryData>>,
+                    response: Response<List<GalleryData>>
+                ) {
+                    if (response.code() == 200) {
+                        mView.rv_gallery.visibility = View.VISIBLE
+                        if (response.body() != null) {
+                            val galleryAdapter = GalleryAdapter(response.body()!!,
+                                mView.context,
+                                object : GalleryAdapter.ClickListener {
+                                    override fun onClick(file_result: String?) {
+                                        val arguments = Bundle()
+                                        arguments.putString("file_result", file_result)
+                                        val fragment = GalleryInfoDialog()
+                                        fragment.arguments = arguments
+                                        fragment.show(childFragmentManager, "ArtworkInfo")
+                                    }
+                                })
+                                mView.rv_gallery.adapter = galleryAdapter
+                                mView.rv_gallery.layoutManager = GridLayoutManager(mView.context, 3)
+                                mView.progress_bar_gallery.visibility = View.GONE
+                        }
+                    } else {
+                        mView.empty.visibility = View.VISIBLE
                         mView.progress_bar_gallery.visibility = View.GONE
+                        mView.rv_gallery.visibility = View.GONE
                     }
-                } else {
-                    mView.empty.visibility = View.VISIBLE
+                }
+
+                override fun onFailure(call: Call<List<GalleryData>>, t: Throwable) {
+                    mView.failed_gallery.visibility = View.VISIBLE
+                    mView.empty.visibility = View.GONE
                     mView.progress_bar_gallery.visibility = View.GONE
                     mView.rv_gallery.visibility = View.GONE
                 }
-            }
-            override fun onFailure(call: Call<List<GalleryData>>, t: Throwable) {
-                mView.failed_gallery.visibility = View.VISIBLE
-                mView.empty.visibility = View.GONE
-                mView.progress_bar_gallery.visibility = View.GONE
-                mView.rv_gallery.visibility = View.GONE
-//                Toast.makeText(activity, "Failed to load your gallery, please check your connection.", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun convertBitmapToBase64(bitmap: Bitmap?): String? {
-        val stream = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-        val byteArray = stream.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+            })
+            runOnUiThread {  }
+        }.start()
     }
 
 }

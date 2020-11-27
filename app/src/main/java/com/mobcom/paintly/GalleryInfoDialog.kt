@@ -1,6 +1,5 @@
 package com.mobcom.paintly
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -11,15 +10,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_profile.view.*
-import kotlinx.android.synthetic.main.fragment_edit_profile.view.*
-import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.fragment_processing.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,10 +24,9 @@ import java.io.ByteArrayOutputStream
 
 class GalleryInfoDialog : AppCompatDialogFragment() {
     lateinit var mView: View
-    lateinit var userData: UserData
-
-    val SHARED_PREFS = "sharedPrefs"
-    val EMAIL = "email"
+    lateinit var imageBitmap: Bitmap
+    lateinit var email: String
+    var fileResult: String? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
@@ -40,35 +34,25 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
         val inflater = requireActivity().layoutInflater
         mView = inflater.inflate(R.layout.fragment_processing, null)
 
-        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        val emaill = sharedPreferences?.getString(EMAIL, "").toString()
-        getUser(emaill)
+        fileResult = arguments?.getString("file_result")
+        val decodedString = Base64.decode(fileResult, Base64.DEFAULT)
+        imageBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+
+        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        email = sharedPreferences?.getString("email", "").toString()
 
         mView.processing.visibility = View.GONE
         mView.result.visibility = View.VISIBLE
         mView.horay.visibility = View.GONE
-
-        val strImage = arguments?.getString("imageBitmap")
-        val decodedString = Base64.decode(strImage, Base64.DEFAULT)
-        val imageBitmap = BitmapFactory.decodeByteArray(
-            decodedString,
-            0,
-            decodedString.size
-        )
+        mView.backgroundeu.background = null
         Glide.with(this).load(imageBitmap).into(mView.result_image)
 
         mView.save_result.setOnClickListener {
-            // Save image to gallery
-            val savedImageURL = MediaStore.Images.Media.insertImage(
-                activity?.contentResolver,
-                imageBitmap,
-                "result_image" +  "_" + userData.edit_freq!!.plus(1) + ".jpg",
-                "Image of " + "result_image" +  "_" + userData.edit_freq!!.plus(1) + ".jpg"
-            )
-            Uri.parse(savedImageURL)
+            saveResult()
+        }
 
-            mView.save_result.isEnabled = false
-            Toast.makeText(activity, "Save Success!", Toast.LENGTH_SHORT).show()
+        mView.share_result.setOnClickListener {
+            shareResult()
         }
 
         builder.setView(mView).setTitle("Artwork Info")
@@ -76,20 +60,43 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
 
     }
 
-    private fun getUser(email: String) {
-        RetrofitClient.instance.getUser(
-            email,
-        ).enqueue(object : Callback<UserData?> {
-            override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
-            }
-            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
-                if (response.code() == 200) {
-                    userData = response.body()!!
-                } else {
-                }
-            }
+    private fun saveResult() {
+        // Save image to gallery
+        val savedImageURL = MediaStore.Images.Media.insertImage(
+            activity?.contentResolver,
+            imageBitmap,
+            "result_image.jpg",
+            "Image of " + "result_image.jpg"
+        )
+        Uri.parse(savedImageURL)
 
-        })
+        mView.save_result.isEnabled = false
+        mView.save_result.isClickable = false
+        Toast.makeText(activity, "Save Success!", Toast.LENGTH_SHORT).show()
+
     }
+
+    private  fun shareResult() {
+        // Step 1: Create Share itent
+        val intent = Intent(Intent.ACTION_SEND).setType("image/*")
+
+        // Step 3: Compress image
+        val bytes = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+
+        // Step 4: Save image & get path of it
+        val path = MediaStore.Images.Media.insertImage(activity?.contentResolver, imageBitmap, "tempimage", null)
+
+        // Step 5: Get URI of saved image
+        val uri = Uri.parse(path)
+
+        // Step 6: Put Uri as extra to share intent
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        intent.putExtra(Intent.EXTRA_TEXT,"I made this with Infused Paint!");
+
+        // Step 7: Start/Launch Share intent
+        startActivity(intent)
+
+    }
+
 }
