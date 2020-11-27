@@ -26,11 +26,21 @@
         android:layout_margin="20dp"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/failed_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Failed to load your artwork,\nplease check your connection."
+        android:textAppearance="@style/sp16_ffffff_reg"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/gallery_item"/>
+        tools:listitem="@layout/gallery_item"
+        android:visibility="gone"/>
 
 
 

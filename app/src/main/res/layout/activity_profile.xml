@@ -13,6 +13,16 @@
         android:orientation="vertical"
         android:background="@color/colorPrimaryDark">
 
+            <TextView
+                android:id="@+id/failed_profile"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center_horizontal"
+                android:layout_margin="80dp"
+                android:text="Failed to load your profile,\nplease check your connection."
+                android:textAppearance="@style/sp16_ffffff_reg"
+                android:visibility="gone"/>
+
             <ProgressBar
                 android:id="@+id/progress_profile"
                 android:layout_width="80dp"

@@ -14,8 +14,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import hotchemi.android.rate.AppRate
+import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import maes.tech.intentanim.CustomIntent
+import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -97,41 +99,52 @@ class ProfileFragment : Fragment(){
     }
 
     private fun getUser(email: String) {
-        RetrofitClient.instance.getUser(
-            email,
-        ).enqueue(object : Callback<UserData?> {
-            override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
-                if (response.code() == 200) {
+        Thread {
+            RetrofitClient.instance.getUser(
+                email,
+            ).enqueue(object : Callback<UserData?> {
+                override fun onFailure(call: Call<UserData?>, t: Throwable) {
                     mView.progress_profile.visibility = View.GONE
-                    mView.info_profile.visibility = View.VISIBLE
-                    mView.name.text = response.body()?.name
-                    mView.email.text = response.body()?.email
-                    mView.created_at.text =
-                        "Joined At: " + response.body()?.created_at?.split(" ")?.get(
-                            0
-                        )
-                    mView.number_artwork.text = "Number of Artwork: " + response.body()?.edit_freq
-
-                    if (response.body()?.photo != "") {
-                        val decodedString = Base64.decode(response.body()?.photo, Base64.DEFAULT)
-                        val decodedByte = BitmapFactory.decodeByteArray(
-                            decodedString,
-                            0,
-                            decodedString.size
-                        )
-                        Glide.with(mView.context).load(decodedByte).centerInside().into(mView.profile_image)
-                    }
-
-                } else {
-                    Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
+                    mView.info_profile.visibility = View.GONE
+                    mView.failed_profile.visibility = View.VISIBLE
+//                    Toast.makeText(activity, "Failed to load profile, please check your connection.", Toast.LENGTH_SHORT).show()
                 }
-            }
 
-        })
+                override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
+                    if (response.code() == 200) {
+                        runOnUiThread {
+                            mView.progress_profile.visibility = View.GONE
+                            mView.info_profile.visibility = View.VISIBLE
+                            mView.name.text = response.body()?.name
+                            mView.email.text = response.body()?.email
+                            mView.created_at.text =
+                                "Joined At: " + response.body()?.created_at?.split(" ")?.get(
+                                    0
+                                )
+                            mView.number_artwork.text =
+                                "Number of Artwork: " + response.body()?.edit_freq
+
+                            if (response.body()?.photo != "") {
+                                val decodedString =
+                                    Base64.decode(response.body()?.photo, Base64.DEFAULT)
+                                val decodedByte = BitmapFactory.decodeByteArray(
+                                    decodedString,
+                                    0,
+                                    decodedString.size
+                                )
+                                Glide.with(mView.context).load(decodedByte).centerInside()
+                                    .into(mView.profile_image)
+                            }
+                        }
+                    } else {
+                        mView.failed_styles.visibility = View.VISIBLE
+                        mView.progress_profile.visibility = View.GONE
+//                        Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            })
+        }.start()
     }
 
     private fun logout() {

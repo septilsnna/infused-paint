@@ -16,6 +16,7 @@ interface Api{
         @Field("password") password: String,
         @Field("name") name: String,
         @Field("email") email: String,
+        @Field("quota_today") quota_today: Int,
         @Field("edit_freq") edit_freq: Int,
         @Field("share_freq") share_freq: Int,
     ): Call<UserData>

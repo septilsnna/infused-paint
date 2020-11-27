@@ -84,7 +84,9 @@ class EditProfileActivity : AppCompatActivity() {
             email,
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                progress_edit.visibility = View.GONE
+                profile_image_edit.visibility = View.VISIBLE
+                failed_edit.visibility = View.VISIBLE
             }
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
@@ -149,7 +151,10 @@ class EditProfileActivity : AppCompatActivity() {
                 imageString
             ).enqueue(object : Callback<UserData?> {
                 override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                    progress_edit.visibility = View.GONE
+                    profile_image_edit.visibility = View.VISIBLE
+                    failed_edit.visibility = View.VISIBLE
+                    failed_edit.text = "Failed to update your profile,\nplease check your connection."
                 }
 
                 override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
@@ -158,6 +163,7 @@ class EditProfileActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext, "Update Success!", Toast.LENGTH_SHORT)
                             .show()
                         progress_edit.visibility = View.GONE
+                        finish()
                     } else {
                         Toast.makeText(
                             applicationContext,
@@ -190,7 +196,10 @@ class EditProfileActivity : AppCompatActivity() {
             emailNew,
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                progress_edit.visibility = View.GONE
+                profile_image_edit.visibility = View.VISIBLE
+                failed_edit.visibility = View.VISIBLE
+                failed_edit.text = "Failed to update your profile,\nplease check your connection."
             }
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {

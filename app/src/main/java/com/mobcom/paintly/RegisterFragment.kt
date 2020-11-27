@@ -31,6 +31,7 @@ class RegisterFragment : Fragment() {
     lateinit var name: EditText
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
+    val QUOTA = "quota"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +47,15 @@ class RegisterFragment : Fragment() {
         name = mView.email_input
 
         button.setOnClickListener(){
-            checkEmail(email.text.toString())
+            checkEmail(
+                username.text.toString().split("@").get(0),
+                password.text.toString(),
+                name.text.toString().split(
+                    "@"
+                ).get(0),
+                email.text.toString(),
+                "email"
+            )
         }
 
         // google register
@@ -86,24 +95,24 @@ class RegisterFragment : Fragment() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account = completedTask.getResult(ApiException::class.java)
             val acct = GoogleSignIn.getLastSignedInAccount(activity)
             if (acct != null) {
                 val personName = acct.displayName
-                val personGivenName = acct.givenName
-                val personFamilyName = acct.familyName
                 val personEmail = acct.email
                 val personId = acct.id
-                val personPhoto: Uri? = acct.photoUrl
-                createUser(
+//                val personPhoto: Uri? = acct.photoUrl
+                checkEmail(
                     personEmail!!.split("@").get(0),
                     personId!!,
                     personName!!,
-                    personEmail
+                    personEmail,
+                    "gmail"
                 )
             }
 
-        } catch (e: ApiException) { }
+        } catch (e: ApiException) {
+            Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun validateEmail()
@@ -162,16 +171,17 @@ class RegisterFragment : Fragment() {
             password,
             name,
             email,
+            10,
             0,
             0
         ).enqueue(object : Callback<UserData> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
             }
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Register Success!", Toast.LENGTH_SHORT).show()
-                    saveData(email)
+                    saveData(email, 10)
                     goToApp()
                 } else {
                     Toast.makeText(activity, "Register Failed!", Toast.LENGTH_SHORT).show()
@@ -187,36 +197,32 @@ class RegisterFragment : Fragment() {
         CustomIntent.customType(activity, "fadein-to-fadeout")
     }
 
-    fun saveData(email: String) {
+    fun saveData(email: String, quota: Int) {
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putString(EMAIL, email)
+        editor?.putInt(QUOTA, quota)
         editor?.apply()
     }
 
-    fun checkEmail(email: String){
+    fun checkEmail(username: String, password: String, name: String, email: String, res: String){
         RetrofitClient.instance.getUser(
             email,
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Email sudah digunakan", Toast.LENGTH_SHORT).show()
                 } else {
-                    if(!validateEmail() || !validatePassword()) {
-                        return
+                    if (res == "email") {
+                        if (!validateEmail() || !validatePassword()) {
+                            return
+                        }
                     }
-                    createUser(
-                        username.text.toString().split("@").get(0),
-                        password.text.toString(),
-                        name.text.toString().split(
-                            "@"
-                        ).get(0),
-                        email
-                    )
+                    createUser(username, password, name, email)
                 }
             }
         })

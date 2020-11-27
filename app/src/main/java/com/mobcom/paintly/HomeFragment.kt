@@ -1,10 +1,10 @@
 package com.mobcom.paintly
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_home.view.*
@@ -15,6 +15,10 @@ import retrofit2.Response
 
 class HomeFragment : Fragment(){
     lateinit var mView: View
+    lateinit var quota: String
+
+    val SHARED_PREFS = "sharedPrefs"
+    val QUOTA = "quota"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,10 +27,15 @@ class HomeFragment : Fragment(){
     ): View? {
         mView = inflater.inflate(R.layout.activity_home, container, false)
 
+        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        quota = sharedPreferences?.getInt(QUOTA, 0)!!.toInt().toString()
+//        mView.quota_today.text = mView.quota_today.text.toString() + quota
+
         RetrofitClient.instance.getStyles(
         ).enqueue(object : Callback<List<StyleData>> {
             override fun onFailure(call: Call<List<StyleData>>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+                mView.failed_styles.visibility = View.VISIBLE
+//                Toast.makeText(activity, "Failed to load styles, please check your connection.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<List<StyleData>>, response: Response<List<StyleData>>) {
@@ -45,6 +54,7 @@ class HomeFragment : Fragment(){
         // Set title bar
         (activity as BottomNavActivity)
             .setActionBarTitle("Pick Your Style")
+//            .setActionBarTitle("Pick Your Style (quota/day: $quota)")
     }
 
     private fun loadingStyles(styleData: List<StyleData>) {

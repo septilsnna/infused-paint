@@ -24,6 +24,7 @@ class LoginFragment : Fragment() {
     lateinit var mView: View
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
+    val QUOTA = "quota"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,7 +94,9 @@ class LoginFragment : Fragment() {
                 getUser(personEmail!!, personId!!)
             }
 
-        } catch (e: ApiException) { }
+        } catch (e: ApiException) {
+            Toast.makeText(activity, "Failed to login, please check your connection", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun validateEmail()
@@ -127,7 +130,7 @@ class LoginFragment : Fragment() {
             email,
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
-                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Failed to login, please check your connection", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
@@ -158,6 +161,7 @@ class LoginFragment : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putString(EMAIL, email)
+//        editor?.putInt(QUOTA, quota)
         editor?.apply()
     }
 }

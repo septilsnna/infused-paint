@@ -37,9 +37,9 @@ import java.util.*
 
 class ProcessingFragment : Fragment() {
     //septilsnna
-//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-//    val SECRET_KEY = "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"
+    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+    val SECRET_KEY = "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"
 
     //soegiebawi
 //    val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
@@ -52,9 +52,9 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "r6Spwvzco96Qwl/xn5eOTosgDtITJrM4H3rS8xi0"
 
     //leejaewook
-    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-    val SECRET_KEY = "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"
+//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
+//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
+//    val SECRET_KEY = "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"
 
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
@@ -69,38 +69,38 @@ class ProcessingFragment : Fragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_processing, container, false)
 
-//        AWS untuk akses api nya deepart
-        val factory = ApiClientFactory()
-            .apiKey(API_KEY)
-            .credentialsProvider(object : AWSCredentialsProvider {
-                override fun getCredentials(): AWSCredentials {
-                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
-                }
-
-                override fun refresh() {}
-            }).region(Regions.EU_WEST_1.getName())
-        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-//        AWS untuk akses api nya deepart
-
-        val arguments = arguments
-        styleId = arguments?.getString("STYLE_ID")!!
-        val byteArray = arguments?.getByteArray("IMAGE")
-        imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
-
-        // load data user
-        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val email = sharedPreferences?.getString("email", "").toString()
-        getUser(email)
-
-        uploadImage(styleId!!, imageBitmap)
-
-        mView.save_result.setOnClickListener {
-            saveResult()
-        }
-
-        mView.share_result.setOnClickListener {
-            shareResult()
-        }
+////        AWS untuk akses api nya deepart
+//        val factory = ApiClientFactory()
+//            .apiKey(API_KEY)
+//            .credentialsProvider(object : AWSCredentialsProvider {
+//                override fun getCredentials(): AWSCredentials {
+//                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+//                }
+//
+//                override fun refresh() {}
+//            }).region(Regions.EU_WEST_1.getName())
+//        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+////        AWS untuk akses api nya deepart
+//
+//        val arguments = arguments
+//        styleId = arguments?.getString("STYLE_ID")!!
+//        val byteArray = arguments?.getByteArray("IMAGE")
+//        imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+//
+//        // load data user
+//        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+//        val email = sharedPreferences?.getString("email", "").toString()
+//        getUser(email)
+//
+//        uploadImage(styleId, imageBitmap)
+//
+//        mView.save_result.setOnClickListener {
+//            saveResult()
+//        }
+//
+//        mView.share_result.setOnClickListener {
+//            shareResult()
+//        }
 
         return mView
     }
@@ -131,7 +131,7 @@ class ProcessingFragment : Fragment() {
                             }
                         }
                     } catch (e: java.lang.Exception) {
-                        cancel()
+                        Toast.makeText(activity, "Failed to processing image", Toast.LENGTH_LONG).show()
                     }
                 }
             }, 2500.toLong(), 2500.toLong())

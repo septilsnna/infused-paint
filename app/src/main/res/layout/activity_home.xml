@@ -15,6 +15,24 @@
         android:layout_margin="20dp"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/failed_styles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Failed to load styles,\nplease check your connection."
+        android:textAppearance="@style/sp16_ffffff_reg"
+        android:visibility="gone"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/quota_today"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="quota/day: "-->
+<!--        android:layout_gravity="right"-->
+<!--        android:paddingEnd="60dp"-->
+<!--        android:paddingBottom="5dp"/>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_style"
         android:layout_width="match_parent"
