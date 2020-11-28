@@ -40,37 +40,15 @@ class AfterUploadActivity : AppCompatActivity() {
         if (media == "CAMERA") {
             val intent_action : Intent
             //if system os is Marshmallow or Above, we need to request runtime permission
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (checkSelfPermission(Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_DENIED ||
-                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_DENIED){
-                    //permission was not enabled
-                    val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    //show popup to request permission
-                    requestPermissions(permission, REQUEST_CODE)
-                }
-                else{
-                    //permission already granted
-                    val values = ContentValues()
-                    values.put(MediaStore.Images.Media.TITLE, "New Picture")
-                    values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-                    image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                    intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    CustomIntent.customType(this, "fadein-to-fadeout")
-                    startActivityForResult(intent_action, 100)
-                }
-            }
-            else{
-                //system os is < marshmallow
-                val values = ContentValues()
-                values.put(MediaStore.Images.Media.TITLE, "New Picture")
-                values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-                image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                CustomIntent.customType(this, "fadein-to-fadeout")
-                startActivityForResult(intent_action, 100)
-            }
+            val values = ContentValues()
+            values.put(MediaStore.Images.Media.TITLE, "New Picture")
+            values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+            image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            CustomIntent.customType(this, "fadein-to-fadeout")
+            startActivityForResult(intent_action, 100)
+
+
 
 
 
@@ -80,6 +58,8 @@ class AfterUploadActivity : AppCompatActivity() {
             CustomIntent.customType(this, "fadein-to-fadeout")
             startActivityForResult(intent_action, 100)
         }
+
+
 
 
 
