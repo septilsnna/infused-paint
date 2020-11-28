@@ -3,6 +3,7 @@ package com.mobcom.paintly
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -44,9 +45,9 @@ import kotlinx.android.synthetic.*
 
 class ProcessingFragment : Fragment() {
     //septilsnna
-    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-    val SECRET_KEY = "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"
+//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+//    val SECRET_KEY = "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"
 
     //soegiebawi
 //    val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
@@ -63,11 +64,28 @@ class ProcessingFragment : Fragment() {
 //    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
 //    val SECRET_KEY = "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"
 
+    //kimseokjin
+//    val API_KEY = "fPqsHdHgD5aWpMYrRVH639klJKBDvAbw6lS9Ukuv"
+//    val ACCESS_KEY = "AKIA3XE3HF7SWHXJJ2ND"
+//    val SECRET_KEY = "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"
+
+    //kimtaeyhung
+//    val API_KEY = "7EHHh30Fzq7tRPZCQXR78BER2yFALZv9fu6sRFtb"
+//    val ACCESS_KEY = "AKIA3XE3HF7S2EN4DEOJ"
+//    val SECRET_KEY = "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"
+
+    //kukikuki123
+    val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
+    val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
+    val SECRET_KEY = "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"
+
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
     lateinit var userData: UserData
     lateinit var styleId: String
     lateinit var imageBitmap: Bitmap
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var email: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,8 +113,8 @@ class ProcessingFragment : Fragment() {
         imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
 
         // load data user
-        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val email = sharedPreferences?.getString("email", "").toString()
+        sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)!!
+        email = sharedPreferences.getString("email", "").toString()
         getUser(email)
 
         uploadImage(styleId, imageBitmap)
@@ -110,12 +128,6 @@ class ProcessingFragment : Fragment() {
         }
 
         return mView
-    }
-
-    override fun onDestroy() {
-        activity?.finish()
-        deepArtEffectsClient.apply { clearFindViewByIdCache() }
-        super.onDestroy()
     }
 
     private fun uploadImage(styleId: String, imageBitmap: Bitmap) {
@@ -143,6 +155,11 @@ class ProcessingFragment : Fragment() {
                         } catch (e: java.lang.IllegalStateException) { }
                     }
                 }, 2500.toLong(), 2500.toLong())
+                val quota = sharedPreferences.getInt("quota", 0).minus(1)
+                val editor = sharedPreferences.edit()
+                editor?.putInt("quota", quota)
+                editor?.apply()
+                updateQuota(email, quota)
             } catch (e : ApiClientException) {
                 runOnUiThread {
                     if (e.serviceName == "DeepArtEffectsClient") {
@@ -151,8 +168,6 @@ class ProcessingFragment : Fragment() {
                             "Failed when processing image, try again later.",
                             Toast.LENGTH_LONG
                         ).show()
-                        val intent = Intent(activity, BottomNavActivity::class.java)
-                        startActivity(intent)
                         activity?.finish()
                         CustomIntent.customType(activity, "fadein-to-fadeout")
                     }
@@ -164,8 +179,6 @@ class ProcessingFragment : Fragment() {
                         "Phone not connected to the internet",
                         Toast.LENGTH_LONG
                     ).show()
-                    val intent = Intent(activity, BottomNavActivity::class.java)
-                    startActivity(intent)
                     activity?.finish()
                     CustomIntent.customType(activity, "fadein-to-fadeout")
                 }
@@ -353,6 +366,20 @@ class ProcessingFragment : Fragment() {
                     userData = response.body()!!
                 } else {
                 }
+
+        })
+    }
+
+    private fun updateQuota(email: String, quota: Int) {
+        RetrofitClient.instance.updateQuota(
+            email,
+            quota
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
+            }
 
         })
     }

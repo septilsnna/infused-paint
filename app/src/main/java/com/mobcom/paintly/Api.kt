@@ -37,8 +37,8 @@ interface Api{
 
     @FormUrlEncoded
     @PUT("users/update/{email}")
-    fun updateUserShareFreq(@Path("email") email: String,
-                           @Field("share_freq") share_freq: Int,
+    fun updateQuota(@Path("email") email: String,
+                    @Field("quota_today") quota_today: Int,
     ): Call<UserData>
 
     @GET("imagestyles")

@@ -23,6 +23,8 @@ import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterFragment : Fragment() {
     lateinit var mView: View
@@ -32,6 +34,9 @@ class RegisterFragment : Fragment() {
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
     val QUOTA = "quota"
+    lateinit var calendar: Calendar
+    lateinit var dateFormat: SimpleDateFormat
+    val DATE = "date"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -171,7 +176,7 @@ class RegisterFragment : Fragment() {
             password,
             name,
             email,
-            10,
+            5,
             0,
             0
         ).enqueue(object : Callback<UserData> {
@@ -181,7 +186,7 @@ class RegisterFragment : Fragment() {
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Register Success!", Toast.LENGTH_SHORT).show()
-                    saveData(email, 10)
+                    saveData(email, 5)
                     goToApp()
                 } else {
                     Toast.makeText(activity, "Register Failed!", Toast.LENGTH_SHORT).show()
@@ -198,10 +203,15 @@ class RegisterFragment : Fragment() {
     }
 
     fun saveData(email: String, quota: Int) {
+        calendar = Calendar.getInstance()
+        dateFormat = SimpleDateFormat("MM/dd/yyyy")
+        val date = dateFormat.format(calendar.time)
+
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putString(EMAIL, email)
         editor?.putInt(QUOTA, quota)
+        editor?.putString(DATE, date)
         editor?.apply()
     }
 

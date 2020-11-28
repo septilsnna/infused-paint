@@ -22,6 +22,8 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ProfileFragment : Fragment(){
@@ -157,6 +159,13 @@ class ProfileFragment : Fragment(){
         editor?.apply()
         mGoogleSignInClient.signOut()
         Toast.makeText(activity, "Logout Success!", Toast.LENGTH_SHORT).show()
+
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+        val date = dateFormat.format(calendar.time)
+        editor?.putString("date", date)
+        editor?.apply()
+
         val intent = Intent(activity, StartActivity::class.java)
         startActivity(intent)
         CustomIntent.customType(activity, "fadein-to-fadeout")

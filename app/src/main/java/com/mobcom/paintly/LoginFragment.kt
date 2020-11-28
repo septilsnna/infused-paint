@@ -18,6 +18,8 @@ import maes.tech.intentanim.CustomIntent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -137,7 +139,7 @@ class LoginFragment : Fragment() {
                 if (response.code() == 200) {
                     if (password == response.body()?.password) {
                         Toast.makeText(activity, "Login Success!", Toast.LENGTH_SHORT).show()
-                        saveData(email)
+                        saveData(email, response.body()!!.quota_today!!)
                         goToApp()
                     } else {
                         Toast.makeText(activity, "Password Tidak Sesuai!", Toast.LENGTH_SHORT)
@@ -157,11 +159,18 @@ class LoginFragment : Fragment() {
         CustomIntent.customType(activity, "fadein-to-fadeout")
     }
 
-    fun saveData(email: String) {
+    fun saveData(email: String, quota: Int) {
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
+        val date = sharedPreferences?.getString("date", "")
+        if (date == null) {
+            val calendar = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+            val date_today = dateFormat.format(calendar.time)
+            editor?.putString("date", date_today)
+        }
         editor?.putString(EMAIL, email)
-//        editor?.putInt(QUOTA, quota)
+        editor?.putInt(QUOTA, quota)
         editor?.apply()
     }
 }
