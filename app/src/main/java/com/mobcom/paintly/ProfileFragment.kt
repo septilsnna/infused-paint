@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.amazonaws.mobileconnectors.apigateway.ApiClientException
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -42,33 +43,41 @@ class ProfileFragment : Fragment(){
     ): View? {
         mView = inflater.inflate(R.layout.activity_profile, container, false)
 
-        edit_profile_button = mView.editprofile_button
-        edit_profile_button.setOnClickListener {
-            val intent = Intent(activity, EditProfileActivity::class.java)
+        try {
+            edit_profile_button = mView.editprofile_button
+            edit_profile_button.setOnClickListener {
+                val intent = Intent(activity, EditProfileActivity::class.java)
+                startActivity(intent)
+                CustomIntent.customType(activity, "fadein-to-fadeout")
+            }
+
+            about_app_button = mView.button_about
+            about_app_button.setOnClickListener {
+                AboutAppDialog().show(this.childFragmentManager, "About App")
+            }
+
+            send_feedback_button = mView.button_sendfeedback
+            send_feedback_button.setOnClickListener {
+                AppRate.with(activity).showRateDialog(activity)
+            }
+
+            app_version_button = mView.button_app_version
+            app_version_button.setOnClickListener {
+                Toast.makeText(activity, "App Version 1.0.0", Toast.LENGTH_SHORT).show()
+            }
+
+            // google auth for logout
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+            mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+
+        } catch (e: ApiClientException) {
+            val intent = Intent(activity, BottomNavActivity::class.java)
             startActivity(intent)
+            activity?.finish()
             CustomIntent.customType(activity, "fadein-to-fadeout")
         }
-
-        about_app_button = mView.button_about
-        about_app_button.setOnClickListener {
-            AboutAppDialog().show(this.childFragmentManager, "About App")
-        }
-
-        send_feedback_button = mView.button_sendfeedback
-        send_feedback_button.setOnClickListener {
-            AppRate.with(activity).showRateDialog(activity)
-        }
-
-        app_version_button = mView.button_app_version
-        app_version_button.setOnClickListener {
-            Toast.makeText(activity, "App Version 1.0.0", Toast.LENGTH_SHORT).show()
-        }
-
-        // google auth for logout
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
 
         setHasOptionsMenu(true)
         return mView
@@ -99,7 +108,6 @@ class ProfileFragment : Fragment(){
     }
 
     private fun getUser(email: String) {
-        Thread {
             RetrofitClient.instance.getUser(
                 email,
             ).enqueue(object : Callback<UserData?> {
@@ -107,12 +115,10 @@ class ProfileFragment : Fragment(){
                     mView.progress_profile.visibility = View.GONE
                     mView.info_profile.visibility = View.GONE
                     mView.failed_profile.visibility = View.VISIBLE
-//                    Toast.makeText(activity, "Failed to load profile, please check your connection.", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                     if (response.code() == 200) {
-                        runOnUiThread {
                             mView.progress_profile.visibility = View.GONE
                             mView.info_profile.visibility = View.VISIBLE
                             mView.name.text = response.body()?.name
@@ -135,16 +141,13 @@ class ProfileFragment : Fragment(){
                                 Glide.with(mView.context).load(decodedByte).centerInside()
                                     .into(mView.profile_image)
                             }
-                        }
                     } else {
-                        mView.failed_styles.visibility = View.VISIBLE
+                        mView.failed_profile.visibility = View.VISIBLE
                         mView.progress_profile.visibility = View.GONE
-//                        Toast.makeText(activity, "Failed to load user", Toast.LENGTH_SHORT).show()
                     }
                 }
 
             })
-        }.start()
     }
 
     private fun logout() {

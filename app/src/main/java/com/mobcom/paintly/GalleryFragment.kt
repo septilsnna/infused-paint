@@ -1,6 +1,7 @@
 package com.mobcom.paintly
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Base64
@@ -11,8 +12,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.amazonaws.mobileconnectors.apigateway.ApiClientException
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
+import maes.tech.intentanim.CustomIntent
 import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,9 +32,17 @@ class GalleryFragment : Fragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_gallery, container, false)
 
-        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val email = sharedPreferences?.getString("email", "").toString()
-        galleryGet(email)
+        try {
+            val sharedPreferences =
+                activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+            val email = sharedPreferences?.getString("email", "").toString()
+            galleryGet(email)
+        } catch (e: ApiClientException) {
+            val intent = Intent(activity, BottomNavActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+            CustomIntent.customType(activity, "fadein-to-fadeout")
+        }
 
         return mView
     }
@@ -45,7 +56,6 @@ class GalleryFragment : Fragment() {
 
     private fun galleryGet(email: String) {
         mView.progress_bar_gallery.visibility = View.VISIBLE
-        Thread {
             RetrofitClient.instance.getGallery(
                 email,
             ).enqueue(object : Callback<List<GalleryData>> {
@@ -85,8 +95,6 @@ class GalleryFragment : Fragment() {
                     mView.rv_gallery.visibility = View.GONE
                 }
             })
-            runOnUiThread {  }
-        }.start()
     }
 
 }

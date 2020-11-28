@@ -1,13 +1,16 @@
 package com.mobcom.paintly
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.amazonaws.mobileconnectors.apigateway.ApiClientException
 import kotlinx.android.synthetic.main.activity_home.view.*
+import maes.tech.intentanim.CustomIntent
 import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,23 +30,33 @@ class HomeFragment : Fragment(){
     ): View? {
         mView = inflater.inflate(R.layout.activity_home, container, false)
 
-        val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
-        quota = sharedPreferences?.getInt(QUOTA, 0)!!.toInt().toString()
-//        mView.quota_today.text = mView.quota_today.text.toString() + quota
+        try {
+            val sharedPreferences =
+                activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+            quota = sharedPreferences?.getInt(QUOTA, 0)!!.toInt().toString()
 
-        RetrofitClient.instance.getStyles(
-        ).enqueue(object : Callback<List<StyleData>> {
-            override fun onFailure(call: Call<List<StyleData>>, t: Throwable) {
-                mView.failed_styles.visibility = View.VISIBLE
-            }
-
-            override fun onResponse(call: Call<List<StyleData>>, response: Response<List<StyleData>>) {
-                if (response.code() == 200) {
-                    loadingStyles(response.body()!!)
-                } else {
+            RetrofitClient.instance.getStyles(
+            ).enqueue(object : Callback<List<StyleData>> {
+                override fun onFailure(call: Call<List<StyleData>>, t: Throwable) {
+                    mView.failed_styles.visibility = View.VISIBLE
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call<List<StyleData>>,
+                    response: Response<List<StyleData>>
+                ) {
+                    if (response.code() == 200) {
+                        loadingStyles(response.body()!!)
+                    } else {
+                    }
+                }
+            })
+        } catch (e: ApiClientException) {
+            val intent = Intent(activity, BottomNavActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+            CustomIntent.customType(activity, "fadein-to-fadeout")
+        }
 
         return mView
     }
@@ -57,8 +70,6 @@ class HomeFragment : Fragment(){
     }
 
     private fun loadingStyles(styleData: List<StyleData>) {
-        mView.progress_bar_style.visibility = View.VISIBLE
-        Thread {
             val styleAdapter = StyleAdapter( // deklarasi styleAdapter yang bentuknya StyleAdapter()
                 mView.context,
                 styleData,
@@ -72,13 +83,10 @@ class HomeFragment : Fragment(){
                     }
                 }
             )
-            runOnUiThread {
                 mView.rv_style.adapter =
                     styleAdapter // adapter dari rv nya di set jadi styleAdapter (dideclare di atas)
                 mView.rv_style.layoutManager = LinearLayoutManager(context)
                 mView.progress_bar_style.visibility = View.GONE
-            }
-        }.start() // mulai ehehehehehe
     }
 
 }

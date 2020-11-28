@@ -119,8 +119,8 @@ class ProcessingFragment : Fragment() {
     }
 
     private fun uploadImage(styleId: String, imageBitmap: Bitmap) {
-        try {
-            Thread {
+        Thread {
+            try {
                 val uploadRequest = UploadRequest()
                 uploadRequest.styleId = styleId
                 uploadRequest.imageBase64Encoded = convertBitmapToBase64(imageBitmap)
@@ -143,31 +143,34 @@ class ProcessingFragment : Fragment() {
                         } catch (e: java.lang.IllegalStateException) { }
                     }
                 }, 2500.toLong(), 2500.toLong())
-                runOnUiThread { }
-            }.start()
-        } catch (e : ApiClientException) {
-            if (e.serviceName == "DeepArtEffectsClient") {
-                Toast.makeText(
-                    activity,
-                    "Failed when processing image, try again later.",
-                    Toast.LENGTH_LONG
-                ).show()
-                val intent = Intent(activity, BottomNavActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
-                CustomIntent.customType(activity, "fadein-to-fadeout")
+            } catch (e : ApiClientException) {
+                runOnUiThread {
+                    if (e.serviceName == "DeepArtEffectsClient") {
+                        Toast.makeText(
+                            activity,
+                            "Failed when processing image, try again later.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val intent = Intent(activity, BottomNavActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                        CustomIntent.customType(activity, "fadein-to-fadeout")
+                    }
+                }
+            } catch (e: java.net.ConnectException) {
+                runOnUiThread {
+                    Toast.makeText(
+                        activity,
+                        "Phone not connected to the internet",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    val intent = Intent(activity, BottomNavActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                    CustomIntent.customType(activity, "fadein-to-fadeout")
+                }
             }
-        } catch (e: java.net.ConnectException) {
-            Toast.makeText(
-                activity,
-                "Phone not connected to the internet",
-                Toast.LENGTH_LONG
-            ).show()
-            val intent = Intent(activity, BottomNavActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
-            CustomIntent.customType(activity, "fadein-to-fadeout")
-        }
+        }.start()
     }
 
     fun addWatermark(
