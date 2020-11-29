@@ -41,6 +41,7 @@ import android.graphics.Paint.DITHER_FLAG
 import androidx.annotation.ColorInt
 import com.amazonaws.mobileconnectors.apigateway.ApiClientException
 import kotlinx.android.synthetic.*
+import java.lang.IllegalStateException
 
 
 class ProcessingFragment : Fragment() {
@@ -60,9 +61,9 @@ class ProcessingFragment : Fragment() {
     val SECRET_KEY = "GzKxL/T5wASq13j3So11OeYi2/dHvLXH418jZvvA"
 
     //alohaloha
-//   val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-//    val SECRET_KEY = "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"
+   //val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
+  //  val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
+  //  val SECRET_KEY = "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"
 
     //leejaewook
 //    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
@@ -80,9 +81,15 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "/QSrhU0/Dm1One3u2ZCObQAp9NxZ1E1oQ891TEHo"
 
     //kukikuki123
+
  //   val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
  //   val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
  //   val SECRET_KEY = "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"
+
+//    val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
+//    val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
+//    val SECRET_KEY = "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"
+
 
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
@@ -157,9 +164,18 @@ class ProcessingFragment : Fragment() {
                                         .into(mView.result_image)
                                 }
                             }
-                        } catch (e: java.lang.IllegalStateException) { }
+                        } catch (e: ApiClientException) {
+                            Toast.makeText(
+                                activity,
+                                "Failed when processing image, try again later.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            activity?.finish()
+                            CustomIntent.customType(activity, "fadein-to-fadeout")
+                        } catch (e: IllegalStateException) { }
+                        catch (e: NullPointerException) { }
                     }
-                }, 2500.toLong(), 2500.toLong())
+                }, 2500, 2500)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)
                 val editor = sharedPreferences.edit()
                 editor?.putInt("quota", quota)
@@ -337,7 +353,6 @@ class ProcessingFragment : Fragment() {
         // Step 2: Get Bitmap from your imageView
         val a = mView.result_image.drawable.toBitmap()
         val bitmap = addWatermark(a, "created on Infused Paint")
-
 
         // Step 3: Compress image
         val bytes = ByteArrayOutputStream()

@@ -44,6 +44,7 @@ class LoginFragment : Fragment() {
                 if(!validateEmail() || !validatePassword()){
                     return
                 }
+                Toast.makeText(activity, "Please wait, we logging you in", Toast.LENGTH_SHORT).show()
                 getUser(
                     email.text.toString(),
                     password.text.toString()
@@ -93,6 +94,7 @@ class LoginFragment : Fragment() {
             if (acct != null) {
                 val personEmail = acct.email
                 val personId = acct.id
+                Toast.makeText(activity, "Please wait, we logging you in", Toast.LENGTH_SHORT).show()
                 getUser(personEmail!!, personId!!)
             }
 

@@ -53,7 +53,7 @@ class AfterUploadActivity : AppCompatActivity() {
 
 
 
-        button_process.setOnClickListener() {
+        button_process.setOnClickListener {
             // Convert to byte array
             val stream = ByteArrayOutputStream()
             imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
@@ -64,6 +64,11 @@ class AfterUploadActivity : AppCompatActivity() {
             intent.putExtra("STYLE_ID", styleId)
             intent.putExtra("IMAGE", byteArray)
             startActivity(intent)
+            finish()
+            CustomIntent.customType(this, "fadein-to-fadeout")
+        }
+
+        button_no.setOnClickListener {
             finish()
             CustomIntent.customType(this, "fadein-to-fadeout")
         }
@@ -78,8 +83,18 @@ class AfterUploadActivity : AppCompatActivity() {
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
+
                         imageBitmap = data?.extras?.get("data") as Bitmap
                         image_view.setImageBitmap(imageBitmap)
+
+
+                    if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
+                        imageBitmap = data.extras?.get("data") as Bitmap
+                        val bytes = ByteArrayOutputStream()
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+
+                        Glide.with(this).load(imageBitmap).into(image_view)
+                    }
 
                 } else {
                     val bitmap_img = ImageHelper.loadSizeLimitedBitmapFromUri(

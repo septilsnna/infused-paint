@@ -27,11 +27,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".BottomNavActivity">
+        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".BottomNavActivity"
+            android:label="">
         </activity>
 
         <activity android:name=".StartActivity"
@@ -42,11 +46,11 @@
             android:label="">
         </activity>
 
-        <activity android:name=".AfterUploadActivity"
+        <activity android:name=".AfterUploadActivity" android:theme="@style/ProcessTheme"
             android:label="">
         </activity>
 
-        <activity android:name=".ProcessingActivity"
+        <activity android:name=".ProcessingActivity" android:theme="@style/ProcessTheme"
             android:label="">
         </activity>
 
