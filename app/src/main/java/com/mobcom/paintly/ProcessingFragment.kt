@@ -314,8 +314,8 @@ class ProcessingFragment : Fragment() {
     }
 
     private fun saveResult() {
-        val imageResult = mView.result_image.drawable.toBitmap()
-
+        val a = mView.result_image.drawable.toBitmap()
+        val imageResult = addWatermark(a, "created on Infused Paint")
 
 
         RetrofitClient.instance.updateUserEditFreq(
