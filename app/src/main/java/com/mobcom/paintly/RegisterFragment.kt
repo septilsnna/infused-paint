@@ -52,6 +52,7 @@ class RegisterFragment : Fragment() {
         name = mView.email_input
 
         button.setOnClickListener(){
+            Toast.makeText(activity, "Please wait, we are processing your registration", Toast.LENGTH_SHORT).show()
             checkEmail(
                 username.text.toString().split("@").get(0),
                 password.text.toString(),
@@ -106,6 +107,7 @@ class RegisterFragment : Fragment() {
                 val personEmail = acct.email
                 val personId = acct.id
 //                val personPhoto: Uri? = acct.photoUrl
+                Toast.makeText(activity, "Please wait, we are processing your registration", Toast.LENGTH_SHORT).show()
                 checkEmail(
                     personEmail!!.split("@").get(0),
                     personId!!,

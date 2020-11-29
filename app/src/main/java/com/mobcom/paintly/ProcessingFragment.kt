@@ -56,14 +56,14 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "YqpRytiUKbKeTfiv5kLXMDmT8UJnTbpDEB6pIeaK"
 
     //alohaloha
-//   val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-//    val SECRET_KEY = "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"
+   val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
+    val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
+    val SECRET_KEY = "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"
 
     //leejaewook
-    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-    val SECRET_KEY = "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"
+//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
+//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
+//    val SECRET_KEY = "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"
 
     //kimseokjin
 //    val API_KEY = "fPqsHdHgD5aWpMYrRVH639klJKBDvAbw6lS9Ukuv"
@@ -162,6 +162,7 @@ class ProcessingFragment : Fragment() {
                             activity?.finish()
                             CustomIntent.customType(activity, "fadein-to-fadeout")
                         } catch (e: IllegalStateException) { }
+                        catch (e: NullPointerException) { }
                     }
                 }, 2500, 2500)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)

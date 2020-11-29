@@ -1,21 +1,13 @@
 package com.mobcom.paintly
 
-import android.Manifest
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.mobcom.paintly.R.layout.afterchoosingimage
 import kotlinx.android.synthetic.main.afterchoosingimage.*
@@ -63,7 +55,7 @@ class AfterUploadActivity : AppCompatActivity() {
 
 
 
-        button_process.setOnClickListener() {
+        button_process.setOnClickListener {
             // Convert to byte array
             val stream = ByteArrayOutputStream()
             imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
@@ -74,6 +66,11 @@ class AfterUploadActivity : AppCompatActivity() {
             intent.putExtra("STYLE_ID", styleId)
             intent.putExtra("IMAGE", byteArray)
             startActivity(intent)
+            finish()
+            CustomIntent.customType(this, "fadein-to-fadeout")
+        }
+
+        button_no.setOnClickListener {
             finish()
             CustomIntent.customType(this, "fadein-to-fadeout")
         }

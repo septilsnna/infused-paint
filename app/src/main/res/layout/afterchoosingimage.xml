@@ -6,10 +6,11 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/image_view"
@@ -19,7 +20,7 @@
 
                 <TextView
                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Are you sure?\nYou Want To Paint This Picture?"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="10dp"
@@ -36,7 +37,6 @@
                     android:layout_gravity="center_horizontal"
                     android:text="Yes I'm Sure"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="30dp"
                     android:textAppearance="@style/sp16_000000_bold"/>
                 <!--Button to pick image-->
 
@@ -50,8 +50,8 @@
                     android:layout_gravity="center_horizontal"
                     android:text="No"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="30dp"
                     android:textAppearance="@style/sp16_ffffff_bold"/>
 
-        </LinearLayout>
+    </LinearLayout>
+
 </ScrollView>
