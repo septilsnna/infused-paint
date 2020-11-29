@@ -1,27 +1,20 @@
 package com.mobcom.paintly
 
-import android.Manifest
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.mobcom.paintly.R.layout.afterchoosingimage
 import kotlinx.android.synthetic.main.afterchoosingimage.*
 import maes.tech.intentanim.CustomIntent
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
+
 
 class AfterUploadActivity : AppCompatActivity() {
     var media: String? = null
@@ -40,6 +33,7 @@ class AfterUploadActivity : AppCompatActivity() {
         if (media == "CAMERA") {
             val intent_action : Intent
             //if system os is Marshmallow or Above, we need to request runtime permission
+
             val values = ContentValues()
             values.put(MediaStore.Images.Media.TITLE, "New Picture")
             values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
@@ -47,10 +41,6 @@ class AfterUploadActivity : AppCompatActivity() {
             intent_action = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             CustomIntent.customType(this, "fadein-to-fadeout")
             startActivityForResult(intent_action, 100)
-
-
-
-
 
         } else {
             intent_action = Intent(Intent.ACTION_GET_CONTENT)
@@ -88,16 +78,9 @@ class AfterUploadActivity : AppCompatActivity() {
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 if (media == "CAMERA") {
-                    if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE && data != null){
+                        imageBitmap = data?.extras?.get("data") as Bitmap
+                        image_view.setImageBitmap(imageBitmap)
 
-
-
-                        imageBitmap = data.extras?.get("data") as Bitmap
-
-                        Glide.with(this).load(imageBitmap).into(image_view)
-
-
-                    }
                 } else {
                     val bitmap_img = ImageHelper.loadSizeLimitedBitmapFromUri(
                         data!!.data,
@@ -105,8 +88,12 @@ class AfterUploadActivity : AppCompatActivity() {
                     )!!
 
                     imageBitmap = bitmap_img
-                        Bitmap.createScaledBitmap(bitmap_img,
-                        (bitmap_img.width * 0.9).roundToInt(), (bitmap_img.height * 0.9).roundToInt(), false)
+                        Bitmap.createScaledBitmap(
+                            bitmap_img,
+                            (bitmap_img.width * 0.9).roundToInt(),
+                            (bitmap_img.height * 0.9).roundToInt(),
+                            false
+                        )
 
                     Glide.with(this).load(imageBitmap).into(image_view)
                 }
