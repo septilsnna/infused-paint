@@ -52,7 +52,7 @@ class RegisterFragment : Fragment() {
         name = mView.email_input
 
         button.setOnClickListener(){
-            Toast.makeText(activity, "Please wait, we are processing your registration", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Please wait, we're currently processing your registration :)", Toast.LENGTH_SHORT).show()
             checkEmail(
                 username.text.toString().split("@").get(0),
                 password.text.toString(),
@@ -107,7 +107,7 @@ class RegisterFragment : Fragment() {
                 val personEmail = acct.email
                 val personId = acct.id
 //                val personPhoto: Uri? = acct.photoUrl
-                Toast.makeText(activity, "Please wait, we are processing your registration", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Please wait, we're currently processing your registration", Toast.LENGTH_SHORT).show()
                 checkEmail(
                     personEmail!!.split("@").get(0),
                     personId!!,
@@ -126,10 +126,10 @@ class RegisterFragment : Fragment() {
             : Boolean {
         val v_email = mView.email_input.text.toString()
         if(v_email.isEmpty()){
-            Toast.makeText(activity, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Sorry, email can't be empty", Toast.LENGTH_SHORT).show()
             return false
         } else if(!v_email.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
-            Toast.makeText(activity, "Email tidak valid", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Your email is not valid", Toast.LENGTH_SHORT).show()
             return false
         } else {
             return true
@@ -141,13 +141,13 @@ class RegisterFragment : Fragment() {
         val v_password = mView.password_input.text.toString()
         val v_confirm_password = mView.confirm_password_input.text.toString()
         if(v_password.isEmpty()){
-            Toast.makeText(activity, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Password can't be empty", Toast.LENGTH_SHORT).show()
             return false
         } else if(v_confirm_password.isEmpty()){
-            Toast.makeText(activity, "Konfirmasi password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Please confirm your password", Toast.LENGTH_SHORT).show()
             return false
-        } else if(!v_password.matches(Regex("^.{8,}$"))){
-            Toast.makeText(activity, "Password harus terdiri lebih dari 8 karakter", Toast.LENGTH_SHORT).show()
+        } else if(!v_password.matches(Regex("^.{6,}$"))){
+            Toast.makeText(activity, "Your password must be at least 6 character", Toast.LENGTH_SHORT).show()
             return false
         }
 //        else if(!v_password.matches(Regex("^(?=\\s+$)$"))){
@@ -164,7 +164,7 @@ class RegisterFragment : Fragment() {
 //            return false
 //        }
         else if(v_password != v_confirm_password) {
-            Toast.makeText(activity, "Password konfirmasi tidak sesuai", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Your confirmed password is different", Toast.LENGTH_SHORT).show()
             return false
         } else {
             return true
@@ -191,7 +191,7 @@ class RegisterFragment : Fragment() {
                     saveData(email, 5)
                     goToApp()
                 } else {
-                    Toast.makeText(activity, "Register Failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "We are sorry that your registration is failed, please try again", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -227,7 +227,7 @@ class RegisterFragment : Fragment() {
 
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
-                    Toast.makeText(activity, "Email sudah digunakan", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Email has been used", Toast.LENGTH_SHORT).show()
                 } else {
                     if (res == "email") {
                         if (!validateEmail() || !validatePassword()) {

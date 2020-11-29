@@ -101,7 +101,7 @@ class HomeFragment : Fragment(){
                             fragment.arguments = arguments
                             fragment.show(childFragmentManager, "UploadSheetDialog")
                         } else {
-                            Toast.makeText(activity, "Ups, you reached your limit today, try again tomorrow", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "You've reached your limit today :( please comeback tomorrow", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -115,7 +115,7 @@ class HomeFragment : Fragment(){
     private fun updateQuota(email: String) {
         RetrofitClient.instance.updateQuota(
             email,
-            5
+            3
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
             }
@@ -129,7 +129,7 @@ class HomeFragment : Fragment(){
                 val date = dateFormat.format(calendar.time)
 
                 editor?.putString("date", date)
-                editor?.putInt(QUOTA, 5)
+                editor?.putInt(QUOTA, 3)
                 editor?.apply()
             }
 

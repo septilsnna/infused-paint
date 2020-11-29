@@ -1,14 +1,12 @@
 package com.mobcom.paintly
 
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.*
+import android.graphics.Paint.ANTI_ALIAS_FLAG
+import android.graphics.Paint.DITHER_FLAG
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
@@ -16,17 +14,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.annotation.ColorInt
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.AWSCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobileconnectors.apigateway.ApiClientException
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.amazonaws.regions.Regions
 import com.bumptech.glide.Glide
 import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import com.deeparteffects.sdk.android.model.UploadRequest
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.afterchoosingimage.*
 import kotlinx.android.synthetic.main.fragment_processing.view.*
 import maes.tech.intentanim.CustomIntent
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -34,21 +35,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
-import android.graphics.*
-import android.graphics.Paint.ANTI_ALIAS_FLAG
-import android.graphics.Paint.DITHER_FLAG
-import androidx.annotation.ColorInt
-import com.amazonaws.mobileconnectors.apigateway.ApiClientException
-import kotlinx.android.synthetic.*
-import java.lang.IllegalStateException
 
 
 class ProcessingFragment : Fragment() {
     //septilsnna
-//    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-//    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-//    val SECRET_KEY = "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"
+    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
+    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
+    val SECRET_KEY = "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"
 
     //soegiebawi
 //   val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
@@ -56,9 +52,9 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "YqpRytiUKbKeTfiv5kLXMDmT8UJnTbpDEB6pIeaK"
 
     //mikum
-    val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
-    val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
-    val SECRET_KEY = "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"
+ //   val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
+  //  val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
+  //  val SECRET_KEY = "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"
 
     //alohaloha
    //val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
@@ -115,7 +111,7 @@ class ProcessingFragment : Fragment() {
                 }
 
                 override fun refresh() {}
-            }).region(Regions.EU_WEST_1.getName())
+            }).region(Regions.AP_SOUTHEAST_1.getName())
         deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
 //        AWS untuk akses api nya deepart
 
@@ -167,26 +163,27 @@ class ProcessingFragment : Fragment() {
                         } catch (e: ApiClientException) {
                             Toast.makeText(
                                 activity,
-                                "Failed when processing image, try again later.",
+                                "We are sorry, our server is busy, please comeback tomorrow :(",
                                 Toast.LENGTH_LONG
                             ).show()
                             activity?.finish()
                             CustomIntent.customType(activity, "fadein-to-fadeout")
-                        } catch (e: IllegalStateException) { }
-                        catch (e: NullPointerException) { }
+                        } catch (e: IllegalStateException) {
+                        } catch (e: NullPointerException) {
+                        }
                     }
-                }, 2500, 2500)
+                }, 1100, 1100)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)
                 val editor = sharedPreferences.edit()
                 editor?.putInt("quota", quota)
                 editor?.apply()
                 updateQuota(email, quota)
-            } catch (e : ApiClientException) {
+            } catch (e: ApiClientException) {
                 runOnUiThread {
                     if (e.serviceName == "DeepArtEffectsClient") {
                         Toast.makeText(
                             activity,
-                            "Failed when processing image, try again later.",
+                            "We are sorry, our server is busy, please comeback tomorrow :(",
                             Toast.LENGTH_LONG
                         ).show()
                         activity?.finish()
@@ -205,6 +202,20 @@ class ProcessingFragment : Fragment() {
                 }
             }
         }.start()
+    }
+
+    fun getBitmapFromURL(src: String?): Bitmap? {
+        return try {
+            val url = URL(src)
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.setDoInput(true)
+            connection.connect()
+            val input: InputStream = connection.getInputStream()
+            BitmapFactory.decodeStream(input)
+        } catch (e: IOException) {
+            // Log exception
+            null
+        }
     }
 
     fun addWatermark(
@@ -232,7 +243,14 @@ class ProcessingFragment : Fragment() {
         }
         val padding = result.width * options.paddingToWidthRatio
         val coordinates =
-            calculateCoordinates(watermarkText, paint, options, canvas.width, canvas.height, padding)
+            calculateCoordinates(
+                watermarkText,
+                paint,
+                options,
+                canvas.width,
+                canvas.height,
+                padding
+            )
         canvas.drawText(watermarkText, coordinates.x, coordinates.y, paint)
         return result
     }
@@ -296,8 +314,8 @@ class ProcessingFragment : Fragment() {
     }
 
     private fun saveResult() {
-        val a = mView.result_image.drawable.toBitmap()
-        val imageResult = addWatermark(a, "created on Infused Paint")
+        val imageResult = mView.result_image.drawable.toBitmap()
+
 
 
         RetrofitClient.instance.updateUserEditFreq(
@@ -335,8 +353,8 @@ class ProcessingFragment : Fragment() {
         val savedImageURL = MediaStore.Images.Media.insertImage(
             activity?.contentResolver,
             imageResult,
-            "result_image" +  "_" + userData.edit_freq!!.plus(1) + ".jpg",
-            "Image of " + "result_image" +  "_" + userData.edit_freq!!.plus(1) + ".jpg"
+            "result_image" + "_" + userData.edit_freq!!.plus(1) + ".jpg",
+            "Image of " + "result_image" + "_" + userData.edit_freq!!.plus(1) + ".jpg"
         )
         Uri.parse(savedImageURL)
 
@@ -359,14 +377,19 @@ class ProcessingFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
         // Step 4: Save image & get path of it
-        val path = MediaStore.Images.Media.insertImage(activity?.contentResolver, bitmap, "tempimage", null)
+        val path = MediaStore.Images.Media.insertImage(
+            activity?.contentResolver,
+            bitmap,
+            "tempimage",
+            null
+        )
 
         // Step 5: Get URI of saved image
         val uri = Uri.parse(path)
 
         // Step 6: Put Uri as extra to share intent
         intent.putExtra(Intent.EXTRA_STREAM, uri)
-        intent.putExtra(Intent.EXTRA_TEXT,"I made this with Infused Paint!");
+        intent.putExtra(Intent.EXTRA_TEXT, "I made this with Infused Paint!");
 
         // Step 7: Start/Launch Share intent
         startActivity(intent)

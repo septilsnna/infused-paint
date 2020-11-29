@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Aplikasi Infused Paint sebagai tugas Mobcom"
-        android:textSize="18sp"
+        android:text="Infused Paint help you to turn your photo into an art, you can find monalisa's style and even the most popular reference style like 'starry night' here. Please leave us a feedback :3"
+        android:textSize="16dp"
         android:gravity="center_horizontal"/>
 
 </RelativeLayout>

@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
                 if(!validateEmail() || !validatePassword()){
                     return
                 }
-                Toast.makeText(activity, "Please wait, we logging you in", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Please wait, we logging you in :)", Toast.LENGTH_SHORT).show()
                 getUser(
                     email.text.toString(),
                     password.text.toString()
@@ -107,10 +107,10 @@ class LoginFragment : Fragment() {
             : Boolean {
         val v_email = mView.email_input.text.toString()
         if(v_email.isEmpty()){
-            Toast.makeText(activity, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Sorry, email can't be empty", Toast.LENGTH_SHORT).show()
             return false
         } else if(!v_email.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
-            Toast.makeText(activity, "Email tidak valid", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Your email is not valid", Toast.LENGTH_SHORT).show()
             return false
         } else {
             return true
@@ -121,7 +121,7 @@ class LoginFragment : Fragment() {
             : Boolean {
         val v_password = mView.password_input.text.toString()
         if(v_password.isEmpty()){
-            Toast.makeText(activity, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Sorry, password can't be empty", Toast.LENGTH_SHORT).show()
             return false
         } else {
             return true
@@ -144,11 +144,11 @@ class LoginFragment : Fragment() {
                         saveData(email, response.body()!!.quota_today!!)
                         goToApp()
                     } else {
-                        Toast.makeText(activity, "Password Tidak Sesuai!", Toast.LENGTH_SHORT)
+                        Toast.makeText(activity, "Your password is wrong", Toast.LENGTH_SHORT)
                             .show()
                     }
                 } else {
-                    Toast.makeText(activity, "Login Failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Login is failed, please check your email and password", Toast.LENGTH_SHORT).show()
                 }
             }
         })
