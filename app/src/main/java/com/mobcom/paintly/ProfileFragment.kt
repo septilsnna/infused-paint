@@ -3,6 +3,7 @@ package com.mobcom.paintly
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.*
@@ -18,7 +19,6 @@ import hotchemi.android.rate.AppRate
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import maes.tech.intentanim.CustomIntent
-import org.jetbrains.anko.support.v4.runOnUiThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,7 +60,9 @@ class ProfileFragment : Fragment(){
 
             send_feedback_button = mView.button_sendfeedback
             send_feedback_button.setOnClickListener {
-                AppRate.with(activity).showRateDialog(activity)
+                AppRate.with(activity)
+                    .setTitle("Rate Infused Paint")
+                    .showRateDialog(activity)
             }
 
             app_version_button = mView.button_app_version
@@ -121,28 +123,28 @@ class ProfileFragment : Fragment(){
 
                 override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                     if (response.code() == 200) {
-                            mView.progress_profile.visibility = View.GONE
-                            mView.info_profile.visibility = View.VISIBLE
-                            mView.name.text = response.body()?.name
-                            mView.email.text = response.body()?.email
-                            mView.created_at.text =
-                                "Joined At: " + response.body()?.created_at?.split(" ")?.get(
-                                    0
-                                )
-                            mView.number_artwork.text =
-                                "Number of Artwork: " + response.body()?.edit_freq
+                        mView.progress_profile.visibility = View.GONE
+                        mView.info_profile.visibility = View.VISIBLE
+                        mView.name.text = response.body()?.name
+                        mView.email.text = response.body()?.email
+                        mView.created_at.text =
+                            "Joined At: " + response.body()?.created_at?.split(" ")?.get(
+                                0
+                            )
+                        mView.number_artwork.text =
+                            "Number of Artwork: " + response.body()?.edit_freq
 
-                            if (response.body()?.photo != "") {
-                                val decodedString =
-                                    Base64.decode(response.body()?.photo, Base64.DEFAULT)
-                                val decodedByte = BitmapFactory.decodeByteArray(
-                                    decodedString,
-                                    0,
-                                    decodedString.size
-                                )
-                                Glide.with(mView.context).load(decodedByte).centerInside()
-                                    .into(mView.profile_image)
-                            }
+                        if (response.body()?.photo != "") {
+                            val decodedString =
+                                Base64.decode(response.body()?.photo, Base64.DEFAULT)
+                            val decodedByte = BitmapFactory.decodeByteArray(
+                                decodedString,
+                                0,
+                                decodedString.size
+                            )
+                            Glide.with(mView.context).load(decodedByte).centerInside()
+                                .into(mView.profile_image)
+                        }
                     } else {
                         mView.failed_profile.visibility = View.VISIBLE
                         mView.progress_profile.visibility = View.GONE
