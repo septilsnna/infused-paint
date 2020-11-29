@@ -61,14 +61,14 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "r6Spwvzco96Qwl/xn5eOTosgDtITJrM4H3rS8xi0"
 
     //leejaewook
-//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-//    val SECRET_KEY = "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"
+    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
+    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
+    val SECRET_KEY = "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"
 
     //kimseokjin
-    val API_KEY = "fPqsHdHgD5aWpMYrRVH639klJKBDvAbw6lS9Ukuv"
-    val ACCESS_KEY = "AKIA3XE3HF7SWHXJJ2ND"
-    val SECRET_KEY = "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"
+//    val API_KEY = "fPqsHdHgD5aWpMYrRVH639klJKBDvAbw6lS9Ukuv"
+//    val ACCESS_KEY = "AKIA3XE3HF7SWHXJJ2ND"
+//    val SECRET_KEY = "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"
 
     //kimtaeyhung
 //    val API_KEY = "7EHHh30Fzq7tRPZCQXR78BER2yFALZv9fu6sRFtb"

@@ -11,33 +11,47 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-                <TextView
-                   android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Are you sure?"
-                    style="@style/profile"
-                    android:layout_marginStart="20dp"
-                    />
-
                 <ImageView
                     android:id="@+id/image_view"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginVertical="30dp"
                     android:gravity="center_horizontal|center_vertical"/>
+
+                <TextView
+                   android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Are you sure?\nYou Want To Paint This Picture?"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    style="@style/profile"
+                    />
 
                 <Button
                     android:id="@+id/button_process"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@drawable/ripple"
                     android:layout_gravity="center_horizontal"
-                    android:text="Process"
+                    android:text="Yes I'm Sure"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="30dp"
                     android:textAppearance="@style/sp16_000000_bold"/>
                 <!--Button to pick image-->
+
+                <Button
+                    android:id="@+id/button_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/button_next"
+                    android:layout_gravity="center_horizontal"
+                    android:text="No"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="30dp"
+                    android:textAppearance="@style/sp16_ffffff_bold"/>
 
         </LinearLayout>
 </ScrollView>

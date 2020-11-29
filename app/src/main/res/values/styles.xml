@@ -13,6 +13,12 @@
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
+    <style name="ProcessTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+    </style>
+
     <style name="sp12_ffffff_reg">
         <item name="android:textSize">
             12dp

@@ -46,11 +46,11 @@
             android:label="">
         </activity>
 
-        <activity android:name=".AfterUploadActivity"
+        <activity android:name=".AfterUploadActivity" android:theme="@style/ProcessTheme"
             android:label="">
         </activity>
 
-        <activity android:name=".ProcessingActivity"
+        <activity android:name=".ProcessingActivity" android:theme="@style/ProcessTheme"
             android:label="">
         </activity>
 

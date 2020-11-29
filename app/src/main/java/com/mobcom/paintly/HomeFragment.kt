@@ -82,6 +82,12 @@ class HomeFragment : Fragment(){
             .setActionBarTitle("Pick Your Style (quota/day: $quota)")
     }
 
+    override fun onPause() {
+        (activity as BottomNavActivity)
+            .setActionBarTitle("Pick Your Style (quota/day: $quota)")
+        super.onPause()
+    }
+
     private fun loadingStyles(styleData: List<StyleData>) {
             val styleAdapter = StyleAdapter( // deklarasi styleAdapter yang bentuknya StyleAdapter()
                 mView.context,
