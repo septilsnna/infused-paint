@@ -117,6 +117,12 @@ class HomeFragment : Fragment(){
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
                 val editor = sharedPreferences?.edit()
+
+                val calendar = Calendar.getInstance()
+                val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+                val date = dateFormat.format(calendar.time)
+
+                editor?.putString("date", date)
                 editor?.putInt(QUOTA, 5)
                 editor?.apply()
             }

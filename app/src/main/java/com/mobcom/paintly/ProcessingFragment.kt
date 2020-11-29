@@ -70,14 +70,14 @@ class ProcessingFragment : Fragment() {
 //    val SECRET_KEY = "TZNC2+dtm9aBLnLzT04eif758RTsuEAVo3hK5z1c"
 
     //kimtaeyhung
-//    val API_KEY = "7EHHh30Fzq7tRPZCQXR78BER2yFALZv9fu6sRFtb"
-//    val ACCESS_KEY = "AKIA3XE3HF7S2EN4DEOJ"
-//    val SECRET_KEY = "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"
+    val API_KEY = "7EHHh30Fzq7tRPZCQXR78BER2yFALZv9fu6sRFtb"
+    val ACCESS_KEY = "AKIA3XE3HF7S2EN4DEOJ"
+    val SECRET_KEY = "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"
 
     //kukikuki123
-    val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
-    val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
-    val SECRET_KEY = "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"
+//    val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
+//    val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
+//    val SECRET_KEY = "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"
 
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
