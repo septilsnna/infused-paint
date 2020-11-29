@@ -178,7 +178,7 @@ class RegisterFragment : Fragment() {
             password,
             name,
             email,
-            5,
+            3,
             0,
             0
         ).enqueue(object : Callback<UserData> {
@@ -188,7 +188,7 @@ class RegisterFragment : Fragment() {
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Register Success!", Toast.LENGTH_SHORT).show()
-                    saveData(email, 5)
+                    saveData(email, 3)
                     goToApp()
                 } else {
                     Toast.makeText(activity, "We are sorry that your registration is failed, please try again", Toast.LENGTH_SHORT).show()

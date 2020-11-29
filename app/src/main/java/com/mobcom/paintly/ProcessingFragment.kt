@@ -111,7 +111,7 @@ class ProcessingFragment : Fragment() {
                 }
 
                 override fun refresh() {}
-            }).region(Regions.AP_SOUTHEAST_1.getName())
+            }).region(Regions.EU_WEST_1.getName())
         deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
 //        AWS untuk akses api nya deepart
 
