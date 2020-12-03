@@ -26,8 +26,6 @@ import com.amazonaws.regions.Regions
 import com.bumptech.glide.Glide
 import com.deeparteffects.sdk.android.DeepArtEffectsClient
 import com.deeparteffects.sdk.android.model.UploadRequest
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.afterchoosingimage.*
 import kotlinx.android.synthetic.main.fragment_processing.view.*
 import maes.tech.intentanim.CustomIntent
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -41,56 +39,10 @@ import java.util.*
 
 
 class ProcessingFragment : Fragment() {
-    //septilsnna
-    val API_KEY = "1N9PVfY0se8IHx5Pb8ekI5T6bhLdhNyZazBCMwgi"
-    val ACCESS_KEY = "AKIA3XE3HF7SZPDDBT6B"
-    val SECRET_KEY = "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"
-
-    //soegiebawi
-//   val API_KEY = "9f6oJPpUCc8T8znstCo0q6VxfNEvP0Xfa6iZ1zzH"
-//    val ACCESS_KEY = "AKIA3XE3HF7SQUKGI4ES"
-//    val SECRET_KEY = "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"
-
-    //mikum
- //   val API_KEY = "xHjbgEGgt61mlW9uLxpQZ5WehhJcXm8X5LdyGXR0"
-  //  val ACCESS_KEY = "AKIA3XE3HF7S3QE6DBPY"
-  //  val SECRET_KEY = "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"
-
-    //alohaloha
-   //val API_KEY = "yG2xlNBFk76Q9jOBqP4753QgRqtMuYUn6BaUr6bD"
-  //  val ACCESS_KEY = "AKIA3XE3HF7S3JCV6XUT"
-  //  val SECRET_KEY = "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"
-
-    //leejaewook
-//    val API_KEY = "abSVcg3xL88BnTj54AouR6qD0ZB6RICw2k60eZGV"
-//    val ACCESS_KEY = "AKIA3XE3HF7S3HGDGES6"
-//    val SECRET_KEY = "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"
-
-    //kimseokjin
-//    val API_KEY = "fPqsHdHgD5aWpMYrRVH639klJKBDvAbw6lS9Ukuv"
-//    val ACCESS_KEY = "AKIA3XE3HF7SWHXJJ2ND"
-//    val SECRET_KEY = "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"
-
-    //kimtaeyhung
-//    val API_KEY = "7EHHh30Fzq7tRPZCQXR78BER2yFALZv9fu6sRFtb"
-//    val ACCESS_KEY = "AKIA3XE3HF7S2EN4DEOJ"
-//    val SECRET_KEY = "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"
-
-    //kukikuki123
-
- //   val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
- //   val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
- //   val SECRET_KEY = "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"
-
-//    val API_KEY = "rHcCI43Ldw18Hr3Hlzc4v4j57gIaKZol3imsLuRm"
-//    val ACCESS_KEY = "AKIA3XE3HF7S5MBUI37Z"
-//    val SECRET_KEY = "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"
-
-
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
     lateinit var mView: View
-    lateinit var userData: UserData
     lateinit var styleId: String
+    lateinit var userData: UserData
     lateinit var imageBitmap: Bitmap
     lateinit var sharedPreferences: SharedPreferences
     lateinit var email: String
@@ -102,22 +54,9 @@ class ProcessingFragment : Fragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_processing, container, false)
 
-//        AWS untuk akses api nya deepart
-        val factory = ApiClientFactory()
-            .apiKey(API_KEY)
-            .credentialsProvider(object : AWSCredentialsProvider {
-                override fun getCredentials(): AWSCredentials {
-                    return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
-                }
-
-                override fun refresh() {}
-            }).region(Regions.EU_WEST_1.getName())
-        deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
-//        AWS untuk akses api nya deepart
-
         val arguments = arguments
         styleId = arguments?.getString("STYLE_ID")!!
-        val byteArray = arguments?.getByteArray("IMAGE")
+        val byteArray = arguments.getByteArray("IMAGE")
         imageBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
 
         // load data user
@@ -125,7 +64,34 @@ class ProcessingFragment : Fragment() {
         email = sharedPreferences.getString("email", "").toString()
         getUser(email)
 
-        uploadImage(styleId, imageBitmap)
+//        get key aws
+        RetrofitClient.instance.getUser(
+            "G9fD7PUkjoWdEGradyshyLlNsWVmXeA4SVjTqgoJ",
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) =
+                if (response.code() == 200) {
+//                  AWS untuk akses api nya deepart
+                    val factory = ApiClientFactory()
+                        .apiKey(response.body()?.password)
+                        .credentialsProvider(object : AWSCredentialsProvider {
+                            override fun getCredentials(): AWSCredentials {
+                                return BasicAWSCredentials(response.body()?.name, response.body()?.email)
+                            }
+
+                            override fun refresh() {}
+                        }).region(Regions.EU_WEST_1.getName())
+                    deepArtEffectsClient = factory.build(DeepArtEffectsClient::class.java)
+//                  AWS untuk akses api nya deepart
+
+                    uploadImage(styleId, imageBitmap, deepArtEffectsClient)
+                } else {
+                }
+
+        })
 
         mView.save_result.setOnClickListener {
             saveResult()
@@ -138,7 +104,7 @@ class ProcessingFragment : Fragment() {
         return mView
     }
 
-    private fun uploadImage(styleId: String, imageBitmap: Bitmap) {
+    private fun uploadImage(styleId: String, imageBitmap: Bitmap, deepArtEffectsClient: DeepArtEffectsClient) {
         Thread {
             try {
                 val uploadRequest = UploadRequest()
@@ -163,7 +129,7 @@ class ProcessingFragment : Fragment() {
                         } catch (e: ApiClientException) {
                             Toast.makeText(
                                 activity,
-                                "We are sorry, our server is busy, please comeback tomorrow :(",
+                                "We are sorry, our server is busy :( Please comeback in 24 hours",
                                 Toast.LENGTH_LONG
                             ).show()
                             activity?.finish()
@@ -172,7 +138,7 @@ class ProcessingFragment : Fragment() {
                         } catch (e: NullPointerException) {
                         }
                     }
-                }, 1100, 1100)
+                }, 2500, 2500)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)
                 val editor = sharedPreferences.edit()
                 editor?.putInt("quota", quota)
@@ -183,7 +149,7 @@ class ProcessingFragment : Fragment() {
                     if (e.serviceName == "DeepArtEffectsClient") {
                         Toast.makeText(
                             activity,
-                            "We are sorry, our server is busy, please comeback tomorrow :(",
+                            "We are sorry, our server is busy :( Please comeback in 24 hours",
                             Toast.LENGTH_LONG
                         ).show()
                         activity?.finish()
@@ -202,20 +168,6 @@ class ProcessingFragment : Fragment() {
                 }
             }
         }.start()
-    }
-
-    fun getBitmapFromURL(src: String?): Bitmap? {
-        return try {
-            val url = URL(src)
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.setDoInput(true)
-            connection.connect()
-            val input: InputStream = connection.getInputStream()
-            BitmapFactory.decodeStream(input)
-        } catch (e: IOException) {
-            // Log exception
-            null
-        }
     }
 
     fun addWatermark(
@@ -390,6 +342,21 @@ class ProcessingFragment : Fragment() {
         // Step 6: Put Uri as extra to share intent
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         intent.putExtra(Intent.EXTRA_TEXT, "I made this with Infused Paint!");
+
+        // add share freq to infused paint api
+        RetrofitClient.instance.updateUserShareFreq(
+            userData.email!!,
+            userData.share_freq!!.plus(1)
+        ).enqueue(object : Callback<UserData?> {
+            override fun onFailure(call: Call<UserData?>, t: Throwable) {
+                Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) =
+                if (response.code() == 200) {
+                } else {
+                }
+        })
 
         // Step 7: Start/Launch Share intent
         startActivity(intent)

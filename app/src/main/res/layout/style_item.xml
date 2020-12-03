@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="13dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/starry_night"
             android:background="@drawable/rectangle_style"
             android:foreground="@drawable/rectangle_style"
 

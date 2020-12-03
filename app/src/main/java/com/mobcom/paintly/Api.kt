@@ -37,6 +37,12 @@ interface Api{
 
     @FormUrlEncoded
     @PUT("users/update/{email}")
+    fun updateUserShareFreq(@Path("email") email: String,
+                           @Field("share_freq") share_freq: Int,
+    ): Call<UserData>
+
+    @FormUrlEncoded
+    @PUT("users/update/{email}")
     fun updateQuota(@Path("email") email: String,
                     @Field("quota_today") quota_today: Int,
     ): Call<UserData>
@@ -54,9 +60,6 @@ interface Api{
                   @Field("content_image") content_image: String,
                    @Field("file_result") file_result: String,
     ): Call<GalleryData>
-
-    @DELETE("users/delete/{email}")
-    fun deleteUser(@Path("email") email: String, @Body userData: UserData): Call<UserData>
 
 
 }
