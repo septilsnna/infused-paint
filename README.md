@@ -44,3 +44,6 @@ Aplikasi Infused Paint merupakan sebuah aplikasi yang didalamnya terdapat fitur 
 
   * [Sprint Backlog : Sprint 11](https://drive.google.com/file/d/1mfPgPO1RI1cwUnkdM7nZbTIOaqjN9W2U/view?usp=sharing)
   * [Watch Our Sprint 11 Meeting Here](https://youtu.be/8rgkfPiKUgs)
+
+  * Sprint Backlog : Sprint 12
+  * [Watch Our Sprint 12 Meeting Here](https://www.youtube.com/watch?v=fULJuemfq_8)
