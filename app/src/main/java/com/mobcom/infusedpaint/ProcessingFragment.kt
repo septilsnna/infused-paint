@@ -64,7 +64,7 @@ class ProcessingFragment : Fragment() {
 
 //        get key aws
         RetrofitClient.instance.getUser(
-            "G9fD7PUkjoWdEGradyshyLlNsWVmXeA4SVjTqgoJ",
+            "infusedpaint",
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
                 Toast.makeText(activity, t.message, Toast.LENGTH_LONG).show()
@@ -74,10 +74,10 @@ class ProcessingFragment : Fragment() {
                 if (response.code() == 200) {
 //                  AWS untuk akses api nya deepart
                     val factory = ApiClientFactory()
-                        .apiKey(response.body()?.password)
+                        .apiKey(response.body()?.username)
                         .credentialsProvider(object : AWSCredentialsProvider {
                             override fun getCredentials(): AWSCredentials {
-                                return BasicAWSCredentials(response.body()?.name, response.body()?.email)
+                                return BasicAWSCredentials(response.body()?.password, response.body()?.name)
                             }
 
                             override fun refresh() {}
