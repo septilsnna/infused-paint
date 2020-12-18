@@ -8,7 +8,6 @@
     android:background="@color/colorPrimaryDark">
 
     <LinearLayout
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -24,36 +23,36 @@
 
 
 
-        <Button
-            android:id="@+id/google_login_button"
-            android:layout_width="300dp"
-            android:layout_height="51dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/ripple"
-            android:text="Register With Google"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"
-            android:textAppearance="@style/sp16_000000_bold"/>
+<!--        <Button-->
+<!--            android:id="@+id/google_login_button"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="51dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:background="@drawable/ripple"-->
+<!--            android:text="Register With Google"-->
+<!--            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark_normal"-->
+<!--            android:textAppearance="@style/sp16_000000_bold"/>-->
 
 
-        <View
-            android:id="@+id/vector_1"
-            android:layout_width="277dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/vector_1" />
+<!--        <View-->
+<!--            android:id="@+id/vector_1"-->
+<!--            android:layout_width="277dp"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:background="@drawable/vector_1" />-->
 
-        <TextView
-            android:id="@+id/or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-15dp"
-            android:text="@string/or"
-            android:paddingHorizontal="23dp"
-            android:background="@color/colorPrimaryDark"
-            android:textAppearance="@style/sp16_ffffff_bold" />
+<!--        <TextView-->
+<!--            android:id="@+id/or"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="-15dp"-->
+<!--            android:text="@string/or"-->
+<!--            android:paddingHorizontal="23dp"-->
+<!--            android:background="@color/colorPrimaryDark"-->
+<!--            android:textAppearance="@style/sp16_ffffff_bold" />-->
 
         <EditText
             android:id="@+id/email_input"
@@ -146,8 +145,7 @@
             android:layout_marginTop="40dp"
             android:text="@string/already_hav"
             android:textAppearance="@style/sp16_ffffff_reg"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"/>
+            android:background="?attr/selectableItemBackground"/>
 
     </LinearLayout>
 
