@@ -15,6 +15,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_processing.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 
 
@@ -22,6 +25,7 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
     lateinit var mView: View
     lateinit var imageBitmap: Bitmap
     lateinit var email: String
+    lateinit var user_id: String
     var fileResult: String? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,6 +40,7 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         email = sharedPreferences?.getString("email", "").toString()
+
 
         mView.processing.visibility = View.GONE
         mView.result.visibility = View.VISIBLE
@@ -70,6 +75,9 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
         mView.save_result.isClickable = false
         Toast.makeText(activity, "Save Success!", Toast.LENGTH_SHORT).show()
 
+        // logging
+        logging(user_id, "Menyimpan hasil lukisan")
+
     }
 
     private  fun shareResult() {
@@ -90,9 +98,27 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         intent.putExtra(Intent.EXTRA_TEXT,"I made this with Infused Paint!");
 
+        // logging
+        logging(user_id, "Membagikan hasil lukisan")
+
         // Step 7: Start/Launch Share intent
         startActivity(intent)
 
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
+                }
+            }
+        })
     }
 
 }

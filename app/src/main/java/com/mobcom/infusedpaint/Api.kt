@@ -61,5 +61,10 @@ interface Api{
                    @Field("file_result") file_result: String,
     ): Call<GalleryData>
 
+    @FormUrlEncoded
+    @POST("logs/create")
+    fun createLog(@Field("user_id") user_id: String,
+                   @Field("action") action: String,
+    ): Call<LogData>
 
 }

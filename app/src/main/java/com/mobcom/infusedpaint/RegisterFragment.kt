@@ -187,7 +187,8 @@ class RegisterFragment : Fragment() {
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
                 if (response.code() == 200) {
                     Toast.makeText(activity, "Register Success!", Toast.LENGTH_SHORT).show()
-                    saveData(email, 1)
+                    saveData(username, email, 1)
+                    logging(username, "Mendaftarkan akun")
                     goToApp()
                 } else {
                     Toast.makeText(activity, "We are sorry that your registration is failed, please try again", Toast.LENGTH_SHORT).show()
@@ -203,7 +204,7 @@ class RegisterFragment : Fragment() {
         CustomIntent.customType(activity, "fadein-to-fadeout")
     }
 
-    fun saveData(email: String, quota: Int) {
+    fun saveData(user_id: String, email: String, quota: Int) {
         calendar = Calendar.getInstance()
         dateFormat = SimpleDateFormat("MM/dd/yyyy")
         val date = dateFormat.format(calendar.time)
@@ -211,6 +212,7 @@ class RegisterFragment : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.putString(EMAIL, email)
+        editor?.putString("USER_ID", user_id)
         editor?.putInt(QUOTA, quota)
         editor?.putString(DATE, date)
         editor?.apply()
@@ -234,6 +236,21 @@ class RegisterFragment : Fragment() {
                         }
                     }
                     createUser(username, password, name, email)
+                }
+            }
+        })
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
                 }
             }
         })

@@ -25,6 +25,7 @@ class EditProfileActivity : AppCompatActivity() {
     lateinit var imageBitmap: Bitmap
     lateinit var imageString: String
     lateinit var emaill: String
+    lateinit var user_id: String
 
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
@@ -35,6 +36,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         val sharedPreferences = this.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         emaill = sharedPreferences?.getString(EMAIL, "").toString()
+        user_id = sharedPreferences?.getString("USER_ID", "").toString()
         getUser(emaill)
 
         profile_image_edit.visibility = View.INVISIBLE
@@ -98,6 +100,7 @@ class EditProfileActivity : AppCompatActivity() {
                     imageString = response.body()?.photo!!
 
                     if (response.body()?.photo != "") {
+                        user_id = response.body()?.username!!
                         val decodedString = Base64.decode(imageString, Base64.DEFAULT)
                         val decodedByte = BitmapFactory.decodeByteArray(
                             decodedString,
@@ -163,6 +166,10 @@ class EditProfileActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext, "Update Success!", Toast.LENGTH_SHORT)
                             .show()
                         progress_edit.visibility = View.GONE
+
+                        // logging
+                        logging(user_id, "Mengubah profile")
+
                         finish()
                     } else {
                         Toast.makeText(
@@ -209,6 +216,21 @@ class EditProfileActivity : AppCompatActivity() {
                 } else {
                     progress_edit.visibility = View.VISIBLE
                     updateUser(email)
+                }
+            }
+        })
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(applicationContext, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
                 }
             }
         })

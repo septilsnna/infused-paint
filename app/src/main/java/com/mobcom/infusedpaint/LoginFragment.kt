@@ -141,7 +141,7 @@ class LoginFragment : Fragment() {
                 if (response.code() == 200) {
                     if (password == response.body()?.password) {
                         Toast.makeText(activity, "Login Success!", Toast.LENGTH_SHORT).show()
-                        saveData(email, response.body()!!.quota_today!!)
+                        saveData(response.body()!!.username!!, email, response.body()!!.quota_today!!)
                         goToApp()
                     } else {
                         Toast.makeText(activity, "Your password is wrong", Toast.LENGTH_SHORT)
@@ -161,7 +161,7 @@ class LoginFragment : Fragment() {
         CustomIntent.customType(activity, "fadein-to-fadeout")
     }
 
-    fun saveData(email: String, quota: Int) {
+    fun saveData(user_id: String, email: String, quota: Int) {
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         val date = sharedPreferences?.getString("date", "")
@@ -172,7 +172,26 @@ class LoginFragment : Fragment() {
             editor?.putString("date", date_today)
         }
         editor?.putString(EMAIL, email)
+        editor?.putString("USER_ID", user_id)
         editor?.putInt(QUOTA, quota)
         editor?.apply()
+
+        // logging
+        logging(user_id, "Masuk ke akun")
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
+                }
+            }
+        })
     }
 }

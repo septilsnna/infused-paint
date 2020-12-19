@@ -44,6 +44,7 @@ class ProcessingFragment : Fragment() {
     lateinit var imageBitmap: Bitmap
     lateinit var sharedPreferences: SharedPreferences
     lateinit var email: String
+    lateinit var user_id: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +61,7 @@ class ProcessingFragment : Fragment() {
         // load data user
         sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)!!
         email = sharedPreferences.getString("email", "").toString()
+        user_id = sharedPreferences.getString("USER_ID", "").toString()
         getUser(email)
 
 //        get key aws
@@ -122,6 +124,9 @@ class ProcessingFragment : Fragment() {
                                     mView.result.visibility = View.VISIBLE
                                     Glide.with(mView.context).load(result.url)
                                         .into(mView.result_image)
+
+                                    // logging
+                                    logging(user_id, "Mengedit gambar")
                                 }
                             }
                         } catch (e: ApiClientException) {
@@ -136,7 +141,7 @@ class ProcessingFragment : Fragment() {
                         } catch (e: NullPointerException) {
                         }
                     }
-                }, 2500, 2500)
+                }, 2500, 36000000)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)
                 val editor = sharedPreferences.edit()
                 editor?.putInt("quota", quota)
@@ -312,6 +317,9 @@ class ProcessingFragment : Fragment() {
         mView.save_result.isClickable = false
         Toast.makeText(activity, "Save Success!", Toast.LENGTH_SHORT).show()
 
+        // logging
+        logging(user_id, "Menyimpan hasil lukisan")
+
     }
 
     private  fun shareResult() {
@@ -340,6 +348,9 @@ class ProcessingFragment : Fragment() {
         // Step 6: Put Uri as extra to share intent
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         intent.putExtra(Intent.EXTRA_TEXT, "I made this with Infused Paint!");
+
+        // logging
+        logging(user_id, "Membagikan hasil lukisan")
 
         // add share freq to infused paint api
         RetrofitClient.instance.updateUserShareFreq(
@@ -389,6 +400,21 @@ class ProcessingFragment : Fragment() {
             override fun onResponse(call: Call<UserData?>, response: Response<UserData?>) {
             }
 
+        })
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
+                }
+            }
         })
     }
 

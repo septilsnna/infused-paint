@@ -29,6 +29,11 @@ class GalleryFragment : Fragment() {
             val sharedPreferences =
                 activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
             val email = sharedPreferences?.getString("email", "").toString()
+            val user_id = sharedPreferences?.getString("USER_ID", "").toString()
+
+            // logging
+            logging(user_id, "Melihat galeri")
+
             galleryGet(email)
         } catch (e: ApiClientException) {
             val intent = Intent(activity, BottomNavActivity::class.java)
@@ -88,6 +93,21 @@ class GalleryFragment : Fragment() {
                     mView.rv_gallery.visibility = View.GONE
                 }
             })
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
+                }
+            }
+        })
     }
 
 }

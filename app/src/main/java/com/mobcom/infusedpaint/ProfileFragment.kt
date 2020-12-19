@@ -31,7 +31,8 @@ class ProfileFragment : Fragment(){
     private lateinit var send_feedback_button: Button
     private lateinit var app_version_button: Button
     private lateinit var email: String
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var user_id: String
+//    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     val SHARED_PREFS = "sharedPrefs"
     val EMAIL = "email"
@@ -69,10 +70,10 @@ class ProfileFragment : Fragment(){
             }
 
             // google auth for logout
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-            mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build()
+//            mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
 
         } catch (e: ApiClientException) {
             val intent = Intent(activity, BottomNavActivity::class.java)
@@ -92,7 +93,11 @@ class ProfileFragment : Fragment(){
 
         val sharedPreferences = activity?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         email = sharedPreferences?.getString(EMAIL, "").toString()
+        user_id = sharedPreferences?.getString("USER_ID", "").toString()
         getUser(email)
+
+        // logging
+        logging(user_id, "Melihat profil")
 
         super.onResume()
     }
@@ -157,8 +162,11 @@ class ProfileFragment : Fragment(){
         val editor = sharedPreferences?.edit()
         editor?.clear()
         editor?.apply()
-        mGoogleSignInClient.signOut()
+//        mGoogleSignInClient.signOut()
         Toast.makeText(activity, "Logout Success!", Toast.LENGTH_SHORT).show()
+
+        // logging
+        logging(user_id, "Keluar dari akun")
 
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("MM/dd/yyyy")
@@ -170,6 +178,21 @@ class ProfileFragment : Fragment(){
         startActivity(intent)
         CustomIntent.customType(activity, "fadein-to-fadeout")
         activity?.finish()
+    }
+
+    private fun logging(user_id: String, action: String){
+        RetrofitClient.instance.createLog(
+            user_id, action
+        ).enqueue(object : Callback<LogData> {
+            override fun onFailure(call: Call<LogData?>, t: Throwable) {
+//                Toast.makeText(activity, "Failed to register, please check your connection", Toast.LENGTH_SHORT).show()
+            }
+            override fun onResponse(call: Call<LogData?>, response: Response<LogData?>) {
+                if (response.code() == 200) {
+                } else {
+                }
+            }
+        })
     }
 
 }
