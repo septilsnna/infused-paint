@@ -94,6 +94,7 @@ class ProcessingFragment : Fragment() {
         })
 
         mView.save_result.setOnClickListener {
+            Toast.makeText(activity, "saving image...", Toast.LENGTH_SHORT).show()
             saveResult()
         }
 
@@ -306,11 +307,14 @@ class ProcessingFragment : Fragment() {
 
         // Save image to gallery
         val savedImageURL = MediaStore.Images.Media.insertImage(
+
             activity?.contentResolver,
             imageResult,
             "result_image" + "_" + userData.edit_freq!!.plus(1) + ".jpg",
             "Image of " + "result_image" + "_" + userData.edit_freq!!.plus(1) + ".jpg"
+
         )
+
         Uri.parse(savedImageURL)
 
         mView.save_result.isEnabled = false

@@ -30,17 +30,6 @@ class UploadSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btn_uploadCamera.setOnClickListener() {
-            if (quota.toInt() > 0) {
-                val intent = Intent(activity, AfterUploadActivity::class.java)
-                intent.putExtra("MEDIA", "CAMERA")
-                intent.putExtra("STYLE_ID", styleId)
-                startActivity(intent)
-                CustomIntent.customType(activity, "fadein-to-fadeout")
-            } else {
-                Toast.makeText(activity, "Ups, you reached your limit today, try again tomorrow", Toast.LENGTH_SHORT).show()
-            }
-        }
 
         btn_uploadGallery.setOnClickListener() {
             if (quota.toInt() > 0) {

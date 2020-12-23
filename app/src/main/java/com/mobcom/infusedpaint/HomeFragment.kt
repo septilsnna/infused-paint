@@ -113,6 +113,8 @@ class HomeFragment : Fragment(){
         RetrofitClient.instance.updateQuota(
             email,
             1
+
+
         ).enqueue(object : Callback<UserData?> {
             override fun onFailure(call: Call<UserData?>, t: Throwable) {
             }
