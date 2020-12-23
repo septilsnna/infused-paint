@@ -142,7 +142,7 @@ class ProcessingFragment : Fragment() {
                         } catch (e: NullPointerException) {
                         }
                     }
-                }, 2500, 36000000)
+                }, 2500, 72000000)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)
                 val editor = sharedPreferences.edit()
                 editor?.putInt("quota", quota)
