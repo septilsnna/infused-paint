@@ -98,7 +98,7 @@ class HomeFragment : Fragment(){
                             fragment.arguments = arguments
                             fragment.show(childFragmentManager, "UploadSheetDialog")
                         } else {
-                            Toast.makeText(activity, "You've reached your limit today :( please comeback tomorrow", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "we're sorry, for now you only have 1 quota/day, please come back tomorrow", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

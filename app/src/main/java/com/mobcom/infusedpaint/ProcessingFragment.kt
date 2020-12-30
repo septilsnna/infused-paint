@@ -35,6 +35,9 @@ import retrofit2.Response
 import java.io.*
 import java.util.*
 
+val API_KEY = "vGBLZYMuhF1qgNLW1TcO99NvCyMo9cLc73SY7BzN"
+val ACCESS_KEY = "AKIA3XE3HF7S2ZFEVX4X"
+val SECRET_KEY = "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"
 
 class ProcessingFragment : Fragment() {
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
@@ -76,10 +79,10 @@ class ProcessingFragment : Fragment() {
                 if (response.code() == 200) {
 //                  AWS untuk akses api nya deepart
                     val factory = ApiClientFactory()
-                        .apiKey(response.body()?.username)
+                        .apiKey(API_KEY)
                         .credentialsProvider(object : AWSCredentialsProvider {
                             override fun getCredentials(): AWSCredentials {
-                                return BasicAWSCredentials(response.body()?.password, response.body()?.name)
+                                return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
                             }
 
                             override fun refresh() {}
@@ -94,7 +97,6 @@ class ProcessingFragment : Fragment() {
         })
 
         mView.save_result.setOnClickListener {
-            Toast.makeText(activity, "saving image...", Toast.LENGTH_SHORT).show()
             saveResult()
         }
 
@@ -142,7 +144,7 @@ class ProcessingFragment : Fragment() {
                         } catch (e: NullPointerException) {
                         }
                     }
-                }, 2500, 36000000)
+                }, 1500, 20000)
                 val quota = sharedPreferences.getInt("quota", 0).minus(1)
                 val editor = sharedPreferences.edit()
                 editor?.putInt("quota", quota)

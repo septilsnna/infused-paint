@@ -40,7 +40,9 @@ class GalleryInfoDialog : AppCompatDialogFragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         email = sharedPreferences?.getString("email", "").toString()
-
+        if (sharedPreferences != null) {
+            user_id = sharedPreferences.getString("USER_ID","").toString()
+        }
 
         mView.processing.visibility = View.GONE
         mView.result.visibility = View.VISIBLE
