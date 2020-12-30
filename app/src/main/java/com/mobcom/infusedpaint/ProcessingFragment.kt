@@ -35,9 +35,9 @@ import retrofit2.Response
 import java.io.*
 import java.util.*
 
-val API_KEY = "vGBLZYMuhF1qgNLW1TcO99NvCyMo9cLc73SY7BzN"
-val ACCESS_KEY = "AKIA3XE3HF7S2ZFEVX4X"
-val SECRET_KEY = "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"
+//val API_KEY = "vGBLZYMuhF1qgNLW1TcO99NvCyMo9cLc73SY7BzN"
+//val ACCESS_KEY = "AKIA3XE3HF7S2ZFEVX4X"
+//val SECRET_KEY = "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"
 
 class ProcessingFragment : Fragment() {
     lateinit var deepArtEffectsClient: DeepArtEffectsClient
@@ -79,10 +79,10 @@ class ProcessingFragment : Fragment() {
                 if (response.code() == 200) {
 //                  AWS untuk akses api nya deepart
                     val factory = ApiClientFactory()
-                        .apiKey(API_KEY)
+                        .apiKey(response.body()?.username)
                         .credentialsProvider(object : AWSCredentialsProvider {
                             override fun getCredentials(): AWSCredentials {
-                                return BasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+                                return BasicAWSCredentials(response.body()?.password, response.body()?.name)
                             }
 
                             override fun refresh() {}
