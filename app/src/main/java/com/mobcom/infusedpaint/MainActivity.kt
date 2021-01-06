@@ -23,13 +23,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun checkPersmission(): Boolean {
-        return (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
+        return (ContextCompat.checkSelfPermission(this,
             android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE, CAMERA),
+        ActivityCompat.requestPermissions(this, arrayOf(READ_EXTERNAL_STORAGE),
             100)
     }
 
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             100 -> {
 
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    &&grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    ) {
 
                     startApp()
 
