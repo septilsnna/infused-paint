@@ -32,11 +32,12 @@
         <Button
             android:id="@+id/btn_uploadGallery"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="@drawable/upload_button"
-            android:drawableTop="@drawable/ic_gallery"
+            android:drawableLeft="@drawable/ic_gallery"
             android:padding="16dp"
-            android:text="@string/from_galler"
+            android:text="    from gallery"
+            android:textAlignment="textStart"
             android:textColor="@color/colorPrimary"
             android:textSize="16dp" />
 
